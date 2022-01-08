@@ -12,6 +12,12 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # Make ready for nix flakes
+  nix = {
+    extraOptions = "experimental-features = nix-command flakes";
+    package = pkgs.nixFlakes;
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

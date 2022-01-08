@@ -1,4 +1,5 @@
 #!/bin/sh
 pushd ~/dev/ws/nixos
-home-manager switch -f ./users/primamateria/home.nix
+nix build .#homeManagerConfigurations.primamateria.activationPackage
+./result/activate
 popd

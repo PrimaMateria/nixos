@@ -24,6 +24,9 @@
   home.packages = with pkgs; [
     neovim
     enpass
+    spotify
+
+    # Will T secrets in git
     git-crypt
     gnupg
     pinentry_qt
@@ -79,7 +82,8 @@
       # sometimes I dont remember exact program name
       bindsym $mod+Shift+d exec rofi -modi drun -show drun -display-drun "" -config /home/primamateria/.config/rofi/config.rasi
       # https://github.com/PrimaMateria/dmenu.git
-      bindsym $mod+d exec --no-startup-id dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c
+      # bindsym $mod+d exec --no-startup-id /run/current-system/sw/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c
+      bindsym $mod+d exec --no-startup-id dmenu_run -nb black -nf white -sb yellow -sf black -l 20
       
       # change focus
       bindsym $mod+h focus left

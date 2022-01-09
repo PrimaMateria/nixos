@@ -1,5 +1,5 @@
 {
-  description = "tprobix config";
+  description = "Prima Materia";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-21.11";
@@ -25,7 +25,10 @@
 	stateVersion = "21.11";
         configuration = {
           imports = [
-            ./users/primamateria/home.nix
+            ./modules/main.nix
+            ./modules/i3.nix
+            ./modules/alacritty.nix
+            ./modules/tmux.nix
           ];
         };
       };

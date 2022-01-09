@@ -1,48 +1,17 @@
-# vi: ft=config
+# __/\\\\\\\\\\\_____/\\\\\\\\\\__        
+#  _\/////\\\///____/\\\///////\\\_       
+#   _____\/\\\______\///______/\\\__      
+#    _____\/\\\_____________/\\\//___     
+#     _____\/\\\____________\////\\\__    
+#      _____\/\\\_______________\//\\\_   
+#       _____\/\\\______/\\\______/\\\__  
+#        __/\\\\\\\\\\\_\///\\\\\\\\\/___ 
+#         _\///////////____\/////////_____
 
-{ config, pkgs, ... }:
-
+{pkgs, config, lib, ...}:
 {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-  home.username = "primamateria";
-  home.homeDirectory = "/home/primamateria";
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "21.11";
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  home.packages = with pkgs; [
-    neovim
-    enpass
-    spotify
-
-    # Will T secrets in git
-    git-crypt
-    gnupg
-    pinentry_qt
-  ];
-
   home.file = {
     ".config/i3/config".text = ''
-      # __/\\\\\\\\\\\_____/\\\\\\\\\\__        
-      #  _\/////\\\///____/\\\///////\\\_       
-      #   _____\/\\\______\///______/\\\__      
-      #    _____\/\\\_____________/\\\//___     
-      #     _____\/\\\____________\////\\\__    
-      #      _____\/\\\_______________\//\\\_   
-      #       _____\/\\\______/\\\______/\\\__  
-      #        __/\\\\\\\\\\\_\///\\\\\\\\\/___ 
-      #         _\///////////____\/////////_____
       
       # i3 config file (v4)
       set $mod Mod4
@@ -343,108 +312,5 @@
       #for_window [class="Spotify" title="Spotify"] move scratchpad
       #exec --no-startup-id "/usr/bin/spotify"
     '';
-  };
-
-  programs.alacritty = {
-    enable = true;
-    settings = { 
-      env.TERM = "xterm-256color";
-
-      window.dimensions.columns = 150;
-      window.dimensions.lines = 50;
-
-      padding.x = 5;
-      padding.y = 5;
-      
-      font.normal.family = "CaskaydiaCove Nerd Font Mono";
-      font.size = 9.0;
-      
-      colors = {
-        primary = {
-          background = "0x1c1c1c";
-          foreground = "0xebdbb2";
-	};
-        normal = {
-          black = "0x282828";
-          red = "0xcc241d";
-          green = "0x98971a";
-          yellow = "0xd79921";
-          blue = "0x458588";
-          magenta = "0xb16286";
-          cyan = "0x689d6a";
-          white = "0xa89984";
-	};
-        bright = {
-          black = "0x928374";
-          red = "0xfb4934";
-          green = "0xb8bb26";
-          yellow = "0xfabd2f";
-          blue = "0x83a598";
-          magenta = "0xd3869b";
-          cyan = "0x8ec07c";
-          white = "0xebdbb2";
-	};
-      };
-    };
-  };
-
-  programs.tmux = {
-    enable = true;
-    baseIndex = 1;
-    clock24 = true;
-    customPaneNavigationAndResize = true;
-    keyMode = "vi";
-    extraConfig = ''
-      set -g status 2
-      set -g status-format[1] ""
-      set -g status-position top
-      set -g status-bg black
-      set -g status-fg white
-      set -g default-terminal xterm
-      set -g display-time 5000
-      set -g focus-events on
-      set -sg escape-time 10
-      set -g renumber-windows on
-      set -g default-terminal "screen-256color"
-      set -sa terminal-overrides ',screen-256color:RGB'
-      
-      set -g status-left "#[white]#S ~ "
-      set -g status-right ""
-      
-      set -g status-justify 'left'
-      set -g window-status-format "#{window_index}.#{window_name}"
-      set -g window-status-style "bg=default"
-      set -g window-status-current-format "#{window_index}.#{window_name}"
-      set -g window-status-current-style 'fg=yellow'
-      set -g window-status-separator ' / '
-      
-      bind -T copy-mode-vi 'v' send -X begin-selection
-      bind -T copy-mode-vi 'y' send -X copy-selection-and-cancel
-      
-      bind Tab new-session
-      bind r source-file ~/.tmux.conf
-      bind X confirm-before -p "Kill #S (y/n)?" "run-shell 'tmux switch-client -t space \\\; kill-session -t \"#S\"'"
-      
-      bind % split-window -h -c '#{pane_current_path}'  # Split panes horizontal
-      bind '"' split-window -v -c '#{pane_current_path}'  # Split panes vertically
-      
-      set -g @yank_selection 'clipboard'
-      bind BSpace last-window
-    '';
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "matus.benko";
-    userEmail = "matus.benko@gmail.com";
-  };
-
-  programs.gpg = {
-    enable = true;
-  };
-
-  services.gpg-agent = {
-    enable = true;
-    pinentryFlavor = "qt";
   };
 }

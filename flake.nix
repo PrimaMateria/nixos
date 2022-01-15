@@ -22,7 +22,7 @@
         inherit system pkgs;
         username = "primamateria";
         homeDirectory = "/home/primamateria";
-	stateVersion = "21.11";
+        stateVersion = "21.11";
         configuration = {
           imports = [
             ./modules/main.nix

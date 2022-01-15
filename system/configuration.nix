@@ -3,9 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
-{
-  imports =
+{ imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
@@ -93,6 +91,12 @@
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
   ];
+
+  fileSystems."/mnt/caladan" =
+    { device = "/dev/disk/by-uuid/4DF0BBED38D45117";
+      fsType = "ntfs";
+      options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" "nofail" ];
+    };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

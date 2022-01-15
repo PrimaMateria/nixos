@@ -41,6 +41,7 @@
 
         modules = [
           ./system/configuration.nix
+          ./services/usenet.nix
         ];
       };
     };

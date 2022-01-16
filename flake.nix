@@ -17,6 +17,10 @@
     lib = nixpkgs.lib;
 
   in {
+    overlays = [ 
+      ./overlays/overlay-i3.nix
+    ];
+
     homeManagerConfigurations = {
       primamateria = home-manager.lib.homeManagerConfiguration {
         inherit system pkgs;

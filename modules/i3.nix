@@ -16,7 +16,6 @@ in
   services.picom.enable = true;
   services.blueman-applet.enable = true;
 
-  #xsession.enable = true;
   xsession.windowManager.i3 = {
     enable = true;
     config = let

@@ -14,201 +14,229 @@ let
 in
 {
   services.picom.enable = true;
-  services.network-manager-applet.enable = true;
   services.blueman-applet.enable = true;
 
-  xsession.enable = true;
+  #xsession.enable = true;
   xsession.windowManager.i3 = {
     enable = true;
-  };
+    config = let
+      mod = "Mod4";
 
-  home.file = {
-    ".config/i3/config".text = ''
+      colorDominant = "#FFFFFF";
+      colorProminent = "#FFFF00";
+      colorDrab = "#464646";
+      colorBackground = "#000000";
+      colorAlert = "#FF0000";
+
+      workspaces = ["0:" "1:" "2:" "3:" "4:" "5:" "6:" "7:" "8:" "9:"];
+      ws = n: builtins.elemAt workspaces n;
+
+      cmdMenu = "dmenu_run -nb black -nf white -sb yellow -sf black -l 20";
+      cmdBrowser = "firefox";
+      cmdTerminal = "alacritty";
+
+      modeSystem = "System (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown";
+      modeResize = "Resize";
+    in {
+      modifier = mod;
+      fonts = {
+        names = ["CaskaydiaCove Nerd Font Mono"];
+        size = 9.0;
+      };
+      colors = {
+        background = "${colorBackground}";
+        focused = {
+          border      = "${colorDominant}";
+          childBorder = "${colorDominant}";
+          background  = "${colorBackground}";
+          text        = "${colorProminent}";
+          indicator   = "${colorDominant}";
+        };
+        focusedInactive = {
+          border      = "${colorDrab}";
+          childBorder = "${colorDrab}";
+          background  = "${colorBackground}";
+          text        = "${colorProminent}";
+          indicator   = "${colorDominant}";
+        };
+        unfocused = {
+          border      = "${colorDrab}";
+          childBorder = "${colorDrab}";
+          background  = "${colorBackground}";
+          text        = "${colorDominant}";
+          indicator   = "${colorDrab}";
+        };
+        urgent = {
+          border      = "${colorAlert}";
+          childBorder = "${colorAlert}";
+          background  = "${colorBackground}";
+          text        = "${colorDominant}";
+          indicator   = "${colorAlert}";
+        };
+        placeholder = {
+          border      = "${colorDrab}";
+          childBorder = "${colorProminent}";
+          background  = "${colorBackground}";
+          text        = "${colorDominant}";
+          indicator   = "${colorDominant}";
+        };
+      };
+      keybindings = {
+        "${mod}+q" = "kill";
+        "${mod}+Shift+c" = "reload";
+        "${mod}+Shift+r" = "restart";
+        "${mod}+f" = "fullscreen toggle";
+        "${mod}+Shift+space" = "floating toggle";
+
+        "${mod}+d" = "exec --no-startup-id ${cmdMenu}";
+        "${mod}+Shift+Return" = "exec ${cmdBrowser}";
+        "${mod}+Return" = "exec ${cmdTerminal}";
+
+        "${mod}+r" = "mode ${modeResize}";
+        "${mod}+Shift+e" = "mode \"${modeSystem}\"";
       
-      # i3 config file (v4)
-      set $mod Mod4
-      
-      # reload the configuration file
-      bindsym $mod+Shift+c reload
-      # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-      bindsym $mod+Shift+r restart
-      
-      # Font for window titles. Will also be used by the bar unless a different font
-      # is used in the bar {} block below.
-      font pango:CaskaydiaCove Nerd Font Mono 9
-      
-      # Colors
-      # class                 border    backgr    text     indicator child_border
-      client.focused          #FFFFFF   #000000   #FFFF00  #FFFFFF   #FFFFFF
-      client.focused_inactive #464646   #000000   #FFFF00  #FFFFFF   #464646
-      client.unfocused        #464646   #000000   #FFFFFF  #464646   #464646
-      client.urgent           #FF0000   #000000   #FFFFFF  #FF0000   #FF0000
-      client.placeholder      #464646   #000000   #FFFFFF  #FFFFFF   #FFFF00
-      client.background       #000000
-      
-      # Window decorations
+        "${mod}+h" = "focus left";
+        "${mod}+j" = "focus down";
+        "${mod}+k" = "focus up";
+        "${mod}+l" = "focus right";
+        "${mod}+a" = "focus parent";
+        "${mod}+z" = "focus child";
+        "${mod}+Tab" = "focus next";
+        "${mod}+Shift+Tab" = "focus next sibling";
+        "${mod}+Space" = "focus mode_toggle";
+
+        "${mod}+Shift+h" = "move left";
+        "${mod}+Shift+j" = "move down";
+        "${mod}+Shift+k" = "move up";
+        "${mod}+Shift+l" = "move right";
+
+        "${mod}+F2" = "layout tabbed";
+        "${mod}+F3" = "layout splith";
+        "${mod}+F4" = "layout splitv";
+        "${mod}+F5" = "layout stacked";
+        "${mod}+F6" = "split horizontal, layout stacking";
+
+        "${mod}+BackSpace" = "workspace back_and_forth";
+        "${mod}+0" = "workspace number ${ws 0}";
+        "${mod}+1" = "workspace number ${ws 1}";
+        "${mod}+2" = "workspace number ${ws 2}";
+        "${mod}+3" = "workspace number ${ws 3}";
+        "${mod}+4" = "workspace number ${ws 4}";
+        "${mod}+5" = "workspace number ${ws 5}";
+        "${mod}+6" = "workspace number ${ws 6}";
+        "${mod}+7" = "workspace number ${ws 7}";
+        "${mod}+8" = "workspace number ${ws 8}";
+        "${mod}+9" = "workspace number ${ws 9}";
+
+        "${mod}+Shift+0" = "move container to workspace number ${ws 0}";
+        "${mod}+Shift+1" = "move container to workspace number ${ws 1}";
+        "${mod}+Shift+2" = "move container to workspace number ${ws 2}";
+        "${mod}+Shift+3" = "move container to workspace number ${ws 3}";
+        "${mod}+Shift+4" = "move container to workspace number ${ws 4}";
+        "${mod}+Shift+5" = "move container to workspace number ${ws 5}";
+        "${mod}+Shift+6" = "move container to workspace number ${ws 6}";
+        "${mod}+Shift+7" = "move container to workspace number ${ws 7}";
+        "${mod}+Shift+8" = "move container to workspace number ${ws 8}";
+        "${mod}+Shift+9" = "move container to workspace number ${ws 9}";
+
+        "${mod}+x" = "move scratchpad";
+
+        "${mod}+minus" = "[class=\"Enpass\" title=\"^Enpass$\"] scratchpad show";
+      };
+
+      modes = {
+        "${modeResize}" = {
+          h = "resize shrink width 10 px or 10 ppt";
+          j = "resize grow height 10 px or 10 ppt";
+          k = "resize shrink height 10 px or 10 ppt";
+          l = "resize grow width 10 px or 10 ppt";
+          Escape = "mode default";
+        };
+        "${modeSystem}" = {
+          "Shift+s" = "exec --no-startup-id systemctl poweroff -i, mode default";
+          e = "exec --no-startup-id i3-msg exit, mode default";
+          s = "exec --no-startup-id systemctl suspend, mode default";
+          r = "exec --no-startup-id systemctl reboot, mode default";
+          Escape = "mode default";
+        };
+      };
+
+      bars = [
+        {
+          statusCommand = "i3blocks -c ${i3blocksConfig}";
+          position = "top";
+          colors = {
+            background = "${colorBackground}";
+            statusline = "${colorDominant}";
+            separator = "${colorDrab}";
+            focusedWorkspace = {
+              border = "${colorBackground}";
+              background = "${colorBackground}";
+              text = "${colorProminent}";
+            };
+            activeWorkspace = {
+              border = "${colorBackground}";
+              background = "${colorBackground}";
+              text = "${colorProminent}";
+            };
+            inactiveWorkspace = {
+              border = "${colorBackground}";
+              background = "${colorBackground}";
+              text = "${colorDominant}";
+            };
+            urgentWorkspace = {
+              border = "${colorBackground}";
+              background = "${colorBackground}";
+              text = "${colorAlert}";
+            };
+            bindingMode = {
+              border = "${colorBackground}";
+              background = "${colorProminent}";
+              text = "${colorBackground}";
+            };
+          };
+        }
+      ];
+
+      workspaceLayout = "tabbed";
+      defaultWorkspace = "${ws 1}";
+
+      floating = {
+        modifier = mod;
+        border = 1;
+        titlebar = true;
+      };
+
+      focus = {
+        followMouse = false;
+      };
+
+      window = {
+        hideEdgeBorders = "none";
+        commands = [
+          {
+            criteria = { class = "Enpass"; title = "^Enpass$"; };
+            command = "floating enable; resize set 800 520; move absolute position 1678 918; move scratchpad";
+          }
+        ];
+      };
+
+      startup = [
+        { command = "Enpass"; notification = false; }
+        { command = "hsetroot -solid \"#111111\""; notification = false; }
+      ];
+    };
+    extraConfig = ''
       title_align center
       default_border normal
-      hide_edge_borders none
-      
-      focus_follows_mouse no
-      
-      # Use Mouse+$mod to drag floating windows to their wanted position
-      floating_modifier $mod
-      
-      # kill focused window
-      bindsym $mod+q kill
-      
-      # start dmenu (a program launcher)
-      # sometimes I dont remember exact program name
-      bindsym $mod+Shift+d exec rofi -modi drun -show drun -display-drun "" -config /home/primamateria/.config/rofi/config.rasi
-      # https://github.com/PrimaMateria/dmenu.git
-      # bindsym $mod+d exec --no-startup-id /run/current-system/sw/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c
-      bindsym $mod+d exec --no-startup-id dmenu_run -nb black -nf white -sb yellow -sf black -l 20
-      
-      # change focus
-      bindsym $mod+h focus left
-      bindsym $mod+j focus down
-      bindsym $mod+k focus up
-      bindsym $mod+l focus right
-      bindsym $mod+Tab focus next
-      bindsym $mod+Shift+Tab focus next sibling
-      bindsym $mod+space focus mode_toggle
-      bindsym $mod+a focus parent
-      bindsym $mod+z focus child
-      
-      # move focused window
-      bindsym $mod+Shift+h move left
-      bindsym $mod+Shift+j move down
-      bindsym $mod+Shift+k move up
-      bindsym $mod+Shift+l move right
-      
-      # enter fullscreen mode for the focused container
-      bindsym $mod+f fullscreen toggle
-      
-      # change container layout (stacked, tabbed, toggle split)
-      bindsym $mod+F2 layout tabbed
-      bindsym $mod+F3 layout splith
-      bindsym $mod+F4 layout splitv
-      bindsym $mod+F5 layout stacked
-      # magic command. It turns window to a container with stacking layout containing
-      # only that window. But the next window opened will belong to this new
-      # sub-container.
-      bindsym $mod+F6 split horizontal, layout stacking
-      workspace_layout tabbed
-      
-      # toggle tiling / floating
-      bindsym $mod+Shift+space floating toggle
-      
-      # Define names for default workspaces for which we configure key bindings later on.
-      # We use variables to avoid repeating the names in multiple places.
-      set $ws1 "1:"
-      set $ws2 "2:"
-      set $ws3 "3:"
-      set $ws4 "4:"
-      set $ws5 "5:"
-      set $ws6 "6:"
-      set $ws7 "7:"
-      set $ws8 "8:"
-      set $ws9 "9:"
-      set $ws10 "0:"
-      
-      # switch to workspace
-      bindsym $mod+1 workspace number $ws1
-      bindsym $mod+2 workspace number $ws2
-      bindsym $mod+3 workspace number $ws3
-      bindsym $mod+4 workspace number $ws4
-      bindsym $mod+5 workspace number $ws5
-      bindsym $mod+6 workspace number $ws6
-      bindsym $mod+7 workspace number $ws7
-      bindsym $mod+8 workspace number $ws8
-      bindsym $mod+9 workspace number $ws9
-      bindsym $mod+0 workspace number $ws10
-      
-      # workspace quick navigation
-      bindsym $mod+grave exec workspace back_and_forth
-      
-      # move focused container to workspace
-      bindsym $mod+Shift+1 move container to workspace number $ws1
-      bindsym $mod+Shift+2 move container to workspace number $ws2
-      bindsym $mod+Shift+3 move container to workspace number $ws3
-      bindsym $mod+Shift+4 move container to workspace number $ws4
-      bindsym $mod+Shift+5 move container to workspace number $ws5
-      bindsym $mod+Shift+6 move container to workspace number $ws6
-      bindsym $mod+Shift+7 move container to workspace number $ws7
-      bindsym $mod+Shift+8 move container to workspace number $ws8
-      bindsym $mod+Shift+9 move container to workspace number $ws9
-      bindsym $mod+Shift+0 move container to workspace number $ws10
-      
-      # resize window (you can also use the mouse for that)
-      mode "resize" {
-              # These bindings trigger as soon as you enter the resize mode
-      
-              # Pressing left will shrink the window’s width.
-              # Pressing right will grow the window’s width.
-              # Pressing up will shrink the window’s height.
-              # Pressing down will grow the window’s height.
-              bindsym h resize shrink width 10 px or 10 ppt
-              bindsym j resize grow height 10 px or 10 ppt
-              bindsym k resize shrink height 10 px or 10 ppt
-              bindsym l resize grow width 10 px or 10 ppt
-      
-              # same bindings, but for the arrow keys
-              bindsym Left resize shrink width 10 px or 10 ppt
-              bindsym Down resize grow height 10 px or 10 ppt
-              bindsym Up resize shrink height 10 px or 10 ppt
-              bindsym Right resize grow width 10 px or 10 ppt
-      
-              # back to normal: Enter or Escape or $mod+r
-              bindsym Return mode "default"
-              bindsym Escape mode "default"
-              bindsym $mod+r mode "default"
-      }
-      
-      bindsym $mod+r mode "resize"
-      
+    '';
+  };
+
+  /*
+  home.file = {
+    ".config/i3/config".text = ''
       # Move current window to and from scratchpad
-      bindsym $mod+x move scratchpad
       bindsym $mod+shift+x exec /home/primamateria/Applications/i3-scratchpad-dmenu/i3-scratchpad-dmenu.py
-      
-      # Start i3bar to display a workspace bar (plus the system information i3status
-      # finds out, if available)
-      bar {
-      	position top
-        status_command i3blocks -c ${i3blocksConfig}
-      	strip_workspace_numbers no
-      	colors {
-      		background #000000
-      		statusline #FFFFFF
-      		separator  #464646
-      		#class             border  bg      text	
-      		focused_workspace  #000000 #000000 #FFFF00
-      		active_workspace   #000000 #000000 #FFFF00
-      		inactive_workspace #000000 #000000 #FFFFFF
-      		urgent_workspace   #000000 #000000 #FF0000
-      		binding_mode       #000000 #FFFF00 #000000
-        }
-      }
-      
-      # Background
-      exec --no-startup-id hsetroot -solid "#111111"
-      
-      # Power management
-      set $Locker i3lock && sleep 1
-      
-      set $mode_system System (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
-      mode "$mode_system" {
-          bindsym e exec --no-startup-id i3-msg exit, mode "default"
-          bindsym s exec --no-startup-id systemctl suspend, mode "default"
-          bindsym r exec --no-startup-id systemctl reboot, mode "default"
-          bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
-      
-          # back to normal: Enter or Escape
-          bindsym Return mode "default"
-          bindsym Escape mode "default"
-      }
-      
-      bindsym $mod+shift+e mode "$mode_system
       
       # Keyboard layouts
       #exec --no-startup-id "setxkbmap -layout us,de,sk -variant ,qwerty,qwerty -option \"grp:alt_caps_toggle\""
@@ -234,14 +262,6 @@ in
       #bindsym $mod+ctrl+n [class="Nvidia-settings"] scratchpad show
       #for_window [class="Nvidia-settings"] move scratchpad
       #exec --no-startup-id nvidia-settings
-      
-      # Enpass
-      bindsym $mod+minus [class="Enpass" title="^Enpass$"] scratchpad show
-      for_window [class="Enpass" title="^Enpass$"] floating enable
-      for_window [class="Enpass" title="^Enpass$"] resize set 800 520
-      for_window [class="Enpass" title="^Enpass$"] move absolute position 1678 918
-      for_window [class="Enpass" title="^Enpass$"] move scratchpad
-      exec --no-startup-id Enpass
       
       # Crow Translate
       #bindsym $mod+plus  [class="Crow Translate" title="Crow Translate"] scratchpad show
@@ -303,7 +323,7 @@ in
       #bindsym ctrl+shift+minus exec "echo 'playlist-next' | socat - /tmp/programmingPlaylist"
       
       # i3 bindsyms in dmenu
-      #bindsym $mod+F1 exec "i3 $(cat ~/.config/i3/config | grep 'bindsym' | grep -v '^\s*#' | sed 's/bindsym / /' | dmenu -i -nb black -nf white -sb yellow -sf black -l 50 -c | sed 's/^\s*//' | cut -d' ' -f 2- | sed 's/;/ \&\& i3/g' )"
+      #bindsym $mod+F1 exec "i3 $(cat ~/.config/i3/config | grep 'bindsym' | grep -v '^\s*#' | sed 's/bindsym / /' | dmenu -i -nb black -nf white -sb yellow -sf black -l 50 -c | sed 's/^\s//' | cut -d' ' -f 2- | sed 's/;/ \&\& i3/g' )"
       
       # java sdkman
       #exec --no-startup-id "source ~/.sdkman/bin/sdkman-init.sh"
@@ -324,9 +344,12 @@ in
       #for_window [class="Spotify" title="Spotify"] move scratchpad
       #exec --no-startup-id "/usr/bin/spotify"
     '';
-  };
+    };
+  */
 
   home.packages = with pkgs; [
+    dmenu
+    i3blocks
     hsetroot
   ];
 }

@@ -48,12 +48,18 @@
 
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.defaultSession = "none+i3";
+  #services.xserver.displayManager.lightdm.greeters.mini = {
+    #enable = true;
+    #user = "primamateria";
+    #extraConfig = ''
+      #[greeter]
+      #show-password-label = false
+      #[greeter-theme]
+      #background-image = ""
+    #'';
+  #};
   services.xserver.windowManager.i3 = {
     enable = true;
-    extraPackages = with pkgs; [
-      dmenu
-      i3blocks
-    ];
   };
 
   # Enable the GNOME Desktop Environment.
@@ -95,7 +101,7 @@
   fileSystems."/mnt/caladan" =
     { device = "/dev/disk/by-uuid/4DF0BBED38D45117";
       fsType = "ntfs";
-      options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" "nofail" ];
+      options = [ "defaults" "user" "rw" "utf8" "umask=000" "nofail" ];
     };
 
   # Some programs need SUID wrappers, can be configured further or are

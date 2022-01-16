@@ -13,6 +13,7 @@
     mpv
     tldr
     unzip
+    htop
 
     # Wil T secrets in git
     git-crypt

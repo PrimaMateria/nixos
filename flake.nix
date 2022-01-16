@@ -29,7 +29,7 @@
             ./modules/i3.nix
             ./modules/alacritty.nix
             ./modules/tmux.nix
-            ./modules/nvim.nix
+            ./modules/nvim
             ./modules/weechat.nix
           ];
         };

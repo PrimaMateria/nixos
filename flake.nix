@@ -30,6 +30,7 @@
             ./modules/alacritty.nix
             ./modules/tmux.nix
             ./modules/nvim.nix
+            ./modules/weechat.nix
           ];
         };
       };

@@ -9,7 +9,19 @@
 #         _\///////////____\/////////_____
 
 {pkgs, config, lib, ...}:
+let
+  i3blocksConfig = pkgs.copyPathToStore ../configs/i3blocks.conf;
+in
 {
+  services.picom.enable = true;
+  services.network-manager-applet.enable = true;
+  services.blueman-applet.enable = true;
+
+  xsession.enable = true;
+  xsession.windowManager.i3 = {
+    enable = true;
+  };
+
   home.file = {
     ".config/i3/config".text = ''
       
@@ -163,7 +175,7 @@
       # finds out, if available)
       bar {
       	position top
-        status_command i3blocks
+        status_command i3blocks -c ${i3blocksConfig}
       	strip_workspace_numbers no
       	colors {
       		background #000000
@@ -313,4 +325,8 @@
       #exec --no-startup-id "/usr/bin/spotify"
     '';
   };
+
+  home.packages = with pkgs; [
+    hsetroot
+  ];
 }

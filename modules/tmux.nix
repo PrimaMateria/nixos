@@ -11,8 +11,6 @@
       set -g status 2
       set -g status-format[1] ""
       set -g status-position top
-      set -g status-bg black
-      set -g status-fg white
       set -g default-terminal xterm
       set -g display-time 5000
       set -g focus-events on
@@ -21,6 +19,8 @@
       set -g default-terminal "screen-256color"
       set -sa terminal-overrides ',screen-256color:RGB'
       
+      set -g status-style bg=terminal 
+      set -g status-style fg=white
       set -g status-left "#[white]#S ~ "
       set -g status-right ""
       
@@ -28,7 +28,7 @@
       set -g window-status-format "#{window_index}.#{window_name}"
       set -g window-status-style "bg=default"
       set -g window-status-current-format "#{window_index}.#{window_name}"
-      set -g window-status-current-style 'fg=yellow'
+      set -g window-status-current-style fg=yellow
       set -g window-status-separator ' / '
       
       bind -T copy-mode-vi 'v' send -X begin-selection

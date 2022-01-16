@@ -8,8 +8,8 @@
       window.dimensions.columns = 150;
       window.dimensions.lines = 50;
 
-      padding.x = 5;
-      padding.y = 5;
+      window.padding.x = 5;
+      window.padding.y = 5;
       
       font.normal.family = "CaskaydiaCove Nerd Font Mono";
       font.size = 9.0;

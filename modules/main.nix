@@ -12,6 +12,7 @@
     spotify
     mpv
     tldr
+    unzip
 
     # Wil T secrets in git
     git-crypt

@@ -137,6 +137,12 @@ in
             /set irc.server.libera.ssl on
             /set irc.server.libera.autoconnect on
             /set irc.server.libera.autojoin "#java,#javascript,#linux,#archlinux,#archlinux-newbie,#gaminigonlinux,#react,#i3,##programming,##electronics,#neovim,#nixos"
+
+            /set script.scripts.download_enabled on
+            /script install autosort.py
+            /script install emoji.lua
+            /script install go.py
+            /key bind meta-j /go
           '';
       };
     })

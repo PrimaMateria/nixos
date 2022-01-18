@@ -40,7 +40,7 @@ in
       modifier = mod;
       fonts = {
         names = ["CaskaydiaCove Nerd Font Mono"];
-        size = 9.0;
+        size = 10.0;
       };
       colors = {
         background = "${colorBackground}";
@@ -164,6 +164,9 @@ in
         {
           statusCommand = "i3blocks -c ${i3blocksConfig}";
           position = "top";
+          fonts = {
+            size = 10.0;
+          };
           colors = {
             background = "${colorBackground}";
             statusline = "${colorDominant}";
@@ -350,5 +353,6 @@ in
     dmenu
     i3blocks
     hsetroot
+    i3block-datetime
   ];
 }

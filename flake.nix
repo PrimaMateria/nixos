@@ -7,7 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, home-manager, ... }: 
+  outputs = { self, nixpkgs, home-manager, ... }: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -17,9 +17,7 @@
     lib = nixpkgs.lib;
 
   in {
-    overlays = [ 
-      ./overlays/overlay-i3.nix
-    ];
+    overlay = import ./overlays/overlay-i3.nix;
 
     homeManagerConfigurations = {
       primamateria = home-manager.lib.homeManagerConfiguration {
@@ -29,6 +27,7 @@
         stateVersion = "21.11";
         configuration = {
           imports = [
+            { nixpkgs.overlays = [ self.overlay ]; }
             ./modules/main.nix
             ./modules/i3.nix
             ./modules/alacritty.nix
@@ -45,6 +44,7 @@
         inherit system;
 
         modules = [
+          { nixpkgs.overlays = [ self.overlay ]; }
           ./system/configuration.nix
           ./services/usenet.nix
         ];

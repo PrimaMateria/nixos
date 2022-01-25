@@ -47,6 +47,7 @@
           { nixpkgs.overlays = [ self.overlay ]; }
           ./system/configuration.nix
           ./services/usenet.nix
+          ./services/rclone.nix
         ];
       };
     };

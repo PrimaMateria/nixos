@@ -45,6 +45,10 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.layout = "us,sk";
+  services.xserver.xkbVariant = ",qwerty";
+  services.xserver.xkbOptions = "grp:win_space_toggle";
+  
 
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.defaultSession = "none+i3";
@@ -66,10 +70,6 @@
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
   
-
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

@@ -86,5 +86,9 @@ in
     + import ./nvim-ultisnips.nix
     ;
   };
+
+  home.packages = with pkgs; [
+    ripgrep
+  ];
 }
 

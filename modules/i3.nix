@@ -11,6 +11,7 @@
 {pkgs, config, lib, ...}:
 let
   i3blocksConfig = pkgs.copyPathToStore ../configs/i3blocks.conf;
+  i3wsrConfig = pkgs.copyPathToStore ../configs/i3wsr.toml;
 in
 {
   services.picom.enable = true;
@@ -225,6 +226,7 @@ in
 
       startup = [
         { command = "Enpass"; notification = false; }
+        { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
         { command = "hsetroot -solid \"#111111\""; notification = false; }
       ];
     };
@@ -246,10 +248,6 @@ in
       # i3blocks keyindeicator
       bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
       bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-      
-      # Renaming workspaces
-      #bindsym $mod+comma exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
-      exec --no-startup-id /usr/bin/i3wsr --config /home/primamateria/.config/i3wsr/config.toml
       
       ####################################################################################################
       # Applications
@@ -354,5 +352,6 @@ in
     i3blocks
     hsetroot
     i3block-datetime
+    i3wsr
   ];
 }

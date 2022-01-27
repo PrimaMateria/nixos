@@ -14,6 +14,8 @@
     tldr
     unzip
     htop
+    element-desktop
+    discord
 
     # Wil T secrets in git
     git-crypt

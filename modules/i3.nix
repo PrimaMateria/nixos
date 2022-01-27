@@ -17,6 +17,10 @@ in
   services.picom.enable = true;
   services.blueman-applet.enable = true;
 
+  xsession.initExtra = ''
+    xrandr --output DP-2 --mode 2560x1440 --rate 143.86 --primary
+  '';
+
   xsession.windowManager.i3 = {
     enable = true;
     config = let

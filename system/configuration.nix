@@ -49,10 +49,14 @@
   services.xserver.xkbVariant = ",qwerty";
   services.xserver.xkbOptions = "grp:lctrl_lwin_toggle";
   services.xserver.videoDrivers = [ "nvidia" ];
-  
+  services.xserver.screenSection = ''
+    Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+    Option         "AllowIndirectGLXProtocol" "off"
+    Option         "TripleBuffer" "on"
+  '';
 
   services.xserver.desktopManager.xterm.enable = false;
-  services.xserver.displayManager.defaultSession = "none+i3";
+  #services.xserver.displayManager.defaultSession = "none+i3";
   #services.xserver.displayManager.lightdm.greeters.mini = {
     #enable = true;
     #user = "primamateria";

@@ -14,12 +14,23 @@ let
   i3wsrConfig = pkgs.copyPathToStore ../configs/i3wsr.toml;
 in
 {
-  services.picom.enable = true;
-  services.blueman-applet.enable = true;
 
+  xsession.enable = true;
   xsession.initExtra = ''
     xrandr --output DP-2 --mode 2560x1440 --rate 143.86 --primary
   '';
+
+  services.picom = {
+    enable = true;
+    refreshRate = 144;
+    backend = "xrender";
+    vSync = true;
+    extraOptions = ''
+      unredir-if-possible = false;
+    '';
+  };
+
+  services.blueman-applet.enable = true;
 
   xsession.windowManager.i3 = {
     enable = true;
@@ -107,7 +118,7 @@ in
         "${mod}+z" = "focus child";
         "${mod}+Tab" = "focus next";
         "${mod}+Shift+Tab" = "focus next sibling";
-        "${mod}+Space" = "focus mode_toggle";
+        "${mod}+space" = "focus mode_toggle";
 
         "${mod}+Shift+h" = "move left";
         "${mod}+Shift+j" = "move down";
@@ -206,7 +217,7 @@ in
       ];
 
       workspaceLayout = "tabbed";
-      defaultWorkspace = "${ws 1}";
+      defaultWorkspace = "workspace ${ws 1}";
 
       floating = {
         modifier = mod;

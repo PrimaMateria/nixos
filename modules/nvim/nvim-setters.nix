@@ -26,4 +26,5 @@ set relativenumber
 set sessionoptions+=tabpages,globals
 set ignorecase
 set shell=bash\ -l
+set clipboard+=unnamedplus
 ''

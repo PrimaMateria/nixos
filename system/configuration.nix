@@ -47,7 +47,7 @@
   services.xserver.enable = true;
   services.xserver.layout = "us,sk";
   services.xserver.xkbVariant = ",qwerty";
-  services.xserver.xkbOptions = "grp:win_space_toggle";
+  services.xserver.xkbOptions = "grp:lctrl_lwin_toggle";
   services.xserver.videoDrivers = [ "nvidia" ];
   
 

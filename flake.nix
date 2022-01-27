@@ -29,6 +29,7 @@
           imports = [
             { nixpkgs.overlays = [ self.overlay ]; }
             ./modules/main.nix
+            ./modules/shell.nix
             ./modules/i3.nix
             ./modules/alacritty.nix
             ./modules/tmux.nix

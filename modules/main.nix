@@ -12,8 +12,6 @@
     spotify
     mpv
     tldr
-    unzip
-    htop
     element-desktop
     discord
 

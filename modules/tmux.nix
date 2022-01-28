@@ -34,7 +34,8 @@
       bind -T copy-mode-vi 'v' send -X begin-selection
       bind -T copy-mode-vi 'y' send -X copy-selection-and-cancel
       
-      bind Tab new-session
+      bind Tab choose-tree -sZ
+      bind Enter new-session
       bind r source-file ~/.tmux.conf
       bind X confirm-before -p "Kill #S (y/n)?" "run-shell 'tmux switch-client -t space \\\; kill-session -t \"#S\"'"
       

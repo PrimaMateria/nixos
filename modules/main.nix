@@ -11,7 +11,6 @@
     enpass
     spotify
     mpv
-    tldr
     element-desktop
     discord
 

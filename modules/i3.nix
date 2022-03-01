@@ -8,10 +8,21 @@
 #        __/\\\\\\\\\\\_\///\\\\\\\\\/___ 
 #         _\///////////____\/////////_____
 
-{pkgs, config, lib, ...}:
+{pkgs, config, lib, dmenu-primamateria, i3blocks-gcalcli, ...}:
 let
-  i3blocksConfig = pkgs.copyPathToStore ../configs/i3blocks.conf;
   i3wsrConfig = pkgs.copyPathToStore ../configs/i3wsr.toml;
+  dmenu = dmenu-primamateria.packages.x86_64-linux.dmenu-primamateria;
+  i3blocks-gcalcli-package = i3blocks-gcalcli.packages.x86_64-linux.i3blocks-gcalcli;
+  i3blocksSecrets = import ../.secrets/i3blocks.nix;
+  i3blocksConfig = pkgs.writeText "i3blocks-config" ''
+    [gcalcli]
+    command=${i3blocks-gcalcli-package}/bin/i3blocks-gcalcli -e "matus.benko@gmail.com" -m "matus.benko@gmail.com" -m "Holidays in Germany" -m "Sviatky na Slovensku" -w 20 --clientId ${i3blocksSecrets.gcalcliClientId} --clientSecret ${i3blocksSecrets.gcalcliClientSecret} -f "CaskaydiaCove Nerd Font Mono"
+    interval=1800
+
+    [datetime]
+    command="i3block-datetime"
+    interval=1
+  '';
 in
 {
 
@@ -46,7 +57,7 @@ in
       workspaces = ["0:" "1:" "2:" "3:" "4:" "5:" "6:" "7:" "8:" "9:"];
       ws = n: builtins.elemAt workspaces n;
 
-      cmdMenu = "dmenu_run -nb black -nf white -sb yellow -sf black -l 20";
+      cmdMenu = "${dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
       cmdBrowser = "firefox";
       cmdTerminal = "alacritty";
 
@@ -232,9 +243,36 @@ in
       window = {
         hideEdgeBorders = "none";
         commands = [
+          # Enpass
           {
             criteria = { class = "Enpass"; title = "^Enpass$"; };
-            command = "floating enable; resize set 800 520; move absolute position 1678 918; move scratchpad";
+            command = "floating enable";
+          }
+          {
+            criteria = { class = "Enpass"; title = "^Enpass$"; };
+            command = "resize set 800 520";
+          }
+          {
+            criteria = { class = "Enpass"; title = "^Enpass$"; };
+            command = "move absolute position 1678 918";
+          }
+          {
+            criteria = { class = "Enpass"; title = "^Enpass$"; };
+            command = "move scratchpad";
+          }
+
+          # i3blocks-gcalcli
+          {
+            criteria = { class = "XTerm"; title = "i3blocks-gcalcli"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { class = "XTerm"; title = "i3blocks-gcalcli"; };
+            command = "border none";
+          }
+          {
+            criteria = { class = "XTerm"; title = "i3blocks-gcalcli"; };
+            command = "move position center";
           }
         ];
       };
@@ -243,6 +281,7 @@ in
         { command = "Enpass"; notification = false; }
         { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
         { command = "hsetroot -solid \"#111111\""; notification = false; }
+        { command = "i3-msg workspace '${ws 1}'"; notification = false; }
       ];
     };
     extraConfig = ''
@@ -251,122 +290,12 @@ in
     '';
   };
 
-  /*
-  home.file = {
-    ".config/i3/config".text = ''
-      # Move current window to and from scratchpad
-      bindsym $mod+shift+x exec /home/primamateria/Applications/i3-scratchpad-dmenu/i3-scratchpad-dmenu.py
-      
-      # Keyboard layouts
-      #exec --no-startup-id "setxkbmap -layout us,de,sk -variant ,qwerty,qwerty -option \"grp:alt_caps_toggle\""
-      
-      # i3blocks keyindeicator
-      bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
-      bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-      
-      ####################################################################################################
-      # Applications
-      ####################################################################################################
-      # xprop
-      # instance = WM_CLASS[0]
-      # class = WM_CLASS[1]
-      # title = _NET_WM_NAME, WM_NAME
-      # watch xdotool getwindowfocus getwindowgeometry
-      
-      # Nvidia settings
-      #bindsym $mod+ctrl+n [class="Nvidia-settings"] scratchpad show
-      #for_window [class="Nvidia-settings"] move scratchpad
-      #exec --no-startup-id nvidia-settings
-      
-      # Crow Translate
-      #bindsym $mod+plus  [class="Crow Translate" title="Crow Translate"] scratchpad show
-      #for_window [class="Crow Translate" title="Crow Translate"] floating enable
-      #for_window [class="Crow Translate" title="Crow Translate"] resize set 930 300
-      #for_window [class="Crow Translate" title="Crow Translate"] move absolute position 1628 1139
-      #for_window [class="Crow Translate" title="Crow Translate"] move scratchpad
-      #exec --no-startup-id /usr/bin/crow
-      
-      # Alacritty
-      bindsym ctrl+grave [class="Alacritty" title="alphaTerminal"] scratchpad show
-      for_window [class="Alacritty" title="alphaTerminal"] floating enable
-      for_window [class="Alacritty" title="alphaTerminal"] move absolute position 750 290
-      #size is set in the alacrity config file
-      #for_window [class="Alacritty" title="alphaTerminal"] resize set 1530 300
-      for_window [class="Alacritty" title="alphaTerminal"] move scratchpad
-      exec --no-startup-id "FLOATER=1 alacritty -t alphaTerminal"
-      bindsym $mod+Return exec alacritty
-      
-      # Calculator
-      #bindsym XF86Calculator [class="Qalculate-gtk"] scratchpad show
-      #for_window [class="Qalculate-gtk"] floating enable
-      #for_window [class="Qalculate-gtk"] resize set 800 540
-      #for_window [class="Qalculate-gtk"] move absolute position 1753 895
-      #for_window [class="Qalculate-gtk"] move scratchpad
-      #exec --no-startup-id /usr/bin/qalculate-gtk 
-      
-      # Goldendict
-      #bindsym $mod+g [class="GoldenDict" title="^.*GoldenDict$"] scratchpad show
-      #for_window [class="GoldenDict" title="^.*GoldenDict$"] floating enable
-      #for_window [class="GoldenDict" title="^.*GoldenDict$"] resize set 1210 910
-      #for_window [class="GoldenDict" title="^.*GoldenDict$"] move absolute position 750 290
-      #for_window [class="GoldenDict" title="^.*GoldenDict$"] move scratchpad
-      #exec --no-startup-id /usr/bin/goldendict
-      
-      # ScreenSync (LED Colors sync with display)
-      #for_window [class="Screensync v0.1"] move scratchpad
-      #exec --no-startup-id /usr/bin/python /home/primamateria/development/projects/ScreenSync/screensync.py
-      
-      # Browser
-      set $browser firefox
-      bindsym $mod+shift+Return exec $browser
-      
-      # Steam
-      #exec --no-startup-id "/usr/bin/steam -silent %U"
-      
-      # Skype
-      # exec --no-startup-id "/usr/bin/skypeforlinux %U"
-      
-      # Google Drive sync
-      #exec --no-startup-id "rclone --vfs-cache-mode writes mount \"gdrive\": ~/gdrive"
-      
-      # Bluetooth
-      #exec --no-startup-id "/usr/bin/blueman-applet"
-      
-      # Programming playlist
-      #bindsym ctrl+shift+9 exec mpv --no-resume-playback --no-video 'https://www.youtube.com/playlist?list=PLjDqZb1FVlst1XPXongf5UD02yU9Md-ot' --input-ipc-server=/tmp/programmingPlaylist
-      #bindsym ctrl+shift+0 exec "echo 'cycle pause' | socat - /tmp/programmingPlaylist"
-      #bindsym ctrl+shift+minus exec "echo 'playlist-next' | socat - /tmp/programmingPlaylist"
-      
-      # i3 bindsyms in dmenu
-      #bindsym $mod+F1 exec "i3 $(cat ~/.config/i3/config | grep 'bindsym' | grep -v '^\s*#' | sed 's/bindsym / /' | dmenu -i -nb black -nf white -sb yellow -sf black -l 50 -c | sed 's/^\s//' | cut -d' ' -f 2- | sed 's/;/ \&\& i3/g' )"
-      
-      # java sdkman
-      #exec --no-startup-id "source ~/.sdkman/bin/sdkman-init.sh"
-      
-      # i3blocks-gcalcli
-      #for_window [class="XTerm" title="i3blocks-gcalcli"] floating enable
-      #for_window [class="XTerm" title="i3blocks-gcalcli"] move absolute position 1665 25
-      #for_window [class="XTerm" title="i3blocks-gcalcli"] border none
-      
-      # dunst for notify-send
-      #exec --no-startup-id "/usr/bin/dunst"
-      
-      # Suckman
-      #bindsym ctrl+shift+d exec --no-startup-id "/home/primamateria/development/projects/suckman/target/release/suckman menu"
-      #for_window [instance="Suckman" title="status"] floating enable
-      
-      # Spotify
-      #for_window [class="Spotify" title="Spotify"] move scratchpad
-      #exec --no-startup-id "/usr/bin/spotify"
-    '';
-    };
-  */
-
-  home.packages = with pkgs; [
+  home.packages = [
     dmenu
-    i3blocks
-    hsetroot
-    i3block-datetime
-    i3wsr
+    i3blocks-gcalcli-package
+    pkgs.i3blocks
+    pkgs.hsetroot
+    pkgs.i3block-datetime
+    pkgs.i3wsr
   ];
 }

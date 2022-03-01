@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "dmenu-primamateria": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1643238321,
+        "narHash": "sha256-MMRn23SrkEXUmgNXSMIloSfvx5EOZUUyRdN4b0PvoQs=",
+        "owner": "PrimaMateria",
+        "repo": "dmenu",
+        "rev": "a6ebf08b2357a8c5e881f18302cd28341c8e186c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PrimaMateria",
+        "repo": "dmenu",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -21,6 +41,26 @@
         "type": "github"
       }
     },
+    "i3blocks-gcalcli": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1644784160,
+        "narHash": "sha256-KXJH2Xxd8DmeY0mTvq9r/lTTlfLrBTtIeZhxAEFcD00=",
+        "owner": "PrimaMateria",
+        "repo": "i3blocks-gcalcli",
+        "rev": "04069724084b23397161c0706eae254ade080f54",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PrimaMateria",
+        "repo": "i3blocks-gcalcli",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1641423937,
@@ -38,7 +78,9 @@
     },
     "root": {
       "inputs": {
+        "dmenu-primamateria": "dmenu-primamateria",
         "home-manager": "home-manager",
+        "i3blocks-gcalcli": "i3blocks-gcalcli",
         "nixpkgs": "nixpkgs"
       }
     }

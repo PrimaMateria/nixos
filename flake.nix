@@ -5,9 +5,15 @@
     nixpkgs.url = "nixpkgs/nixos-21.11";
     home-manager.url = "github:nix-community/home-manager/release-21.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    dmenu-primamateria.url = "github:PrimaMateria/dmenu";
+    dmenu-primamateria.inputs.nixpkgs.follows = "nixpkgs";
+
+    i3blocks-gcalcli.url = "github:PrimaMateria/i3blocks-gcalcli";
+    i3blocks-gcalcli.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: 
+  outputs = { self, nixpkgs, home-manager, dmenu-primamateria, i3blocks-gcalcli, ... }: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -25,6 +31,7 @@
         username = "primamateria";
         homeDirectory = "/home/primamateria";
         stateVersion = "21.11";
+        extraSpecialArgs = { inherit dmenu-primamateria i3blocks-gcalcli; };
         configuration = {
           imports = [
             { nixpkgs.overlays = [ self.overlay ]; }

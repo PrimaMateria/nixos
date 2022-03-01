@@ -105,9 +105,16 @@
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
   ];
 
-  fileSystems."/mnt/caladan" =
-    { device = "/dev/disk/by-uuid/4DF0BBED38D45117";
-      fsType = "ntfs";
+
+#  fileSystems."/mnt/caladan" =
+#    { device = "/dev/disk/by-uuid/4DF0BBED38D45117";
+#      fsType = "ntfs";
+#      options = [ "defaults" "user" "rw" "utf8" "umask=000" "nofail" ];
+#    };
+
+  fileSystems."/mnt/giediprime" =
+    { device = "/dev/disk/by-uuid/1251-D91F";
+      fsType = "exfat";
       options = [ "defaults" "user" "rw" "utf8" "umask=000" "nofail" ];
     };
 

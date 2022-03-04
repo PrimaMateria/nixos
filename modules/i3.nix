@@ -15,6 +15,17 @@ let
   i3blocks-gcalcli-package = i3blocks-gcalcli.packages.x86_64-linux.i3blocks-gcalcli;
   i3blocksSecrets = import ../.secrets/i3blocks.nix;
   i3blocksConfig = pkgs.writeText "i3blocks-config" ''
+    separator_block_width=20
+    markup=none
+
+    [volume-pulseaudio]
+    command=${pkgs.i3blocks-contrib.volume-pulseaudio}/libexec/i3blocks/volume-pulseaudio -H "" -M "" -L "" -X ""
+    interval=once
+    signal=1
+    LONG_FORMAT="''${VOL}% [''${NAME}]"
+    SHORT_FORMAT="''${VOL}% [''${INDEX}]"
+    DEFAULT_COLOR=#FFFFFF
+    
     [gcalcli]
     command=${i3blocks-gcalcli-package}/bin/i3blocks-gcalcli -e "matus.benko@gmail.com" -m "matus.benko@gmail.com" -m "Holidays in Germany" -m "Sviatky na Slovensku" -w 20 --clientId ${i3blocksSecrets.gcalcliClientId} --clientSecret ${i3blocksSecrets.gcalcliClientSecret} -f "CaskaydiaCove Nerd Font Mono"
     interval=1800
@@ -297,5 +308,6 @@ in
     pkgs.hsetroot
     pkgs.i3block-datetime
     pkgs.i3wsr
+    pkgs.i3blocks-contrib.volume-pulseaudio
   ];
 }

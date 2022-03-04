@@ -3,8 +3,8 @@
   services.nzbget = {
     enable = true;
     settings = {
-      MainDir = "/mnt/caladan/nzb";
-      RequiredDir= "/mnt/caladan/nzb";
+      MainDir = "/mnt/giediprime/nzb";
+      RequiredDir= "/mnt/giediprime/nzb";
     } // import ../.secrets/nzbget.nix;
   };
 

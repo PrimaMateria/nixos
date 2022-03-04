@@ -89,6 +89,8 @@ in
 
   home.packages = with pkgs; [
     ripgrep
+    # Plus reg sync to system clipboard, see https://neovim.io/doc/user/provider.html#clipboard-tool
+    xsel 
   ];
 }
 

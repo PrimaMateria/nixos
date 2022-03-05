@@ -50,8 +50,8 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.layout = "us,sk";
-  services.xserver.xkbVariant = ",qwerty";
+  services.xserver.layout = "us,sk,de";
+  services.xserver.xkbVariant = ",qwerty,qwerty";
   services.xserver.xkbOptions = "grp:lctrl_lwin_toggle";
   services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.screenSection = ''

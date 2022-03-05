@@ -69,4 +69,5 @@ in
 
 rec {
   volume-pulseaudio = scriptBlock "volume-pulseaudio" ( required {bin = [alsaUtils pulseaudio envsubst];});
+  kbdd_layout = scriptBlock "kbdd_layout" ( required { bin = [ kbdd ]; });
 }

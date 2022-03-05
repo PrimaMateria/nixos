@@ -18,6 +18,10 @@ let
     separator_block_width=20
     markup=none
 
+    [kbdd_layout]
+    command=${pkgs.i3blocks-contrib.kbdd_layout}/libexec/i3blocks/kbdd_layout
+    interval=persist
+
     [volume-pulseaudio]
     command=${pkgs.i3blocks-contrib.volume-pulseaudio}/libexec/i3blocks/volume-pulseaudio -H "" -M "" -L "" -X ""
     interval=once
@@ -309,5 +313,6 @@ in
     pkgs.i3block-datetime
     pkgs.i3wsr
     pkgs.i3blocks-contrib.volume-pulseaudio
+    pkgs.i3blocks-contrib.kbdd_layout
   ];
 }

@@ -14,7 +14,6 @@
     exa
     bat
     tldr
-    vifm
   ];
 
   programs.bash = {

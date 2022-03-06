@@ -41,6 +41,7 @@
             ./modules/alacritty.nix
             ./modules/tmux.nix
             ./modules/nvim
+            ./modules/vifm.nix
             ./modules/weechat.nix
           ];
         };

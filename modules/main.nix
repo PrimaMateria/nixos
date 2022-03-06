@@ -13,6 +13,7 @@
     mpv
     element-desktop
     discord
+    obs-studio
 
     # Wil T secrets in git
     git-crypt

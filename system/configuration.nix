@@ -83,6 +83,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
   # Enable sound.
   sound.enable = true;
@@ -91,9 +92,12 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
+
   users.users.primamateria = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" ];
+    extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "scanner" "lp" ];
   };
 
   # List packages installed in system profile. To search, run:

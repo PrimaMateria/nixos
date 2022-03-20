@@ -16,6 +16,8 @@
     obs-studio
     gnome.simple-scan
     flameshot
+    zathura
+    feh
 
     # Wil T secrets in git
     git-crypt

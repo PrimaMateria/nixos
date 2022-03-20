@@ -14,6 +14,7 @@
     element-desktop
     discord
     obs-studio
+    gnome.simple-scan
 
     # Wil T secrets in git
     git-crypt

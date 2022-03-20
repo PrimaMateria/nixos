@@ -89,6 +89,8 @@
   services.avahi.nssmdns = true;
   services.avahi.reflector = true;
 
+  networking.firewall.enable = false;
+
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
   hardware.sane.netConf = "192.168.178.31";

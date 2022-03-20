@@ -248,6 +248,10 @@
             \ gpicview %c,
             \ {View in shotwell}
             \ shotwell,
+            \ {View in feh}
+            \ feh %f,
+            \ {View in nomacs}
+            \ nomacs %f,
     fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
              \ identify %f
 

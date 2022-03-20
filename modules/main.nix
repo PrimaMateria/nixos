@@ -17,7 +17,7 @@
     gnome.simple-scan
     flameshot
     zathura
-    feh
+    nomacs
 
     # Wil T secrets in git
     git-crypt

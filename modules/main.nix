@@ -15,6 +15,7 @@
     discord
     obs-studio
     gnome.simple-scan
+    flameshot
 
     # Wil T secrets in git
     git-crypt

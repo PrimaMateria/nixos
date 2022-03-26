@@ -43,6 +43,7 @@
             ./modules/nvim
             ./modules/vifm.nix
             ./modules/weechat.nix
+            ./modules/newsboat.nix
           ];
         };
       };

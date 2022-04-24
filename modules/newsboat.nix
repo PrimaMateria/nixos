@@ -2,15 +2,11 @@
 let
   rss = [
     "https://news.ycombinator.com/rss"
-    "https://stackoverflow.blog/feed/"
-    "https://codeburst.io/feed"
+    "https://discourse.nixos.org/c/announcements/8.rss"
     "https://itsfoss.com/feed"
     "http://feeds.feedburner.com/d0od"
     "https://opensource.com/feed"
-    "https://blogs.oracle.com/javamagazine/compendium/rss"
-    "http://feeds.feedburner.com/JavaCodeGeeks"
     "http://feeds.feedburner.com/Torrentfreak"
-    "http://rss.slashdot.org/Slashdot/slashdotMain"
     "https://www.ta3.com/rss/top/top-spravy.html"
     "https://rss.dw.com/atom/rss-de-top"
     "https://medium.com/feed/dailyjs"

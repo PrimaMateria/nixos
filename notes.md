@@ -29,3 +29,13 @@ $ sudo nix-shell -p python3Packages.pyqt5 hplip
 ## Trivial builders
 
 This good source to figure out how to bring small configs and utilities to the store: https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/trivial-builders.nix
+
+## Issue: unsafe repository
+
+```
+sudo git config --global --add safe.directory /home/primamateria/dev/nixos
+```
+
+[Source](https://github.com/NixOS/nixpkgs/issues/169193)
+
+

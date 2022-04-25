@@ -6,6 +6,13 @@ let
   syschdemd = import ./syschdemd.nix { inherit lib pkgs config defaultUser; };
 in
 {
+  nix = {
+    package = pkgs.nixFlakes; # or versioned attributes like nix_2_7
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   imports = [
     "${modulesPath}/profiles/minimal.nix"
   ];

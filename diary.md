@@ -25,6 +25,13 @@ Specification](https://arduino.github.io/arduino-cli/0.19/library-specification/
 requires such hierarchy as in github repo. Probably there was naming mismatch
 between the repository name and file names. Will continue next time.
 
+## Mon Apr 25 06:15:54 PM CEST 2022
+
+Starting to work on NixOS for WSL. Used codename "yueix" from doctor Yue who
+was a traitor to Duke Leto. A forced traitor by hard life circumstances. Good
+name for Linux instance running in Microsoft's WSL. For the beginning starting
+with pure shell environment. So far most of the things work.
+
 ## Mon Apr 25 10:29:42 PM CEST 2022
 
 Introduce better organization of the modules after adding "yueix" and "mbenko".

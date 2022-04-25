@@ -60,6 +60,13 @@
           ./services/rclone.nix
         ];
       };
+
+      yueix = lib.nixosSystem {
+      	inherit system;
+	modules = [
+	  ./system/yueix/configuration.nix
+	];
+      };
     };
   };
 }

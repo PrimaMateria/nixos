@@ -47,6 +47,24 @@
           ];
         };
       };
+
+      mbenko = home-manager.lib.homeManagerConfiguration {
+        inherit system pkgs;
+        username = "mbenko";
+        homeDirectory = "/home/mbenko";
+        stateVersion = "21.11";
+        configuration = {
+          imports = [
+            ./modules/main-mbenko.nix
+            ./modules/shell.nix
+            ./modules/tmux.nix
+            ./modules/nvim
+            ./modules/vifm.nix
+            ./modules/weechat.nix
+            ./modules/newsboat.nix
+          ];
+        };
+      };
     };
 
     nixosConfigurations = {

@@ -2,7 +2,7 @@
 
 with lib;
 let
-  defaultUser = "nixos";
+  defaultUser = "mbenko";
   syschdemd = import ./syschdemd.nix { inherit lib pkgs config defaultUser; };
 in
 {
@@ -50,4 +50,6 @@ in
 
   # Don't allow emergency mode, because we don't have a console.
   systemd.enableEmergencyMode = false;
+
+  time.timeZone = "Europe/Berlin";
 }

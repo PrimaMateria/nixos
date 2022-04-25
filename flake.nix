@@ -33,9 +33,15 @@
         stateVersion = "21.11";
         extraSpecialArgs = { inherit dmenu-primamateria i3blocks-gcalcli; };
         configuration = {
+          programs.home-manager.enable = true;
+          home.username = "primamateria";
+          home.homeDirectory = "/home/primamateria";
+          home.stateVersion = "21.11";
+
           imports = [
             { nixpkgs.overlays = [ self.overlay ]; }
-            ./modules/main.nix
+            ./modules/desktop.nix
+            ./modules/git.nix
             ./modules/shell.nix
             ./modules/i3.nix
             ./modules/alacritty.nix
@@ -54,14 +60,18 @@
         homeDirectory = "/home/mbenko";
         stateVersion = "21.11";
         configuration = {
+          programs.home-manager.enable = true;
+          home.username = "mbenko";
+          home.homeDirectory = "/home/mbenko";
+          home.stateVersion = "21.11";
+
           imports = [
-            ./modules/main-mbenko.nix
+            ./modules/git.nix
             ./modules/shell.nix
             ./modules/tmux.nix
             ./modules/nvim
             ./modules/vifm.nix
             ./modules/weechat.nix
-            ./modules/newsboat.nix
           ];
         };
       };
@@ -70,10 +80,9 @@
     nixosConfigurations = {
       tprobix = lib.nixosSystem {
         inherit system;
-
         modules = [
           { nixpkgs.overlays = [ self.overlay ]; }
-          ./system/configuration.nix
+          ./system/tprobix/configuration.nix
           ./services/usenet.nix
           ./services/rclone.nix
         ];
@@ -81,9 +90,9 @@
 
       yueix = lib.nixosSystem {
       	inherit system;
-	modules = [
-	  ./system/yueix/configuration.nix
-	];
+        modules = [
+          ./system/yueix/configuration.nix
+        ];
       };
     };
   };

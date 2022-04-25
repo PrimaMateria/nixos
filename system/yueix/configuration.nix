@@ -52,4 +52,5 @@ in
   systemd.enableEmergencyMode = false;
 
   time.timeZone = "Europe/Berlin";
+  networking.hostName = "yueix";
 }

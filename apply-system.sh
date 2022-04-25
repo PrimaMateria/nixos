@@ -1,5 +1,2 @@
 #!/bin/sh
-pushd ~/dev/nixos
-sudo nixos-rebuild switch --flake .#
-popd
-
+sudo nixos-rebuild switch --flake .#${HOSTNAME}

@@ -1,5 +1,3 @@
 #!/bin/sh
-pushd ~/dev/nixos
-nix build .#homeManagerConfigurations.primamateria.activationPackage
+nix build .#homeManagerConfigurations.${USER}.activationPackage
 ./result/activate
-popd

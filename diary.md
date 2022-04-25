@@ -24,3 +24,14 @@ Unfortunately this was wrong move, because the Arduino [Library
 Specification](https://arduino.github.io/arduino-cli/0.19/library-specification/)
 requires such hierarchy as in github repo. Probably there was naming mismatch
 between the repository name and file names. Will continue next time.
+
+## Mon Apr 25 10:29:42 PM CEST 2022
+
+Introduce better organization of the modules after adding "yueix" and "mbenko".
+Encountered error message from git about "unsafe repository". Caused by running
+`./apply-system.sh` as sudo. `nixos-rebuild` using flakes executes git command
+as root on repository which is owned by other user and thus this message. This
+is caused by new recent git version. Fixed the issue by adding exception for
+the repository directory to the git config of the root. This is manual action
+and feels bit hacky. Subscribed to the github issue to see if some more proper
+solution will appear.

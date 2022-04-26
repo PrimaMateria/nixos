@@ -28,12 +28,10 @@ in
       fern-vim
       goyo-vim
       gruvbox-community
-      gv-vim
       harpoon
       lightline-gruvbox-vim
       lightline-vim
       lush-nvim
-      nerdcommenter
       nvim-compe
       nvim-treesitter
       plenary-nvim
@@ -42,10 +40,29 @@ in
       telescope-nvim
       telescope-project-nvim
       ultisnips
-      vim-fugitive
       vim-nix
       vim-sandwich
-      vim-signify
+
+      # Git
+      gv-vim
+      vim-fugitive
+      vim-gitgutter
+
+      # Commenting
+      vim-commentary
+      nvim-ts-context-commentstring
+
+      # Completition
+      nvim-cmp
+      cmp-nvim-lsp
+      cmp-buffer
+      cmp-path
+      cmp-cmdline
+      #cmp-nvim-ultisnips
+
+      nvim-lspconfig
+      null-ls-nvim
+      nvim-lsp-ts-utils
     ];
 
     extraConfig = ''
@@ -84,6 +101,8 @@ in
     + import ./nvim-telescope.nix
     + import ./nvim-treesitter.nix
     + import ./nvim-ultisnips.nix
+    + import ./nvim-lspconfig-ts.nix
+    + import ./nvim-lspconfig-null-ls.nix
     ;
   };
 
@@ -91,6 +110,7 @@ in
     ripgrep
     # Plus reg sync to system clipboard, see https://neovim.io/doc/user/provider.html#clipboard-tool
     xsel 
+    nodejs_latest
+    nodePackages.typescript-language-server
   ];
 }
-

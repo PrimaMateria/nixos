@@ -42,3 +42,22 @@ is caused by new recent git version. Fixed the issue by adding exception for
 the repository directory to the git config of the root. This is manual action
 and feels bit hacky. Subscribed to the github issue to see if some more proper
 solution will appear.
+
+## Wed Apr 27 02:06:35 AM CEST 2022
+
+I started preparing the environment for web development. I installed missing
+neovim plugins and copied the typescript LSP server configuration. I
+encountered issue when adding `cmp-nvim-ultisnips` plugin. Even I have found in
+`nixpkgs` with `nix search nixpgs cmp-nvim-ultisnips`, the built keep
+complaining that this unknow variable. I have also tried to update flake
+inputs.
+
+Another unexpected realization come, that on NixOS `npm install --global`
+doesn't work out of the box. `npm` must be configured to store global package
+in home folder. Or the better way is to get it from nixpkgs from `nodePackages`
+namespace. Although, it didn't seem to have many npm packages migrated to it.
+But I was lucky that `typescript-language-server` was present.
+
+One more unsolved issue is that `null-ls` server is not started. I need to
+crosscheck it with kali and check if I have all required config migrated to nix
+files.

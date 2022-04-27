@@ -45,18 +45,19 @@ solution will appear.
 
 ## Wed Apr 27 02:06:35 AM CEST 2022
 
-I started preparing the environment for web development. I installed missing
-neovim plugins and copied the typescript LSP server configuration. I
-encountered issue when adding `cmp-nvim-ultisnips` plugin. Even I have found in
-`nixpkgs` with `nix search nixpgs cmp-nvim-ultisnips`, the built keep
-complaining that this unknow variable. I have also tried to update flake
-inputs.
+I started preparing the environment for web development. I have installed
+missing neovim plugins and copied the typescript LSP server configuration. I
+have encountered issue with `cmp-nvim-ultisnips` plugin. Even I have found it
+in `nixpkgs` (`nix search nixpgs cmp-nvim-ultisnips`), the build keep
+complaining that this is unknown variable. Flake input update didn't help as
+well.
 
-Another unexpected realization come, that on NixOS `npm install --global`
-doesn't work out of the box. `npm` must be configured to store global package
-in home folder. Or the better way is to get it from nixpkgs from `nodePackages`
-namespace. Although, it didn't seem to have many npm packages migrated to it.
-But I was lucky that `typescript-language-server` was present.
+Something new unexpected was, that on NixOS `npm install --global` doesn't work
+out of the box. `npm` must be configured to store global packages in home
+folder (by default it tries to store them in derivation in nix store). Or,
+better way is to get it from nixpkgs from the `nodePackages` namespace.
+Although, it didn't seem to have many npm packages migrated over, but I was
+lucky that `typescript-language-server` was present.
 
 One more unsolved issue is that `null-ls` server is not started. I need to
 crosscheck it with kali and check if I have all required config migrated to nix

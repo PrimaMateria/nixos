@@ -62,3 +62,12 @@ lucky that `typescript-language-server` was present.
 One more unsolved issue is that `null-ls` server is not started. I need to
 crosscheck it with kali and check if I have all required config migrated to nix
 files.
+
+## Thu Apr 28 11:01:13 AM CEST 2022
+
+I have find out that `null-ls` was missing `eslint_d` and `prettier_d`.
+`eslint_d` was found in nodePackages, but nor `prettier_d` or `prettier_d_slim`
+is present.  Btw. it seems that the non-slim version is deprecated, so I should
+switch. The plan is to ask on IRC for help how to create and submit new
+  nodePackage to nix channel. These are generated nix definitions, probably
+  using `node2nix` tool. I should try it, compare the results.

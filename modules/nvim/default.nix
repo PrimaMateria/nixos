@@ -112,5 +112,7 @@ in
     xsel 
     nodejs_latest
     nodePackages.typescript-language-server
+    nodePackages.eslint_d
+    # TODO: need to get prettier_slim_d
   ];
 }

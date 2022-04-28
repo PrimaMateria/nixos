@@ -71,3 +71,12 @@ is present.  Btw. it seems that the non-slim version is deprecated, so I should
 switch. The plan is to ask on IRC for help how to create and submit new
   nodePackage to nix channel. These are generated nix definitions, probably
   using `node2nix` tool. I should try it, compare the results.
+
+## Fri Apr 29 01:48:05 AM CEST 2022
+
+I investigated problems with `null-ls`. The error was that in nvim lua
+configuration I tried to call function `require('null-ls').setup()` which
+didn't exist. This is because the plugin's nix package is frozen on specific
+commit from a year ago, and that time `null-ls` used function `config` instead
+of `setup`. Now I have two options: rewrite nvim config to use old version, or
+make own package with latest version. 

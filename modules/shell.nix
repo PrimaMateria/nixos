@@ -22,6 +22,7 @@
       ls = "exa --color automatic --time-style long-iso";
       ll = "ls -lha";
       cat = "bat -p";
+      n = "cd ~/dev/nixos; nvim";
     };
     initExtra = ''
       BLUE="\[$(tput setaf 4)\]"

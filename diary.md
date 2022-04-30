@@ -80,3 +80,12 @@ didn't exist. This is because the plugin's nix package is frozen on specific
 commit from a year ago, and that time `null-ls` used function `config` instead
 of `setup`. Now I have two options: rewrite nvim config to use old version, or
 make own package with latest version. 
+
+## Sat Apr 30 01:10:50 PM CEST 2022
+
+Regarding the issue with outdated `null-ls` I got some ideas what to
+investigate further. First is about nix channel, maybe because I am using
+stable channel it is expected from packages to be frozen at some point in the
+time. I should see what's the status on the unstable channel. Second idea was
+to override the package source commit and hash. And the last one is to build
+derivation directly from github.

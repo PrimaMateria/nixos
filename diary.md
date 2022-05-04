@@ -67,7 +67,7 @@ files.
 
 I have find out that `null-ls` was missing `eslint_d` and `prettier_d`.
 `eslint_d` was found in nodePackages, but nor `prettier_d` or `prettier_d_slim`
-is present.  Btw. it seems that the non-slim version is deprecated, so I should
+is present.  Btw, it seems that the non-slim version is deprecated, so I should
 switch. The plan is to ask on IRC for help how to create and submit new
   nodePackage to nix channel. These are generated nix definitions, probably
   using `node2nix` tool. I should try it, compare the results.
@@ -89,3 +89,25 @@ stable channel it is expected from packages to be frozen at some point in the
 time. I should see what's the status on the unstable channel. Second idea was
 to override the package source commit and hash. And the last one is to build
 derivation directly from github.
+
+## Wed May  4 11:01:24 AM CEST 2022
+
+Following [tutorial by Justin
+Restivo](https://justin.restivo.me/posts/2021-10-24-neovim-nix.html) I was able
+to create neovim flake in standalone repository. It's based on official neovim
+flake which can be obtained from any revision, so updating to nightly builds is
+now no problem to do. Plugins and config is already baked in my custom neovim
+flake. I didn't finish setting up cachix account. This custom flake should be
+also runnable with nix-portable, so I could theoretically try it before
+switching to yueix.
+
+During the work I have again make mistake of how I referred to package obtained
+as a flake input. I need to use the full path:
+`neovim-primamateria.packages.x86_64-linux.customNeovim`. This issue was
+causing [very unclear
+error](https://github.com/nix-community/home-manager/issues/2409) thrown by
+Home Manager.
+
+```
+bug: error: 'builtins.storePath' is not allowed in pure evaluation mode
+```

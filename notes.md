@@ -6,7 +6,7 @@
 sudo sqlite3 /nix/var/nix/db/db.sqlite -header -column "select path,narSize/1024/1024,datetime(registrationTime,'unixepoch') from ValidPaths where narSize > (1024*1024*128) order by registrationTime desc limit 15;"
 ```
 
-From all packages currently in the store order by time they were registered, fitler by 128MB size and show first 15 records.
+From all packages currently in the store order by time they were registered, filter by 128MB size and show first 15 records.
 
 Inside my nixos repository I have prepared nix-shell with sqlite3 client.
 
@@ -39,3 +39,18 @@ sudo git config --global --add safe.directory /home/primamateria/dev/nixos
 [Source](https://github.com/NixOS/nixpkgs/issues/169193)
 
 
+## Check outputs of the flake
+
+Useful when creating own flake and want to verify the outputs.
+
+```
+nix flake show
+```
+
+## Check definition nix expression
+
+Good for quickly accessing "source code documentation".
+
+```
+nix edit nixpkgs#vimPlugins.nvim-treesitter.withPlugins
+```

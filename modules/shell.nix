@@ -5,15 +5,19 @@
 # ██║     ██║  ██║╚██████╔╝██║     ██║███████╗███████╗
 # ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚══════╝
 
-{ config, pkgs, ... }:
+{ config, pkgs, neovim-primamateria, ... }:
 
+let
+  customNeovim = neovim-primamateria.packages.x86_64-linux.customNeovim;
+in
 {
-  home.packages = with pkgs; [
-    unzip
-    htop
-    exa
-    bat
-    tldr
+  home.packages = [
+    customNeovim
+    pkgs.unzip
+    pkgs.htop
+    pkgs.exa
+    pkgs.bat
+    pkgs.tldr
   ];
 
   programs.bash = {

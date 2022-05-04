@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-21.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+
     home-manager.url = "github:nix-community/home-manager/release-21.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -11,9 +13,11 @@
 
     i3blocks-gcalcli.url = "github:PrimaMateria/i3blocks-gcalcli";
     i3blocks-gcalcli.inputs.nixpkgs.follows = "nixpkgs";
+
+    neovim-primamateria.url = "github:PrimaMateria/neovim-nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, dmenu-primamateria, i3blocks-gcalcli, ... }: 
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, dmenu-primamateria, i3blocks-gcalcli, neovim-primamateria, ... }: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -21,6 +25,10 @@
       config = { allowUnfree = true; };
     };
     lib = nixpkgs.lib;
+    pkgs-unstable = import nixpkgs-unstable {
+      inherit system;
+      config = { allowUnfree = true; };
+    };
 
   in {
     overlay = import ./overlays/overlay-i3.nix;
@@ -31,7 +39,9 @@
         username = "primamateria";
         homeDirectory = "/home/primamateria";
         stateVersion = "21.11";
-        extraSpecialArgs = { inherit dmenu-primamateria i3blocks-gcalcli; };
+        extraSpecialArgs = {
+          inherit dmenu-primamateria i3blocks-gcalcli pkgs-unstable neovim-primamateria;
+        };
         configuration = {
           programs.home-manager.enable = true;
           home.username = "primamateria";
@@ -46,7 +56,6 @@
             ./modules/i3.nix
             ./modules/alacritty.nix
             ./modules/tmux.nix
-            ./modules/nvim
             ./modules/vifm.nix
             ./modules/weechat.nix
             ./modules/newsboat.nix
@@ -69,7 +78,6 @@
             ./modules/git.nix
             ./modules/shell.nix
             ./modules/tmux.nix
-            ./modules/nvim
             ./modules/vifm.nix
             ./modules/weechat.nix
           ];

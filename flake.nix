@@ -68,6 +68,9 @@
         username = "mbenko";
         homeDirectory = "/home/mbenko";
         stateVersion = "21.11";
+        extraSpecialArgs = {
+          inherit neovim-primamateria;
+        };
         configuration = {
           programs.home-manager.enable = true;
           home.username = "mbenko";

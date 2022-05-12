@@ -111,3 +111,9 @@ Home Manager.
 ```
 bug: error: 'builtins.storePath' is not allowed in pure evaluation mode
 ```
+
+## Fri May 13 12:28:48 AM CEST 2022
+
+During the configuration of ssh I have decided to reuse the same keys for
+multiple machines/users.
+

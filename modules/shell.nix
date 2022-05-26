@@ -38,7 +38,7 @@ in
       export EDITOR=${pkgs.neovim}/bin/nvim
       export MANPAGER="less -R --use-color -Dd+y -Du+b"
       
-      test -z ''${TMUX} && tmux new-session -A -s space
+      #test -z ''${TMUX} && tmux new-session -A -s space
     '';
   };
 

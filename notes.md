@@ -54,3 +54,35 @@ Good for quickly accessing "source code documentation".
 ```
 nix edit nixpkgs#vimPlugins.nvim-treesitter.withPlugins
 ```
+
+## Yueix init
+
+```
+cd /home/nixos
+nix-shell -p git git-crypt neovim
+# Download keychain
+git clone https://github.com/PrimaMateria/nixos.git
+git-crypt unlock ~/keychain/gitgpg.key
+# Apply system
+# Restart WSL, should boot to mbenko@yueix
+
+sudo su
+mv /home/nixos/nixos/ /home/nixos/keychain/ /home/mbenko/dev
+chown -R mbenko keychain/
+chown -R mbenko nixos/
+exit
+
+nix-shell -p git git-crypt neovim
+git-crypt unlock ~/keychain/gitgpg.key
+# fix resolv.conf again
+./apply-users.sh
+
+# Restart WSL again
+# fix resolv.conf again
+cd ~/dev/nixos
+git remote remove origin
+git remote add origin git@github.com:PrimaMateria/nixos.git
+git branch --set-upstream-to=origin/master master
+
+sudo rm -rf /home/nixos
+```

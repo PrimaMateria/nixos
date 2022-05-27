@@ -18,6 +18,8 @@ in
     pkgs.exa
     pkgs.bat
     pkgs.tldr
+    pkgs.zoxide
+    pkgs.fzf
   ];
 
   programs.bash = {
@@ -38,6 +40,8 @@ in
       export EDITOR=${pkgs.neovim}/bin/nvim
       export MANPAGER="less -R --use-color -Dd+y -Du+b"
       
+      eval "$(zoxide init bash)"
+
       #test -z ''${TMUX} && tmux new-session -A -s space
     '';
   };

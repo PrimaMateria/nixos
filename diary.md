@@ -117,3 +117,29 @@ bug: error: 'builtins.storePath' is not allowed in pure evaluation mode
 During the configuration of ssh I have decided to reuse the same keys for
 multiple machines/users.
 
+## Sat May 28 03:28:46 PM CEST 2022
+
+Another try to setup yueix. Used new WSL image which was recently released and
+uses NixOS 21. Created 2 new shells, one for React development and other for
+Java.
+
+Had an issue with windows Docker Desktop. With turned on WSL integration
+option, Docker Desktop always failed with message that process starting it for
+NixOS returned exit code 1. Found github issue [Docker Desktop WSL2 not
+working](https://github.com/nix-community/NixOS-WSL/issues/89). I observed the
+same difference in the paths. But even so, the command with correct path failed
+to start docker with various errors. Sometimes also happened, that the
+`/mnt/wsl/docker-desktop/docker-desktop-user-distro` had 0 bytes and couldn't
+be executed. Problems were inconsistent and I found other threads reporting the
+same issue with different distros, and with fixes in the sense of try to
+restart and reinstall everything and pray it will help. Therefore, I decided to
+try if Docker running natively in NixOS would work. Fortunately it was
+successful just with one small workaround to enable legacy iptables for the
+docker which I found in issue [native docker
+support](https://github.com/nix-community/NixOS-WSL/issues/59).
+
+Last thing that helped was that I found in some other configs on github that it
+is possible to instruct WSL to use specific hostname. This another option from
+usual `networking.hostname`. Added to `wslConf.network` `hostname` and
+`generateResolvConf` set to false. The proper hostname solve the issue with no
+working `apply-system.sh`.

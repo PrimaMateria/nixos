@@ -3,11 +3,11 @@
 with lib;
 let
   nixos-wsl = import ./nixos-wsl;
+  hostname = "yueix";
 in
 {
   imports = [
     "${modulesPath}/profiles/minimal.nix"
-
     nixos-wsl.nixosModules.wsl
   ];
 
@@ -16,9 +16,15 @@ in
     automountPath = "/mnt";
     defaultUser = "mbenko";
     startMenuLaunchers = true;
+    wslConf = {
+      network = {
+        hostname = hostname;
+        generateResolvConf = "false";
+      };
+    };
 
     # Enable integration with Docker Desktop (needs to be installed)
-    docker.enable = true;
+    # docker.enable = true;
   };
 
   # Enable nix flakes
@@ -28,5 +34,14 @@ in
   '';
 
   time.timeZone = "Europe/Berlin";
-  networking.hostName = "yueix";
+  networking.hostName = hostname;
+  
+  nixpkgs.overlays = [
+    (self: super: {
+      docker = super.docker.override { iptables = pkgs.iptables-legacy; };
+    })
+  ];
+
+  virtualisation.docker.enable = true;
+  users.users.mbenko.extraGroups = [ "docker" ];
 }

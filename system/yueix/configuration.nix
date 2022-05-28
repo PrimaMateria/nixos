@@ -35,6 +35,13 @@ in
 
   time.timeZone = "Europe/Berlin";
   networking.hostName = hostname;
+
+  environment.etc."resolv.conf" = {
+    enable = true;
+    source =  pkgs.writeText "resolv.conf" '' 
+      nameserver 8.8.8.8
+    '';
+  };
   
   nixpkgs.overlays = [
     (self: super: {

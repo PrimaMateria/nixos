@@ -83,7 +83,11 @@ with builtins; with lib;
 
           # DNS settings are managed by WSL
           hosts.enable = false;
-          "resolv.conf".enable = false;
+
+          # Commented this on, because I need resolv.conf with nameserver set.
+          # This issue seems to bother since beginning of using WSL on my
+          # current machine
+          # "resolv.conf".enable = false;
         };
       };
 

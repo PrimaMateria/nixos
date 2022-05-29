@@ -86,3 +86,11 @@ git branch --set-upstream-to=origin/master master
 
 sudo rm -rf /home/nixos
 ```
+
+## Starting vnc
+
+```
+xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd
+```
+
+

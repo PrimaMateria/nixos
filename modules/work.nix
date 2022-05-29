@@ -2,7 +2,7 @@
 
 {
   home.packages = [
-    pkgs.slack
-    pkgs.teams
+    pkgs.firefox
+    pkgs.jetbrains.idea-ultimate
   ];
 }

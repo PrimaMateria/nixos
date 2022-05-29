@@ -60,7 +60,6 @@
             ./modules/weechat.nix
             ./modules/newsboat.nix
             ./modules/ssh.nix
-            ./modules/work.nix
           ];
         };
       };
@@ -86,6 +85,7 @@
             ./modules/vifm.nix
             ./modules/weechat.nix
             ./modules/ssh.nix
+            ./modules/work.nix
           ];
         };
       };

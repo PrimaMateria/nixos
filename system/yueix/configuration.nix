@@ -50,5 +50,26 @@ in
   ];
 
   virtualisation.docker.enable = true;
-  users.users.mbenko.extraGroups = [ "docker" ];
+  users.users.mbenko.extraGroups = [ "docker" "wheel" "audio" "video" "networkmanager" "disk" "scanner" "lp" ];
+
+  services.xserver.enable = true;
+  services.xserver.layout = "us,sk,de";
+  services.xserver.xkbVariant = ",qwerty,qwerty";
+  services.xserver.xkbOptions = "grp:lctrl_lwin_toggle";
+  # services.xserver.desktopManager.xterm.enable = true;
+  # services.xserver.windowManager.i3.enable = true;
+  services.x2goserver.enable = true;
+
+  services.xserver.autorun = false;
+  services.xserver.desktopManager.xfce.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+
+  fonts.fonts = with pkgs; [
+    (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+  ];
+
+  environment.systemPackages = with pkgs; [
+     tigervnc 
+     xorg.xinit
+  ];
 }

@@ -143,3 +143,24 @@ is possible to instruct WSL to use specific hostname. This another option from
 usual `networking.hostname`. Added to `wslConf.network` `hostname` and
 `generateResolvConf` set to false. The proper hostname solve the issue with no
 working `apply-system.sh`.
+
+## Sun May 29 02:01:33 PM CEST 2022
+
+I was dealing with the trouble of setting up VNC, so I can use IntelliJ IDEA if
+necessary. First I tried simply to copy xserver config from tprobix, but
+`journalctl` reported that it fails to start xserver. After I switched from i3
+to xfce and enabled `gdm` displayManager the server could start. For now it is
+enough to have any working solution, but there is plenty space for experiments.
+Also I could investigate some light alternatives to xfce. I cam accross IceWM,
+but didn't go into the details.
+
+Second problem occured when I tried to start VNC server. I added `tigervnc`
+package, but executing the server failed because of missing `xinit`. With
+`xorg.init` package added, it failed with message that `XSession` is missing. I
+followed [this
+comment](https://github.com/NixOS/nixpkgs/issues/109500#issuecomment-901990922)
+and was able to start the server. I wrote own `.vnc/xstartup` and generate
+password file with `vncpassword` command. When `xstartup` runs session in the
+background, then xinit stops with message `xinit; connection to X server lost`.
+If session is run in the bacground, then it is possible to conntect with the
+vncviewer. I still need to include `~/.vnc` to nixos repo.

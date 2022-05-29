@@ -7,6 +7,9 @@
     clock24 = true;
     customPaneNavigationAndResize = true;
     keyMode = "vi";
+    plugins = with pkgs; [ 
+    ];
+    tmuxp.enable = true;
     extraConfig = ''
       set -g status 2
       set -g status-format[1] ""

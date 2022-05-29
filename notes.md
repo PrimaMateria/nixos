@@ -92,5 +92,3 @@ sudo rm -rf /home/nixos
 ```
 xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd
 ```
-
-

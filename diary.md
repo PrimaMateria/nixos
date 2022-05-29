@@ -155,12 +155,12 @@ Also I could investigate some light alternatives to xfce. I cam accross IceWM,
 but didn't go into the details.
 
 Second problem occured when I tried to start VNC server. I added `tigervnc`
-package, but executing the server failed because of missing `xinit`. With
+package, but executing the vncserver failed because of missing `xinit`. With
 `xorg.init` package added, it failed with message that `XSession` is missing. I
 followed [this
 comment](https://github.com/NixOS/nixpkgs/issues/109500#issuecomment-901990922)
 and was able to start the server. I wrote own `.vnc/xstartup` and generate
 password file with `vncpassword` command. When `xstartup` runs session in the
 background, then xinit stops with message `xinit; connection to X server lost`.
-If session is run in the bacground, then it is possible to conntect with the
+If session is run in the foreground then it is possible to connect with the
 vncviewer. I still need to include `~/.vnc` to nixos repo.

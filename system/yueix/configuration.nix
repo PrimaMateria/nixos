@@ -71,5 +71,6 @@ in
   environment.systemPackages = with pkgs; [
      tigervnc 
      xorg.xinit
+     docker-compose
   ];
 }

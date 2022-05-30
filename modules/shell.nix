@@ -20,6 +20,7 @@ in
     pkgs.tldr
     pkgs.zoxide
     pkgs.fzf
+    pkgs.entr
   ];
 
   programs.bash = {

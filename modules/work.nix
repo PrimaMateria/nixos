@@ -85,7 +85,7 @@ in
     "tmuxp/space.yml".text = ''
       session_name: space
       windows:
-        - window_name: Reporting
+        - window_name: reporting
           start_directory: ~/reporting/
           panes:
             - ./current2
@@ -94,8 +94,9 @@ in
           panes:
             - n
         - window_name: neovim
+          start_directory: ~/dev/neovim-nix/
           panes:
-            - echo nvim
+            - nvim flake.nix
     '';
 
     "tmuxp/fds.yml".text = ''

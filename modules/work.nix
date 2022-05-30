@@ -86,6 +86,7 @@ in
       session_name: space
       windows:
         - window_name: reporting
+          layout: even-vertical
           start_directory: ~/reporting/
           panes:
             - ./current2

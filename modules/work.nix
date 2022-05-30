@@ -106,7 +106,7 @@ in
       windows:
         - window_name: IDE
           panes:
-            - nvim
+            - nvim package.json
         - window_name: exec
           panes:
             - npm start
@@ -119,7 +119,7 @@ in
       windows:
         - window_name: IDE
           panes:
-            - nvim
+            - nvim package.json
         - window_name: exec
           panes:
             - npm start
@@ -133,7 +133,7 @@ in
       windows:
         - window_name: IDE
           panes:
-            - nvim
+            - nvim package.json
         - window_name: exec
           panes:
             - npm start
@@ -146,10 +146,10 @@ in
       windows:
         - window_name: IDE
           panes:
-            - nvim
+            - echo "nvim"
         - window_name: exec
           panes:
-            - echo npm start
+            - echo "npm start"
     '';
 
     "tmuxp/wfl.yml".text = ''
@@ -159,7 +159,7 @@ in
       windows:
         - window_name: IDE
           panes:
-            - nvim
+            - echo "nvim"
     '';
 
     "tmuxp/flow.yml".text = ''
@@ -169,7 +169,7 @@ in
       windows:
         - window_name: IDE
           panes:
-            - nvim
+            - echo "nvim"
         - window_name: exec
           panes:
             - echo "docker-compose -f ./devops/docker-compose-local.yaml up --build --force-recreate --no-deps -d"

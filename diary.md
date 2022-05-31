@@ -164,3 +164,11 @@ password file with `vncpassword` command. When `xstartup` runs session in the
 background, then xinit stops with message `xinit; connection to X server lost`.
 If session is run in the foreground then it is possible to connect with the
 vncviewer. I still need to include `~/.vnc` to nixos repo.
+
+## Tue May 31 12:20:34 PM CEST 2022
+
+I found out that I forgot about `eslint_d` and `prettierd`. For the quick fix
+it was enough to install them as global npm package. Although this is not
+reproducible. I cam across github repos where they used `node2nix` to generate
+missing nix package. Then through overlay it could be installed. This could be
+useful also for future. Adding it to the todo list. 

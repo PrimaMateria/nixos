@@ -254,11 +254,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1653987763,
-        "narHash": "sha256-Br5XyldrdmvWhMkVnTlDvaXyT0Egn9rcOePdueZ0Xmg=",
+        "lastModified": 1654004543,
+        "narHash": "sha256-SBIUiniQdgSe11mwRPBVkBZn8js44qIumJSIzZTTsZY=",
         "owner": "PrimaMateria",
         "repo": "neovim-nix",
-        "rev": "51f4e52a7fce01e9d3172b8592a181a99ad0bcd6",
+        "rev": "27f49a8966252873c9a6e4407306d8118b2e5baa",
         "type": "github"
       },
       "original": {

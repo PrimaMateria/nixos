@@ -174,3 +174,14 @@ repos](https://github.com/stellarhoof/furnisher/tree/c27cb169ea915c5e4fe6b32e64b
 where they used `node2nix` to generate missing nix package. Then through
 overlay it could be installed. This could be useful also for future. Adding it
 to the todo list. 
+
+## Tue May 31 03:42:54 PM CEST 2022
+
+I was migrating UltiSnips snippets to neovim-nix. I added new package to the
+overlay definition. The package is made with `stdenv.mkDerivation` which source
+local directory and during the install phase simply copies all directory
+content to the `$out`. Then I added this package as a runtime dependency for
+customNeovim. As last I passed the package as argument to `import` call. I had
+to pass it down to ultisnips config where I set the nix store path as the
+UltiSnips snippet directory. Passing the vars like that didn't look very
+elegant, but for now it just works.

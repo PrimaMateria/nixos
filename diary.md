@@ -169,6 +169,8 @@ vncviewer. I still need to include `~/.vnc` to nixos repo.
 
 I found out that I forgot about `eslint_d` and `prettierd`. For the quick fix
 it was enough to install them as global npm package. Although this is not
-reproducible. I cam across github repos where they used `node2nix` to generate
-missing nix package. Then through overlay it could be installed. This could be
-useful also for future. Adding it to the todo list. 
+reproducible. I cam across [github
+repos](https://github.com/stellarhoof/furnisher/tree/c27cb169ea915c5e4fe6b32e64ba07b4d6d2d9c7/users/shared/programs/nvim/node-packages)
+where they used `node2nix` to generate missing nix package. Then through
+overlay it could be installed. This could be useful also for future. Adding it
+to the todo list. 

@@ -12,5 +12,6 @@
     flameshot
     zathura
     nomacs
+    slack
   ];
 }

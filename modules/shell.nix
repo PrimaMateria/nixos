@@ -21,6 +21,8 @@ in
     pkgs.zoxide
     pkgs.fzf
     pkgs.entr
+    # TODO: temporary for testing
+    # pkgs.watson-jira-next
   ];
 
   programs.bash = {

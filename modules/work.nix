@@ -111,6 +111,7 @@ in
         - window_name: exec
           panes:
             - npm start
+            - npm run storybook
     '';
 
     "tmuxp/fwl-loader.yml".text = ''

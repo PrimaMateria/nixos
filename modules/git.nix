@@ -10,6 +10,7 @@
 
   programs.git = {
     enable = true;
+    lfs.enable = true;
     userName = "matus.benko";
     userEmail = "matus.benko@gmail.com";
     aliases = {

@@ -136,7 +136,7 @@ in
             /set irc.server.libera.addresses "irc.libera.chat/6697"
             /set irc.server.libera.ssl on
             /set irc.server.libera.autoconnect on
-            /set irc.server.libera.autojoin "#java,#javascript,#linux,#archlinux,#archlinux-newbie,#gaminigonlinux,#react,#i3,##programming,##electronics,#neovim,#nixos"
+            /set irc.server.libera.autojoin "#java,#javascript,#linux,#archlinux,#archlinux-newbie,#gaminigonlinux,#react,#i3,##programming,##electronics,#neovim,#nixos,#xeserv"
 
             /set script.scripts.download_enabled on
             /script install autosort.py

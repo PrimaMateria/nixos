@@ -15,9 +15,11 @@
     i3blocks-gcalcli.inputs.nixpkgs.follows = "nixpkgs";
 
     neovim-primamateria.url = "github:PrimaMateria/neovim-nix";
+
+    watson-jira-next.url = "github:PrimaMateria/watson-jira-next";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, dmenu-primamateria, i3blocks-gcalcli, neovim-primamateria, ... }: 
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, dmenu-primamateria, i3blocks-gcalcli, neovim-primamateria, watson-jira-next, ... }: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -40,7 +42,7 @@
         homeDirectory = "/home/primamateria";
         stateVersion = "21.11";
         extraSpecialArgs = {
-          inherit dmenu-primamateria i3blocks-gcalcli pkgs-unstable neovim-primamateria;
+          inherit dmenu-primamateria i3blocks-gcalcli pkgs-unstable neovim-primamateria; 
         };
         configuration = {
           programs.home-manager.enable = true;
@@ -70,7 +72,7 @@
         homeDirectory = "/home/mbenko";
         stateVersion = "21.11";
         extraSpecialArgs = {
-          inherit neovim-primamateria;
+          inherit neovim-primamateria watson-jira-next;
         };
         configuration = {
           programs.home-manager.enable = true;
@@ -86,6 +88,7 @@
             ./modules/weechat.nix
             ./modules/ssh.nix
             ./modules/work.nix
+            ./modules/reporting.nix
           ];
         };
       };

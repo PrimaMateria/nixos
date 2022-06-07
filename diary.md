@@ -185,3 +185,12 @@ customNeovim. As last I passed the package as argument to `import` call. I had
 to pass it down to ultisnips config where I set the nix store path as the
 UltiSnips snippet directory. Passing the vars like that didn't look very
 elegant, but for now it just works.
+
+## Tue Jun  7 10:46:19 AM CEST 2022
+
+I have prepared watson-jira as a flake. Now I am thinking if I could also
+expose also it's config as nix options. The way somehow leads to nixos modules.
+The same modules should work also with Home Manager. One option would be
+somehow to write the config file to user's XDG_CONFIG_HOME. Other option may be
+to update watson-jira to be able to read config location from the parameter and
+then generate config file during the build in the nix store out directory. 

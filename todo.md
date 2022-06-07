@@ -5,3 +5,4 @@
 - create reporting project 
 - prepare git clone script for common projects
 - node2nix for prettierd and eslint_d
+- module options for watson-jira

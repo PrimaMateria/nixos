@@ -21,6 +21,7 @@ in
     pkgs.zoxide
     pkgs.fzf
     pkgs.entr
+    pkgs.translate-shell
     # TODO: temporary for testing
     # pkgs.watson-jira-next
   ];

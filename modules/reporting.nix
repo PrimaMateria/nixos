@@ -7,4 +7,5 @@ in
   home.packages = [
     package-watson-jira-next
   ];
+  xdg.configFile."watson-jira/config.yaml".source = ../.secrets/watson-jira/config.yaml;
 }

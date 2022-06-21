@@ -60,6 +60,7 @@ in
   home.packages = [
     pkgs.firefox
     pkgs.jetbrains.idea-ultimate
+    pkgs.inkscape
     pkgs.watson
     git-clone-work-repos
   ];

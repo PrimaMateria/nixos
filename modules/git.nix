@@ -33,6 +33,9 @@
         new = "green bold";
         whitespace = "red reverse";
       };
+      pull = {
+        rebase = false;
+      };
     };
   };
 

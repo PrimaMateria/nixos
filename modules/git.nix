@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let 
+  gh-secrets= import ../.secrets/github-cli.nix;
+in
 {
   home.packages = with pkgs; [
     git-crypt
@@ -47,4 +50,12 @@
     enable = true;
     pinentryFlavor = "qt";
   };
+
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "ssh";
+    };
+  };
+  xdg.configFile."gh/hosts.yml".text = gh-secrets.hosts;
 }

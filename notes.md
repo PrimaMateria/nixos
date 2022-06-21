@@ -26,10 +26,6 @@ $ sudo nix-shell -p python3Packages.pyqt5 hplip
 [nix-shell:~]# hp-setup
 ```
 
-## Trivial builders
-
-This good source to figure out how to bring small configs and utilities to the store: https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/trivial-builders.nix
-
 ## Issue: unsafe repository
 
 ```

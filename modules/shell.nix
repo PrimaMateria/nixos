@@ -22,8 +22,6 @@ in
     pkgs.fzf
     pkgs.entr
     pkgs.translate-shell
-    # TODO: temporary for testing
-    # pkgs.watson-jira-next
   ];
 
   programs.bash = {
@@ -35,9 +33,12 @@ in
       n = "cd ~/dev/nixos; nvim";
     };
     initExtra = ''
-      BLUE="\[$(tput setaf 4)\]"
-      YELLOW="\[$(tput setaf 3)\]"
-      RESET="\[$(tput sgr0)\]"
+      # \001 (^A) start non-visible characters
+      # \002 (^B) end non-visible characters
+
+      BLUE="\001$(tput setaf 4)\002"
+      YELLOW="\001$(tput setaf 3)\002"
+      RESET="\001$(tput sgr0)\002"
 
       PS1="''${BLUE}\w''${YELLOW}\$''${RESET} "
 
@@ -62,5 +63,10 @@ in
       set vi-ins-mode-string " "
       set vi-cmd-mode-string " "
     '';
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
   };
 }

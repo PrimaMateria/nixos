@@ -19,6 +19,15 @@ mkShell {
   ];
   shellHook = ''
     alias npm="npm --userconfig ${workNpmRC}"
+
+    if [ ! -d "$HOME/.npm-global" ]; then 
+      mkdir "$HOME/.npm-global" 
+      echo "Created ~/.npm-global"
+
+      npm install -g @fsouza/prettierd eslint_d
+      echo "Installed prettierd and eslint_d"
+    fi
+    
     export PATH="$HOME/.npm-global/bin:$PATH"
   '';
 }

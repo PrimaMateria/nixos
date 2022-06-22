@@ -92,6 +92,10 @@ in
           panes:
             - ./current2
             - echo "report here"
+        - window_name: todo
+          start_directory: ~/reporting/
+          panes:
+            - nvim todo.md
         - window_name: nix
           panes:
             - n

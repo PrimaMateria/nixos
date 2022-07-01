@@ -13,5 +13,6 @@
     zathura
     nomacs
     slack
+    libreoffice
   ];
 }

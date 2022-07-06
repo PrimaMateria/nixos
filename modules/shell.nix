@@ -5,7 +5,7 @@
 # ██║     ██║  ██║╚██████╔╝██║     ██║███████╗███████╗
 # ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚══════╝
 
-{ config, pkgs, neovim-primamateria, ... }:
+{ config, pkgs, pkgs-unstable, neovim-primamateria, ... }:
 
 let
   customNeovim = neovim-primamateria.packages.x86_64-linux.customNeovim;
@@ -22,6 +22,8 @@ in
     pkgs.fzf
     pkgs.entr
     pkgs.translate-shell
+    # temporary here until plenary problem on unstable channel will get fixed, then it should go to neovim-nix
+    pkgs-unstable.ltex-ls
   ];
 
   programs.bash = {

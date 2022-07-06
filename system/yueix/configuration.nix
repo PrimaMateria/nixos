@@ -42,7 +42,8 @@ in
       nameserver 8.8.8.8
     '';
   };
-  
+
+  nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (self: super: {
       docker = super.docker.override { iptables = pkgs.iptables-legacy; };

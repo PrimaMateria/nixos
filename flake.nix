@@ -72,13 +72,14 @@
         homeDirectory = "/home/mbenko";
         stateVersion = "21.11";
         extraSpecialArgs = {
-          inherit neovim-primamateria watson-jira-next;
+          inherit neovim-primamateria watson-jira-next pkgs-unstable;
         };
         configuration = {
           programs.home-manager.enable = true;
           home.username = "mbenko";
           home.homeDirectory = "/home/mbenko";
           home.stateVersion = "21.11";
+          nixpkgs.config.allowUnfree = true;
 
           imports = [
             ./modules/git.nix

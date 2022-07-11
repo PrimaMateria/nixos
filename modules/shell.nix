@@ -46,6 +46,7 @@ in
 
       export EDITOR=${pkgs.neovim}/bin/nvim
       export MANPAGER="less -R --use-color -Dd+y -Du+b"
+      export NIXPKGS_ALLOW_UNFREE=1
       
       eval "$(zoxide init bash)"
 

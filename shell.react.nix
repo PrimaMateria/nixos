@@ -51,8 +51,11 @@ mkShell {
 
     export DISPLAY=:1
     export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
-    #npm install -D playwright
-    npx playwright install
-    fix-playwright-browsers
+
+    playwright-install () {
+      #npm install -D playwright
+      npx playwright install
+      fix-playwright-browsers
+    }
   '';
 }

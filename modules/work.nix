@@ -91,9 +91,9 @@ in
           start_directory: ~/reporting/
           panes:
             - ./current2
-            - echo "report here"
+            - nix develop
         - window_name: todo
-          start_directory: ~/reporting/
+          start_directory: ~/Documents/
           panes:
             - nvim todo.md
         - window_name: nix

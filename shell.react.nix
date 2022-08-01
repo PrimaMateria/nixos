@@ -1,5 +1,6 @@
 with (import <nixpkgs> {});
 let
+  unstable = import (fetchTarball https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz) { };
   workSecrets = import .secrets/work.nix;
   workNpmRC = pkgs.writeText "work-npmrc" ''
     prefix=~/.npm-global
@@ -28,7 +29,7 @@ in
 mkShell {
   name = "react-shell";
   buildInputs = [ 
-    nodejs-16_x
+    unstable.nodejs-18_x
     nodePackages.typescript-language-server
 
     luakit

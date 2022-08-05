@@ -169,10 +169,10 @@ in
             - echo "nvim"
     '';
 
-    "tmuxp/flow.yml".text = ''
-      session_name: flow
+    "tmuxp/processctl.yml".text = ''
+      session_name: processctl
       shell_command_before: nix-shell ~/dev/nixos/shell.java.nix
-      start_directory: ~/dev/finapi-flow-ctrl/
+      start_directory: ~/dev/finapi-process-ctrl/
       windows:
         - window_name: IDE
           panes:

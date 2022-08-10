@@ -32,8 +32,8 @@ let
 
       declare -a workprojects=(
         "finapi-build-library"
+        "finapi-cms"
         "finapi-design-system"
-        "finapi-flow-ctrl"
         "finapi-girocheck"
         "finapi-giroident-ui"
         "finapi-process-ctrl"
@@ -47,7 +47,10 @@ let
         clone-teaminvest "$project"
       done
 
-      declare -a primamateriaprojects=("direflow")
+      declare -a primamateriaprojects=(
+        "direflow"
+        "direflow-flake"
+      )
 
       for project in "''${primamateriaprojects[@]}"
       do
@@ -66,7 +69,7 @@ in
   ];
 
   programs.bash.shellAliases = {
-    tmux-work = "tmuxp load space fds fwl-loader fwl-widgets flow wfui wfl";
+    tmux-work = "tmuxp load space fds fwl-loader fwl-widgets fwl-processctl wfui wfl";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
     "@a" = "$HOME/reporting/watson-add.sh";
@@ -103,6 +106,10 @@ in
           start_directory: ~/dev/neovim-nix/
           panes:
             - nvim flake.nix
+        - window_name: x
+          start_directory: ~
+          panes:
+          - export runx="xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd"
     '';
 
     "tmuxp/fds.yml".text = ''

@@ -69,7 +69,7 @@ in
   ];
 
   programs.bash.shellAliases = {
-    tmux-work = "tmuxp load space fds fwl-loader fwl-widgets fwl-processctl wfui wfl";
+    tmux-work = "tmuxp load space fds fwl-loader fwl-widgets processctl wfui wfl";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
     "@a" = "$HOME/reporting/watson-add.sh";
@@ -107,9 +107,8 @@ in
           panes:
             - nvim flake.nix
         - window_name: x
-          start_directory: ~
           panes:
-          - export runx="xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd"
+            - export runx="xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd"
     '';
 
     "tmuxp/fds.yml".text = ''

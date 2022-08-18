@@ -33,6 +33,7 @@ in
       ll = "ls -lha";
       cat = "bat -p";
       n = "cd ~/dev/nixos; nvim";
+      nvimnix = "nix run ~/dev/neovim-nix";
     };
     initExtra = ''
       # \001 (^A) start non-visible characters

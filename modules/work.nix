@@ -100,12 +100,13 @@ in
           panes:
             - nvim todo.md
         - window_name: nix
+          start_directory: ~/dev/nixos/
           panes:
-            - n
+            - echo nvim flake.nix
         - window_name: neovim
           start_directory: ~/dev/neovim-nix/
           panes:
-            - nvim flake.nix
+            - echo nvim flake.nix
         - window_name: x
           panes:
             - export runx="xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd"
@@ -118,11 +119,11 @@ in
       windows:
         - window_name: IDE
           panes:
-            - nvim package.json
+            - echo nvim package.json
         - window_name: exec
           panes:
-            - npm start
-            - npm run storybook
+            - echo npm start
+            - echo npm run storybook
     '';
 
     "tmuxp/fwl-loader.yml".text = ''
@@ -132,11 +133,11 @@ in
       windows:
         - window_name: IDE
           panes:
-            - nvim package.json
+            - echo nvim
         - window_name: exec
           panes:
-            - npm start
-            - npm run storybook
+            - echo npm start
+            - echo npm run storybook
     '';
 
     "tmuxp/fwl-widgets.yml".text = ''
@@ -146,10 +147,10 @@ in
       windows:
         - window_name: IDE
           panes:
-            - nvim package.json
+            - echo nvim
         - window_name: exec
           panes:
-            - npm start
+            - echo npm start
     '';
 
     "tmuxp/wfui.yml".text = ''

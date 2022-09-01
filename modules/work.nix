@@ -109,7 +109,7 @@ in
             - echo nvim flake.nix
         - window_name: x
           panes:
-            - export runx="xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd"
+            - alias runx="xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd"
     '';
 
     "tmuxp/fds.yml".text = ''

@@ -14,5 +14,7 @@
     nomacs
     slack
     libreoffice
+    skype
+    gimp
   ];
 }

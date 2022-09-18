@@ -74,4 +74,5 @@ in
      xorg.xinit
      docker-compose
   ];
+  system.stateVersion = "21.11";
 }

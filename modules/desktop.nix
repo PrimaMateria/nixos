@@ -27,6 +27,9 @@
       "move_down" = "j";
       "move_left" = "h";
       "move_right" = "l";
+      "move_visual_mark_up" = "<S-k>";
+      "move_visual_mark_down" = "<S-j>";
+      "enter_visual_mark_mode" = "v";
     };
 
     config = {
@@ -37,6 +40,7 @@
       search_url_w = "https://en.wikipedia.org/wiki/Special:Search?go=Go&search=";
       search_url_d = "https://www.wortbedeutung.info/?query=";
       search_url_e = "https://www.dictionary.com/browse/";
+      ruler_mode = "1";
     };
   };
 }

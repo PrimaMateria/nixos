@@ -62,6 +62,7 @@ in
     enable = true;
     config = let
       mod = "Mod4";
+      alt = "Mod1";
 
       colorDominant = "#FFFFFF";
       colorProminent = "#FFFF00";
@@ -142,8 +143,8 @@ in
         "${mod}+l" = "focus right";
         "${mod}+a" = "focus parent";
         "${mod}+z" = "focus child";
-        "${mod}+Tab" = "focus next";
-        "${mod}+Shift+Tab" = "focus next sibling";
+        "${alt}+Tab" = "focus next";
+        "${alt}+Shift+Tab" = "focus next sibling";
         "${mod}+space" = "focus mode_toggle";
 
         "${mod}+Shift+h" = "move left";

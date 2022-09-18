@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 {
   home.packages = with pkgs; [
@@ -6,7 +6,6 @@
     spotify
     mpv
     element-desktop
-    discord
     obs-studio
     gnome.simple-scan
     flameshot
@@ -16,5 +15,7 @@
     libreoffice
     skypeforlinux
     gimp
-  ];
+  ] ++ (with pkgs-unstable; [
+    discord
+  ]);
 }

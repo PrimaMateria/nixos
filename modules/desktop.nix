@@ -14,7 +14,7 @@
     nomacs
     slack
     libreoffice
-    skype
+    skypeforlinux
     gimp
   ];
 }

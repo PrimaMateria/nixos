@@ -48,7 +48,6 @@ in
 
   services.picom = {
     enable = true;
-    refreshRate = 144;
     backend = "xrender";
     vSync = true;
     extraOptions = ''

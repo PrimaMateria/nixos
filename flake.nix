@@ -2,10 +2,10 @@
   description = "Prima Materia";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-21.11";
+    nixpkgs.url = "nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-21.11";
+    home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     dmenu-primamateria.url = "github:PrimaMateria/dmenu";
@@ -40,7 +40,7 @@
         inherit system pkgs;
         username = "primamateria";
         homeDirectory = "/home/primamateria";
-        stateVersion = "21.11";
+        stateVersion = "22.05";
         extraSpecialArgs = {
           inherit dmenu-primamateria i3blocks-gcalcli pkgs-unstable neovim-primamateria; 
         };
@@ -48,7 +48,7 @@
           programs.home-manager.enable = true;
           home.username = "primamateria";
           home.homeDirectory = "/home/primamateria";
-          home.stateVersion = "21.11";
+          home.stateVersion = "22.05";
 
           imports = [
             { nixpkgs.overlays = [ self.overlay ]; }
@@ -70,7 +70,7 @@
         inherit system pkgs;
         username = "mbenko";
         homeDirectory = "/home/mbenko";
-        stateVersion = "21.11";
+        stateVersion = "22.05";
         extraSpecialArgs = {
           inherit neovim-primamateria watson-jira-next pkgs-unstable;
         };
@@ -78,7 +78,7 @@
           programs.home-manager.enable = true;
           home.username = "mbenko";
           home.homeDirectory = "/home/mbenko";
-          home.stateVersion = "21.11";
+          home.stateVersion = "22.05";
           nixpkgs.config.allowUnfree = true;
 
           imports = [

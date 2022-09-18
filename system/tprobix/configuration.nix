@@ -98,6 +98,9 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  # Service for configuring gaming mouse
+  services.ratbagd.enable = true;
+
   users.users.primamateria = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "scanner" "lp" ];

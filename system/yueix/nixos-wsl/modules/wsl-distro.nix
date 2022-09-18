@@ -25,29 +25,15 @@ with builtins; with lib;
       };
       startMenuLaunchers = mkEnableOption "shortcuts for GUI applications in the windows start menu";
       wslConf = mkOption {
-        type = attrsOf (attrsOf coercedToStr);
+        type = attrsOf (attrsOf (oneOf [ string int bool ]));
         description = "Entries that are added to /etc/wsl.conf";
-      };
-
-      interop = {
-        register = mkOption {
-          type = bool;
-          default = true;
-          description = "Explicitly register the binfmt_misc handler for Windows executables";
-        };
-
-        includePath = mkOption {
-          type = bool;
-          default = true;
-          description = "Include Windows PATH in WSL PATH";
-        };
       };
     };
 
   config =
     let
       cfg = config.wsl;
-      syschdemd = import ../syschdemd.nix { inherit lib pkgs config; defaultUser = cfg.defaultUser; };
+      syschdemd = import ../syschdemd.nix { inherit lib pkgs config; inherit (cfg) automountPath defaultUser; defaultUserHome = config.users.users.${cfg.defaultUser}.home; };
     in
     mkIf cfg.enable {
 
@@ -58,43 +44,41 @@ with builtins; with lib;
           root = "${cfg.automountPath}/";
           options = cfg.automountOptions;
         };
+        network = {
+          generateResolvConf = mkDefault true;
+          generateHosts = mkDefault true;
+        };
       };
 
       # WSL is closer to a container than anything else
-      boot = {
-        isContainer = true;
+      boot.isContainer = true;
 
-        binfmt.registrations = mkIf cfg.interop.register {
-          WSLInterop = {
-            magicOrExtension = "MZ";
-            interpreter = "/init";
-            fixBinary = true;
-          };
-        };
-      };
       environment.noXlibs = lib.mkForce false; # override xlibs not being installed (due to isContainer) to enable the use of GUI apps
+      hardware.opengl.enable = true; # Enable GPU acceleration
 
       environment = {
-        # Include Windows %PATH% in Linux $PATH.
-        extraInit = mkIf cfg.interop.includePath ''PATH="$PATH:$WSLPATH"'';
 
         etc = {
           "wsl.conf".text = generators.toINI { } cfg.wslConf;
 
           # DNS settings are managed by WSL
-          hosts.enable = false;
-
-          # Commented this on, because I need resolv.conf with nameserver set.
-          # This issue seems to bother since beginning of using WSL on my
-          # current machine
-          # "resolv.conf".enable = false;
+          hosts.enable = !config.wsl.wslConf.network.generateHosts;
+          "resolv.conf".enable = !config.wsl.wslConf.network.generateResolvConf;
         };
+
+        systemPackages = [
+          (pkgs.runCommand "wslpath" { } ''
+            mkdir -p $out/bin
+            ln -s /init $out/bin/wslpath
+          '')
+        ];
       };
 
       networking.dhcpcd.enable = false;
 
       users.users.${cfg.defaultUser} = {
         isNormalUser = true;
+        uid = 1000;
         extraGroups = [ "wheel" ]; # Allow the default user to use sudo
       };
 
@@ -111,27 +95,45 @@ with builtins; with lib;
         wheelNeedsPassword = mkDefault false; # The default user will not have a password by default
       };
 
-      system.activationScripts.copy-launchers = mkIf cfg.startMenuLaunchers (
-        stringAfter [ ] ''
-          for x in applications icons; do
-            echo "Copying /usr/share/$x"
-            mkdir -p /usr/share/$x
-            ${pkgs.rsync}/bin/rsync -ar --delete $systemConfig/sw/share/$x/. /usr/share/$x
-          done
-        ''
-      );
+      system.activationScripts = {
+        copy-launchers = mkIf cfg.startMenuLaunchers (
+          stringAfter [ ] ''
+            for x in applications icons; do
+              echo "Copying /usr/share/$x"
+              mkdir -p /usr/share/$x
+              ${pkgs.rsync}/bin/rsync -ar --delete $systemConfig/sw/share/$x/. /usr/share/$x
+            done
+          ''
+        );
+        populateBin = stringAfter [ ] ''
+          echo "setting up /bin..."
+          ln -sf /init /bin/wslpath
+          ln -sf ${pkgs.bashInteractive}/bin/bash /bin/sh
+          ln -sf ${pkgs.util-linux}/bin/mount /bin/mount
+        '';
+      };
 
-      # Disable systemd units that don't make sense on WSL
-      systemd.services."serial-getty@ttyS0".enable = false;
-      systemd.services."serial-getty@hvc0".enable = false;
-      systemd.services."getty@tty1".enable = false;
-      systemd.services."autovt@".enable = false;
+      systemd = {
+        # Disable systemd units that don't make sense on WSL
+        services = {
+          "serial-getty@ttyS0".enable = false;
+          "serial-getty@hvc0".enable = false;
+          "getty@tty1".enable = false;
+          "autovt@".enable = false;
+          firewall.enable = false;
+          systemd-resolved.enable = false;
+          systemd-udevd.enable = false;
+        };
 
-      systemd.services.firewall.enable = false;
-      systemd.services.systemd-resolved.enable = false;
-      systemd.services.systemd-udevd.enable = false;
+        tmpfiles.rules = [
+          # Don't remove the X11 socket
+          "d /tmp/.X11-unix 1777 root root"
+        ];
 
-      # Don't allow emergency mode, because we don't have a console.
-      systemd.enableEmergencyMode = false;
+        # Don't allow emergency mode, because we don't have a console.
+        enableEmergencyMode = false;
+      };
+
+      warnings = (optional (config.systemd.services.systemd-resolved.enable && config.wsl.wslConf.network.generateResolvConf) "systemd-resolved is enabled, but resolv.conf is managed by WSL");
     };
 }

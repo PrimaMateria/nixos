@@ -12,7 +12,6 @@ let
 in
 {
   home.packages = [
-    customNeovim
     pkgs.unzip
     pkgs.htop
     pkgs.exa
@@ -33,8 +32,8 @@ in
       ls = "exa --color automatic --time-style long-iso";
       ll = "ls -lha";
       cat = "bat -p";
+      nvim = "nix run github:PrimaMateria/neovim-nix";
       n = "cd ~/dev/nixos; nvim";
-      nvimnix = "nix run ~/dev/neovim-nix";
     };
     initExtra = ''
       # \001 (^A) start non-visible characters

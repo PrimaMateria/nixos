@@ -8,7 +8,7 @@
 { config, pkgs, pkgs-unstable, neovim-primamateria, ... }:
 
 let
-  customNeovim = neovim-primamateria.packages.x86_64-linux.customNeovim;
+  customNeovim = neovim-primamateria.packages.x86_64-linux.neovimPrimaMateriaWrapper;
 in
 {
   home.packages = [

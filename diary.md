@@ -194,3 +194,18 @@ The same modules should work also with Home Manager. One option would be
 somehow to write the config file to user's XDG_CONFIG_HOME. Other option may be
 to update watson-jira to be able to read config location from the parameter and
 then generate config file during the build in the nix store out directory. 
+
+## Sat Oct  1 12:48:38 PM CEST 2022
+
+Runtime dependencies are build dependencies that are later found in result.
+Patchelf is a tool which helps to deal with unecessary dependency listing in
+some kind of path when compiling C programs.
+
+Wrapper pattern is useful if it is needed to include runtime dependencies to
+program that doesn't requires them to work. In wrapper pattern a simple shell
+script derivation can be prepared `writeShellApplication` which adds extra
+runtime dependencies to the `PATH` and executes the real program. For example I
+used this when adding `xsel`, or `typescript-language-server` to be available
+for neovim. Then instead of declaring neovim as a program in Home Manager, I
+declared the my neovim wrapper. Extra runtime dependencies can be collected
+into one derivation using `symlinkJoin`.

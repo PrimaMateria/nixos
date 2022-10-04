@@ -38,6 +38,8 @@ let
         "finapi-giroident-ui"
         "finapi-process-ctrl"
         "finapi-widget-library"
+        "finapi-js-loader"
+        "finapi-js-static-resources"
         "web-form"
         "web-form-loader"
       )
@@ -69,7 +71,7 @@ in
   ];
 
   programs.bash.shellAliases = {
-    tmux-work = "tmuxp load space fds fwl-loader fwl-widgets processctl wfui wfl";
+    tmux-work = "tmuxp load space fds fsr fwloader fwl wfui wfl";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
     "@a" = "$HOME/reporting/watson-add.sh";
@@ -126,10 +128,20 @@ in
             - echo npm run storybook
     '';
 
-    "tmuxp/fwl-loader.yml".text = ''
-      session_name: fwl-loader
+    "tmuxp/fsr.yml".text = ''
+      session_name: fsr
       shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
-      start_directory: ~/dev/finapi-widget-library/loader
+      start_directory: ~/dev/finapi-js-static-resources
+      windows:
+        - window_name: IDE
+          panes:
+            - echo ""
+    '';
+
+    "tmuxp/fwloader.yml".text = ''
+      session_name: fwloader
+      shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
+      start_directory: ~/dev/finapi-js-loader
       windows:
         - window_name: IDE
           panes:
@@ -137,13 +149,12 @@ in
         - window_name: exec
           panes:
             - echo npm start
-            - echo npm run storybook
     '';
 
-    "tmuxp/fwl-widgets.yml".text = ''
-      session_name: fwl-widgets
+    "tmuxp/fwl.yml".text = ''
+      session_name: fwl
       shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
-      start_directory: ~/dev/finapi-widget-library/widgets
+      start_directory: ~/dev/finapi-widget-library
       windows:
         - window_name: IDE
           panes:

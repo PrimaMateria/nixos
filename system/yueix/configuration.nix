@@ -16,6 +16,7 @@ in
     automountPath = "/mnt";
     defaultUser = "mbenko";
     startMenuLaunchers = true;
+    interop.register = true;
     wslConf = {
       network = {
         hostname = hostname;

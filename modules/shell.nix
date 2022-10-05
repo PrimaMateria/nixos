@@ -32,7 +32,8 @@ in
       ls = "exa --color automatic --time-style long-iso";
       ll = "ls -lha";
       cat = "bat -p";
-      nvim = "nix run github:PrimaMateria/neovim-nix";
+      # nvim = "nix run github:PrimaMateria/neovim-nix";
+      nvim = "nix run ~/dev/neovim-nix";
       n = "cd ~/dev/nixos; nvim";
     };
     initExtra = ''

@@ -25,8 +25,8 @@
     bindings = {
       "move_up" = "k";
       "move_down" = "j";
-      "move_left" = "h";
-      "move_right" = "l";
+      "move_left" = "l";
+      "move_right" = "h";
       "move_visual_mark_up" = "<S-k>";
       "move_visual_mark_down" = "<S-j>";
       "enter_visual_mark_mode" = "v";

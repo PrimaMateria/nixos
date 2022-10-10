@@ -87,6 +87,23 @@ in
     "@" = "watson";
   };
 
+  # This still doesn't work opened tmux windows. Maybe I could try to rename
+  # the socket to fit the old name
+  programs.bash.initExtra = ''
+    #!/usr/bin/bash
+    export WSL_INTEROP=
+    for socket in /run/WSL/*; do
+       if ss -elx | grep -q "$socket"; then
+          export WSL_INTEROP=$socket
+       else
+          rm $socket 
+       fi
+    done
+    if [[ -z $WSL_INTEROP ]]; then
+       echo -e "\033[31mNo working WSL_INTEROP socket found !\033[0m" 
+    fi
+  '';
+
   xdg.configFile = { 
     "tmuxp/space.yml".text = ''
       session_name: space
@@ -138,17 +155,14 @@ in
             - echo ""
     '';
 
-    "tmuxp/fwloader.yml".text = ''
-      session_name: fwloader
+    "tmuxp/fjsl.yml".text = ''
+      session_name: fjsl
       shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/finapi-js-loader
       windows:
         - window_name: IDE
           panes:
             - echo nvim
-        - window_name: exec
-          panes:
-            - echo npm start
     '';
 
     "tmuxp/fwl.yml".text = ''
@@ -181,6 +195,16 @@ in
       session_name: wfl
       shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/web-form-loader/
+      windows:
+        - window_name: IDE
+          panes:
+            - echo "nvim"
+    '';
+
+    "tmuxp/fhp.yml".text = ''
+      session_name: fhp
+      shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
+      start_directory: ~/dev/finapi-hostpages/
       windows:
         - window_name: IDE
           panes:

@@ -11,17 +11,18 @@ let
   customNeovim = neovim-primamateria.packages.x86_64-linux.neovimPrimaMateriaWrapper;
 in
 {
-  home.packages = [
-    pkgs.unzip
-    pkgs.htop
-    pkgs.exa
-    pkgs.bat
-    pkgs.tldr
-    pkgs.zoxide
-    pkgs.fzf
-    pkgs.entr
-    pkgs.translate-shell
-    pkgs.lazygit
+  home.packages = with pkgs; [
+    unzip
+    htop
+    exa
+    bat
+    tldr
+    zoxide
+    fzf
+    entr
+    translate-shell
+    lazygit
+    manix
   ];
 
   programs.bash = {

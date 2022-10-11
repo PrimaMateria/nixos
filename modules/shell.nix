@@ -22,8 +22,6 @@ in
     pkgs.entr
     pkgs.translate-shell
     pkgs.lazygit
-    # temporary here until plenary problem on unstable channel will get fixed, then it should go to neovim-nix
-    pkgs-unstable.ltex-ls
   ];
 
   programs.bash = {

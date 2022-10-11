@@ -71,7 +71,7 @@ in
   ];
 
   programs.bash.shellAliases = {
-    tmux-work = "tmuxp load space fds fsr fwloader fwl wfui wfl";
+    tmux-work = "tmuxp load space fds fwl fjsl fhp fjssr wfui";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
     "@a" = "$HOME/reporting/watson-add.sh";
@@ -145,8 +145,8 @@ in
             - echo npm run storybook
     '';
 
-    "tmuxp/fsr.yml".text = ''
-      session_name: fsr
+    "tmuxp/fjssr.yml".text = ''
+      session_name: fjssr
       shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/finapi-js-static-resources
       windows:

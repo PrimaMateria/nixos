@@ -38,6 +38,20 @@ let
     command="i3block-datetime"
     interval=1
   '';
+
+  scratchpadShow = pkgs.writeShellApplication {
+    name = "scratchpadShow";
+    runtimeInputs = [ pkgs.jq ];
+    text = ''
+      i3-msg -t get_tree | \
+      jq '.nodes[] | .nodes[] | .nodes[] | select(.name=="__i3_scratch") | .floating_nodes[] | .nodes[] | .window,.name' | \
+      sed 's/\"//g' | \
+      paste -s -d ' ' | \
+      ${dmenu}/bin/dmenu -nb black -nf white -sb yellow -sf black -l 20 -c | \
+      cut -f1 | \
+      xargs -I "PID" i3-msg "[id=PID] scratchpad show"
+     '';
+  };
 in
 {
 
@@ -181,6 +195,7 @@ in
         "${mod}+Shift+9" = "move container to workspace number ${ws 9}";
 
         "${mod}+x" = "move scratchpad";
+        "${mod}+Shift+x" = "exec ${scratchpadShow}/bin/scratchpadShow";
 
         "${mod}+minus" = "[class=\"Enpass\" title=\"^Enpass$\"] scratchpad show";
       };

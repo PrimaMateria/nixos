@@ -10,7 +10,7 @@
     obs-studio
     gnome.simple-scan
     flameshot
-    nomacs # picture viewer
+    qimgv
     slack
     libreoffice
     skypeforlinux

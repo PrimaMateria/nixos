@@ -23,6 +23,7 @@ in
     translate-shell
     lazygit
     manix
+    git-branch-clean
   ];
 
   programs.bash = {

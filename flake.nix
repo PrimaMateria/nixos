@@ -80,6 +80,7 @@
           nixpkgs.config.allowUnfree = true;
 
           imports = [
+            { nixpkgs.overlays = [ self.overlay ]; }
             ./modules/git.nix
             ./modules/shell.nix
             ./modules/tmux.nix

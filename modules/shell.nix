@@ -33,7 +33,7 @@ in
       ll = "ls -lha";
       cat = "bat -p";
       # nvim = "nix run github:PrimaMateria/neovim-nix";
-      nvim = "nix run ~/dev/neovim-nix";
+      nvim = "nix run ~/dev/neovim-nix --";
       n = "cd ~/dev/nixos; nvim";
     };
     initExtra = ''

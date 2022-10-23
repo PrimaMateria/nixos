@@ -209,3 +209,11 @@ used this when adding `xsel`, or `typescript-language-server` to be available
 for neovim. Then instead of declaring neovim as a program in Home Manager, I
 declared the my neovim wrapper. Extra runtime dependencies can be collected
 into one derivation using `symlinkJoin`.
+
+## Sun Oct 23 10:07:44 PM CEST 2022
+
+I found an enhancement to previously mentioned wrapper pattern. The wrapper
+script should pass all the args to the target app. Also, I had `nvim` aliased
+to `nix run ~/dev/neovim-nix/`. Adding any args would apply to `nix` command.
+Changing alias to `nix run ~/dev/neovim-nix --` passes all the args directly to
+the target neovim executable.

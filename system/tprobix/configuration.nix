@@ -120,6 +120,11 @@
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
   ];
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
 
 #  fileSystems."/mnt/caladan" =
 #    { device = "/dev/disk/by-uuid/4DF0BBED38D45117";

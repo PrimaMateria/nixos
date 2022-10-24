@@ -117,15 +117,19 @@ in
         - window_name: todo
           start_directory: ~/Documents/
           panes:
-            - nvim todo.md
+            - alias run="nvim todo.md"
         - window_name: nix
           start_directory: ~/dev/nixos/
           panes:
-            - echo nvim flake.nix
+            - alias run="nvim flake.nix"
         - window_name: neovim
           start_directory: ~/dev/neovim-nix/
           panes:
-            - echo nvim flake.nix
+            - alias run="nvim flake.nix"
+        - window_name: devj
+          start_directory: ~/dev/dev-journal
+          panes:
+            - alias run="nvim snt/in/Work.txt"
         - window_name: x
           panes:
             - alias runx="xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd"

@@ -17,6 +17,7 @@
     gimp
     piper # client for ratbagd
   ] ++ (with pkgs-unstable; [
+    doublecmd
     discord
   ]);
 

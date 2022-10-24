@@ -74,6 +74,7 @@ in
      tigervnc 
      xorg.xinit
      docker-compose
+     tzdata
   ];
   system.stateVersion = "21.11";
 }

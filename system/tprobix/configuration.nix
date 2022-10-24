@@ -113,6 +113,7 @@
     wget
     firefox
     rclone
+    tzdata
   ];
 
   fonts.fonts = with pkgs; [

@@ -180,7 +180,7 @@
     " program.
 
     " Pdf
-    filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
+    filextype *.pdf sioyek %c, zathura %c %i &, apvlv %c, xpdf %c
     fileviewer *.pdf pdftotext -nopgbrk %c -
 
     " PostScript

@@ -19,10 +19,10 @@
     " If you would like to use another vi clone such as Elvis or Vile
     " you will need to change this setting.
 
-    set vicmd=vim
+    " set vicmd=vim
     " set vicmd=elvis\ -G\ termcap
     " set vicmd=vile
-    set vicmd=nvim
+    set vicmd=nix\ run\ ~/dev/neovim-nix\ --
 
     " This makes vifm perform file operations on its own instead of relying on
     " standard utilities like `cp`.  While using `cp` and alike is a more universal

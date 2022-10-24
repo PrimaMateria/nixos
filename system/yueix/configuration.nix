@@ -64,6 +64,7 @@ in
 
   services.xserver.autorun = false;
   services.xserver.desktopManager.xfce.enable = true;
+  services.xserver.desktopManager.xfce.noDesktop = true;
   services.xserver.displayManager.gdm.enable = true;
 
   fonts.fonts = with pkgs; [

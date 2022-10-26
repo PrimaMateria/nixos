@@ -35,6 +35,7 @@ in
       # nvim = "nix run github:PrimaMateria/neovim-nix";
       nvim = "nix run ~/dev/neovim-nix --";
       n = "cd ~/dev/nixos; nvim";
+      nn = "cd ~/dev/neovim-nix; nvim";
     };
     initExtra = ''
       # \001 (^A) start non-visible characters

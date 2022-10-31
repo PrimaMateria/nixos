@@ -24,6 +24,7 @@ in
     lazygit
     manix
     git-branch-clean
+    http-prompt
   ];
 
   programs.bash = {

@@ -1,5 +1,6 @@
 { config, pkgs, watson-jira-next, ... }:
 
+# todo: move to reporting flake
 let
   package-watson-jira-next = watson-jira-next.defaultPackage.x86_64-linux;
 in

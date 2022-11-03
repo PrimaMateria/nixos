@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable,... }:
 
 let
+  workSecrets = import ../.secrets/work.nix;
   git-clone-work-repos = pkgs.writeShellApplication {
     name = "git-clone-work-repos";
     runtimeInputs = [ pkgs.bash pkgs.git ];
@@ -66,7 +67,6 @@ in
     pkgs.firefox
     pkgs.jetbrains.idea-ultimate
     pkgs.inkscape
-    pkgs.watson
     git-clone-work-repos
   ];
 
@@ -102,7 +102,9 @@ in
     if [[ -z $WSL_INTEROP ]]; then
        echo -e "\033[31mNo working WSL_INTEROP socket found !\033[0m" 
     fi
+    export JIRA_API_TOKEN=${workSecrets.jiraApiToken}
   '';
+  # todo: move JIRA token to reporting flake
 
   xdg.configFile = { 
     "tmuxp/space.yml".text = ''

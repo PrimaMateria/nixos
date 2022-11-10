@@ -114,7 +114,7 @@ in
           layout: even-vertical
           start_directory: ~/reporting/
           panes:
-            - nix develop & ./current2
+            - nix develop --command ./current2
             - nix develop
         - window_name: todo
           start_directory: ~/Documents/

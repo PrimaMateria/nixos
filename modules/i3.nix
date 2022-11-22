@@ -52,6 +52,23 @@ let
       xargs -I "PID" i3-msg "[id=PID] scratchpad show"
      '';
   };
+
+  steamRun = pkgs.writeShellApplication {
+    name = "steamRun";
+    text = ''
+      run="${dmenu}/bin/dmenu -nb black -nf white -sb yellow -sf black -l 20 -c"
+      path="$HOME/.local/share/Steam/steamapps"
+
+      for arg in "$path"/appmanifest_*.acf; do
+        line=$(cat "$arg");
+        nam="$(echo "$line"|tr '\n\t' ' '|sed 's/.*"name"[^"]*"\([^"]*\).*/\1/'|tr ' ' '_')"
+        set -- "$@" "$nam" "$(echo "$line"|tr '\n\t' ' '|sed 's/.*"appid"[^"]*"\([^"]*\).*/\1/')" 
+      done
+
+      run=$(printf "%s  :%s\n" "$@" | $run | sed 's/.*:\(.*\)/\1/')
+      test -n "$run" && xdg-open "steam://run/$run"
+    '';
+  };
 in
 {
 
@@ -144,6 +161,7 @@ in
         "${mod}+Shift+space" = "floating toggle";
 
         "${mod}+d" = "exec --no-startup-id ${cmdMenu}";
+        "${mod}+s" = "exec --no-startup-id ${steamRun}/bin/steamRun";
         "${mod}+Shift+Return" = "exec ${cmdBrowser}";
         "${mod}+Return" = "exec ${cmdTerminal}";
 

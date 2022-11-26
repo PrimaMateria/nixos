@@ -8,7 +8,7 @@
 #        __/\\\\\\\\\\\_\///\\\\\\\\\/___ 
 #         _\///////////____\/////////_____
 
-{pkgs, config, lib, dmenu-primamateria, i3blocks-gcalcli, ...}:
+{pkgs, pkgs-unstable, config, lib, dmenu-primamateria, i3blocks-gcalcli, ...}:
 let
   i3wsrConfig = pkgs.copyPathToStore ../configs/i3wsr.toml;
   dmenu = dmenu-primamateria.packages.x86_64-linux.dmenu-primamateria;
@@ -90,6 +90,7 @@ in
 
   xsession.windowManager.i3 = {
     enable = true;
+    package = pkgs-unstable.i3;
     config = let
       mod = "Mod4";
       alt = "Mod1";

@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
   ] ++ (with pkgs-unstable; [
-    lutris
+    wineWowPackages.stable
+    winetricks
   ]);
 }

@@ -30,9 +30,7 @@ mkShell {
   name = "react-shell";
   buildInputs = [ 
     unstable.nodejs-18_x
-    nodePackages.typescript-language-server
 
-    luakit
     google-chrome-dev
     firefox-bin
     nixos-playwright
@@ -43,9 +41,6 @@ mkShell {
     if [ ! -d "$HOME/.npm-global" ]; then 
       mkdir "$HOME/.npm-global" 
       echo "Created ~/.npm-global"
-
-      npm install -g @fsouza/prettierd eslint_d
-      echo "Installed prettierd and eslint_d"
     fi
     
     export PATH="$HOME/.npm-global/bin:$PATH"

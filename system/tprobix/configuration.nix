@@ -101,9 +101,12 @@
   # Service for configuring gaming mouse
   services.ratbagd.enable = true;
 
+  # Docker
+  virtualisation.docker.enable = true;
+
   users.users.primamateria = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "scanner" "lp" ];
+    extraGroups = [ "docker" "wheel" "audio" "video" "networkmanager" "disk" "scanner" "lp" ];
   };
 
   # List packages installed in system profile. To search, run:

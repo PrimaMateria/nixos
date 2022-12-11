@@ -4,6 +4,7 @@ let
   identityFileGithub = pkgs.copyPathToStore ../.secrets/ssh-keys/github.com;
   identityFileGitlab = pkgs.copyPathToStore ../.secrets/ssh-keys/gitlab.com;
   identityFileBitbucket = pkgs.copyPathToStore ../.secrets/ssh-keys/bitbucket.org;
+  identityFileMafukoShop = pkgs.copyPathToStore ../.secrets/ssh-keys/mafuko-shop;
 in
 {
   programs.ssh = {
@@ -21,6 +22,10 @@ in
       "bitbucket.org" = {
         host = "bitbucket.org";
         identityFile = "${identityFileBitbucket}";
+      };
+      "mafuko-shop" = {
+        host = "mafuko-shop";
+        identityFile = "${identityFileMafukoShop}";
       };
     };
   };

@@ -80,7 +80,7 @@ in
   services.picom = {
     enable = true;
     backend = "xrender";
-    vSync = true;
+    # vSync = true;
     settings = {
       unredir-if-possible = false;
     };

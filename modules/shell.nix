@@ -25,6 +25,7 @@ in
     manix
     git-branch-clean
     http-prompt
+    subdl
   ];
 
   programs.bash = {

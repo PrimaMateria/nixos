@@ -24,7 +24,7 @@ in
         identityFile = "${identityFileBitbucket}";
       };
       "mafuko-shop" = {
-        host = "mafuko-shop";
+        host = "172.105.85.41";
         identityFile = "${identityFileMafukoShop}";
       };
     };

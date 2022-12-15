@@ -81,9 +81,9 @@ in
     enable = true;
     backend = "xrender";
     vSync = true;
-    extraOptions = ''
+    settings = {
       unredir-if-possible = false;
-    '';
+    };
   };
 
   services.blueman-applet.enable = true;

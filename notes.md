@@ -34,7 +34,6 @@ sudo git config --global --add safe.directory /home/primamateria/dev/nixos
 
 [Source](https://github.com/NixOS/nixpkgs/issues/169193)
 
-
 ## Check outputs of the flake
 
 Useful when creating own flake and want to verify the outputs.
@@ -87,4 +86,10 @@ sudo rm -rf /home/nixos
 
 ```
 xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd
+```
+
+## Build with logs
+
+```
+nix build -L
 ```

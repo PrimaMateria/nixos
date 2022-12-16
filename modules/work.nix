@@ -71,20 +71,9 @@ in
   ];
 
   programs.bash.shellAliases = {
-    tmux-work = "tmuxp load space fds fwl fjsl fhp fjssr wfui";
+    tmux-work = "tmuxp load space fds fwl fjsl fhp fjssr";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
-    "@a" = "$HOME/reporting/watson-add.sh";
-    "@w" = "$HOME/reporting/watson-add-webform.sh";
-    "@ws" = "$HOME/reporting/watson-add-webform-sprint.sh";
-    "@wo" = "$HOME/reporting/watson-add-webform-other.sh";
-    "@fs" = "$HOME/reporting/watson-add-fraudpool-sprint.sh";
-    "@fo" = "$HOME/reporting/watson-add-fraudpool-other.sh";
-    "@do" = "$HOME/reporting/watson-add-di-other.sh";
-    "@ds" = "$HOME/reporting/watson-add-di-sprint.sh";
-    "@n" = "$HOME/reporting/watson-add-none.sh";
-    "@b" = "$HOME/reporting/watson-add-break.sh";
-    "@" = "watson";
   };
 
   # This still doesn't work opened tmux windows. Maybe I could try to rename
@@ -139,7 +128,6 @@ in
 
     "tmuxp/fds.yml".text = ''
       session_name: fds
-      shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/finapi-design-system/
       windows:
         - window_name: IDE
@@ -147,13 +135,11 @@ in
             - echo nvim package.json
         - window_name: exec
           panes:
-            - echo npm start
             - echo npm run storybook
     '';
 
     "tmuxp/fjssr.yml".text = ''
       session_name: fjssr
-      shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/finapi-js-static-resources
       windows:
         - window_name: IDE
@@ -163,7 +149,6 @@ in
 
     "tmuxp/fjsl.yml".text = ''
       session_name: fjsl
-      shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/finapi-js-loader
       windows:
         - window_name: IDE
@@ -173,7 +158,6 @@ in
 
     "tmuxp/fwl.yml".text = ''
       session_name: fwl
-      shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/finapi-widget-library
       windows:
         - window_name: IDE
@@ -181,12 +165,11 @@ in
             - echo nvim
         - window_name: exec
           panes:
-            - echo npm start
+            - shell-react && npm run start:win
     '';
 
     "tmuxp/wfui.yml".text = ''
       session_name: wfui
-      shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/web-form/frontend/
       windows:
         - window_name: IDE
@@ -199,7 +182,6 @@ in
 
     "tmuxp/wfl.yml".text = ''
       session_name: wfl
-      shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/web-form-loader/
       windows:
         - window_name: IDE
@@ -209,7 +191,6 @@ in
 
     "tmuxp/fhp.yml".text = ''
       session_name: fhp
-      shell_command_before: nix-shell ~/dev/nixos/shell.react.nix
       start_directory: ~/dev/finapi-hostpages/
       windows:
         - window_name: IDE

@@ -32,6 +32,12 @@
     };
 
     lib = nixpkgs.lib;
+
+    # This overlay is added before nixos configuration to be able to access unstable packages
+    overlay-unstable = final: prev: {
+      unstable = pkgs-unstable;
+    };
+
   in {
     overlay = import ./overlays/overlay-i3.nix;
 
@@ -94,7 +100,7 @@
       tprobix = lib.nixosSystem {
         inherit system;
         modules = [
-          { nixpkgs.overlays = [ self.overlay ]; }
+          { nixpkgs.overlays = [ self.overlay overlay-unstable ]; }
           ./system/tprobix/configuration.nix
           ./services/usenet.nix
           ./services/rclone.nix

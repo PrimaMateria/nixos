@@ -13,7 +13,7 @@
   # Make ready for nix flakes
   nix = {
     extraOptions = "experimental-features = nix-command flakes";
-    package = pkgs.nixFlakes;
+    package = pkgs.unstable.nixFlakes;
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -121,6 +121,7 @@
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+    kanit-font #mafukoo font
   ];
 
   programs.steam = {

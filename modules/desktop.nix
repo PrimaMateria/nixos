@@ -21,6 +21,10 @@
     discord
   ]);
 
+  programs.kodi = {
+    enable = true;
+  };
+
   programs.sioyek = {
     enable = true;
     bindings = {

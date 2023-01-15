@@ -101,7 +101,7 @@ in
       colorBackground = "#000000";
       colorAlert = "#FF0000";
 
-      workspaces = ["0:" "1:" "2:" "3:" "4:" "5:" "6:" "7:" "8:" "9:"];
+      workspaces = ["0:" "1: Craft" "2: Browse" "3: Talk" "4: Play" "5: Read" "6: Watch" "7:" "8:" "9: Listen"];
       ws = n: builtins.elemAt workspaces n;
 
       cmdMenu = "${dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
@@ -176,7 +176,7 @@ in
         "${mod}+a" = "focus parent";
         "${mod}+z" = "focus child";
         "${alt}+Tab" = "focus next";
-        "${alt}+Shift+Tab" = "focus next sibling";
+        "${alt}+Shift+Tab" = "focus previous";
         "${mod}+space" = "focus mode_toggle";
 
         "${mod}+Shift+h" = "move left";
@@ -184,8 +184,8 @@ in
         "${mod}+Shift+k" = "move up";
         "${mod}+Shift+l" = "move right";
 
-        "${mod}+F2" = "layout tabbed";
-        "${mod}+F3" = "layout splith";
+        "${mod}+m" = "layout tabbed";
+        "${mod}+t" = "layout splith";
         "${mod}+F4" = "layout splitv";
         "${mod}+F5" = "layout stacked";
         "${mod}+F6" = "split horizontal, layout stacking";
@@ -328,7 +328,7 @@ in
 
       startup = [
         { command = "Enpass"; notification = false; }
-        { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
+        # { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
         { command = "hsetroot -solid \"#111111\""; notification = false; }
         { command = "i3-msg workspace '${ws 1}'"; notification = false; }
       ];

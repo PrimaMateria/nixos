@@ -100,7 +100,7 @@ in
       session_name: space
       windows:
         - window_name: reporting
-          layout: even-vertical
+          layout: even-horizontal
           start_directory: ~/reporting/
           panes:
             - nix develop --command ./current2

@@ -26,6 +26,7 @@ in
     git-branch-clean
     http-prompt
     subdl
+    jq
   ];
 
   programs.bash = {

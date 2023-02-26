@@ -92,8 +92,7 @@ in
     enable = true;
     package = pkgs-unstable.i3;
     config = let
-      mod = "Mod4";
-      alt = "Mod1";
+      mod = "Mod1"; #Mod4
 
       colorDominant = "#FFFFFF";
       colorProminent = "#FFFF00";
@@ -175,8 +174,8 @@ in
         "${mod}+l" = "focus right";
         "${mod}+a" = "focus parent";
         "${mod}+z" = "focus child";
-        "${alt}+Tab" = "focus next";
-        "${alt}+Shift+Tab" = "focus previous";
+        "${mod}+Tab" = "focus next";
+        "${mod}+Shift+Tab" = "focus previous";
         "${mod}+space" = "focus mode_toggle";
 
         "${mod}+Shift+h" = "move left";

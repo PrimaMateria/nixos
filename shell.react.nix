@@ -31,8 +31,10 @@ mkShell {
   buildInputs = [ 
     unstable.nodejs-18_x
 
-    google-chrome-dev
+    # needed for playwright
+    unstable.google-chrome-dev
     firefox-bin
+
     nixos-playwright
   ];
   shellHook = ''

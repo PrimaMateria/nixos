@@ -100,7 +100,7 @@ in
       colorBackground = "#000000";
       colorAlert = "#FF0000";
 
-      workspaces = ["0:" "1: Craft" "2: Browse" "3: Talk" "4: Play" "5: Read" "6: Watch" "7:" "8:" "9: Listen"];
+      workspaces = ["0:" "1: Talk" "2: Craft" "3: Browse" "4: Earth" "5: Moon" "6: Sun" "7 Void:" "8: Watch" "9: Listen"];
       ws = n: builtins.elemAt workspaces n;
 
       cmdMenu = "${dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
@@ -115,11 +115,16 @@ in
         names = ["CaskaydiaCove Nerd Font Mono"];
         size = 10.0;
       };
+
+      gaps = {
+        inner = 20;
+      };
+
       colors = {
         background = "${colorBackground}";
         focused = {
           border      = "${colorDominant}";
-          childBorder = "${colorDominant}";
+          childBorder = "${colorDrab}";
           background  = "${colorBackground}";
           text        = "${colorProminent}";
           indicator   = "${colorDominant}";
@@ -275,7 +280,7 @@ in
         }
       ];
 
-      workspaceLayout = "tabbed";
+      workspaceLayout = "default";
       defaultWorkspace = "workspace ${ws 1}";
 
       floating = {
@@ -328,7 +333,7 @@ in
       startup = [
         { command = "Enpass"; notification = false; }
         # { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
-        { command = "hsetroot -solid \"#111111\""; notification = false; }
+        { command = "hsetroot -solid \"#555555\""; notification = false; }
         { command = "i3-msg workspace '${ws 1}'"; notification = false; }
       ];
     };

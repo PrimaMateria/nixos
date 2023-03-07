@@ -100,7 +100,7 @@ in
       colorBackground = "#000000";
       colorAlert = "#FF0000";
 
-      workspaces = ["0:" "1: Talk" "2: Craft" "3: Browse" "4: Earth" "5: Moon" "6: Sun" "7 Void:" "8: Watch" "9: Listen"];
+      workspaces = ["0:" "1: Sun" "2: Mercury" "3: Venus" "4: Earth" "5: Mars" "6: Jupiter" "7: Saturn" "8: Uranus" "9: Neptune"];
       ws = n: builtins.elemAt workspaces n;
 
       cmdMenu = "${dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
@@ -117,7 +117,7 @@ in
       };
 
       gaps = {
-        inner = 20;
+        inner = 15;
       };
 
       colors = {

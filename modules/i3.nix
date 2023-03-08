@@ -28,7 +28,7 @@ let
     signal=1
     LONG_FORMAT="''${VOL}% [''${NAME}]"
     SHORT_FORMAT="''${VOL}% [''${INDEX}]"
-    DEFAULT_COLOR=#FFFFFF
+    DEFAULT_COLOR=#FBF1C7
     
     [gcalcli]
     command=${i3blocks-gcalcli-package}/bin/i3blocks-gcalcli -e "matus.benko@gmail.com" -m "matus.benko@gmail.com" -m "Holidays in Germany" -m "Sviatky na Slovensku" -w 20 --clientId ${i3blocksSecrets.gcalcliClientId} --clientSecret ${i3blocksSecrets.gcalcliClientSecret} -f "CaskaydiaCove Nerd Font Mono"
@@ -81,12 +81,27 @@ in
     enable = true;
     backend = "xrender";
     # vSync = true;
+    shadow = true;
+    shadowExclude = [
+      "window_type *= 'menu'"
+      "class_g = 'i3bar'"
+    ];
     settings = {
       unredir-if-possible = false;
+      shadow-color = "#FFFFFF";
+      shadow-radius = 30;
+      shadow-offset-x = -30;
+      shadow-offset-y = -30;
+      shadow-opacity = 0.3;
     };
   };
 
   services.blueman-applet.enable = true;
+
+  home.file.solarSystem = {
+    source = ../configs/solarSystem;
+    target = ".config/i3/wallpapers";
+  };
 
   xsession.windowManager.i3 = {
     enable = true;
@@ -94,14 +109,20 @@ in
     config = let
       mod = "Mod1"; #Mod4
 
-      colorDominant = "#FFFFFF";
-      colorProminent = "#FFFF00";
+      colorDominant = "#FBF1C7";
+      colorProminent = "#FABD2F";
       colorDrab = "#464646";
       colorBackground = "#000000";
+      colorBackgroundBar = "#303030";
       colorAlert = "#FF0000";
 
-      workspaces = ["0:" "1: Sun" "2: Mercury" "3: Venus" "4: Earth" "5: Mars" "6: Jupiter" "7: Saturn" "8: Uranus" "9: Neptune"];
+      workspaces = ["10: Messier 87" "1: Sun" "2: Mercury" "3: Venus" "4: Earth" "5: Mars" "6: Jupiter" "7: Saturn" "8: Uranus" "9: Neptune"];
       ws = n: builtins.elemAt workspaces n;
+
+      wallpapers = ["messier87.jpg" "sun.jpg" "mercury.jpg" "venus.jpg" "earth.jpg" "mars.jpg" "jupiter.jpg" "saturn.jpg" "uranus.jpg" "neptune.jpg"];
+      wswall = n: builtins.elemAt wallpapers n;
+
+      setWallpaper = w: "exec --no-startup-id feh --bg-center ~/.config/i3/wallpapers/${w}";
 
       cmdMenu = "${dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
       cmdBrowser = "firefox";
@@ -117,13 +138,13 @@ in
       };
 
       gaps = {
-        inner = 15;
+        inner = 25;
       };
 
       colors = {
         background = "${colorBackground}";
         focused = {
-          border      = "${colorDominant}";
+          border      = "${colorDrab}";
           childBorder = "${colorDrab}";
           background  = "${colorBackground}";
           text        = "${colorProminent}";
@@ -195,16 +216,16 @@ in
         "${mod}+F6" = "split horizontal, layout stacking";
 
         "${mod}+BackSpace" = "workspace back_and_forth";
-        "${mod}+0" = "workspace number ${ws 0}";
-        "${mod}+1" = "workspace number ${ws 1}";
-        "${mod}+2" = "workspace number ${ws 2}";
-        "${mod}+3" = "workspace number ${ws 3}";
-        "${mod}+4" = "workspace number ${ws 4}";
-        "${mod}+5" = "workspace number ${ws 5}";
-        "${mod}+6" = "workspace number ${ws 6}";
-        "${mod}+7" = "workspace number ${ws 7}";
-        "${mod}+8" = "workspace number ${ws 8}";
-        "${mod}+9" = "workspace number ${ws 9}";
+        "${mod}+1" = "${setWallpaper (wswall 1)}; workspace number ${ws 1}";
+        "${mod}+2" = "${setWallpaper (wswall 2)}; workspace number ${ws 2}";
+        "${mod}+3" = "${setWallpaper (wswall 3)}; workspace number ${ws 3}";
+        "${mod}+4" = "${setWallpaper (wswall 4)}; workspace number ${ws 4}";
+        "${mod}+5" = "${setWallpaper (wswall 5)}; workspace number ${ws 5}";
+        "${mod}+6" = "${setWallpaper (wswall 6)}; workspace number ${ws 6}";
+        "${mod}+7" = "${setWallpaper (wswall 7)}; workspace number ${ws 7}";
+        "${mod}+8" = "${setWallpaper (wswall 8)}; workspace number ${ws 8}";
+        "${mod}+9" = "${setWallpaper (wswall 9)}; workspace number ${ws 9}";
+        "${mod}+0" = "${setWallpaper (wswall 0)}; workspace number ${ws 0}";
 
         "${mod}+Shift+0" = "move container to workspace number ${ws 0}";
         "${mod}+Shift+1" = "move container to workspace number ${ws 1}";
@@ -248,33 +269,33 @@ in
             size = 10.0;
           };
           colors = {
-            background = "${colorBackground}";
+            background = "${colorBackgroundBar}";
             statusline = "${colorDominant}";
             separator = "${colorDrab}";
             focusedWorkspace = {
-              border = "${colorBackground}";
-              background = "${colorBackground}";
+              border = "${colorBackgroundBar}";
+              background = "${colorBackgroundBar}";
               text = "${colorProminent}";
             };
             activeWorkspace = {
-              border = "${colorBackground}";
-              background = "${colorBackground}";
+              border = "${colorBackgroundBar}";
+              background = "${colorBackgroundBar}";
               text = "${colorProminent}";
             };
             inactiveWorkspace = {
-              border = "${colorBackground}";
-              background = "${colorBackground}";
+              border = "${colorBackgroundBar}";
+              background = "${colorBackgroundBar}";
               text = "${colorDominant}";
             };
             urgentWorkspace = {
-              border = "${colorBackground}";
-              background = "${colorBackground}";
+              border = "${colorBackgroundBar}";
+              background = "${colorBackgroundBar}";
               text = "${colorAlert}";
             };
             bindingMode = {
-              border = "${colorBackground}";
+              border = "${colorBackgroundBar}";
               background = "${colorProminent}";
-              text = "${colorBackground}";
+              text = "${colorBackgroundBar}";
             };
           };
         }
@@ -334,7 +355,7 @@ in
         { command = "Enpass"; notification = false; }
         # { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
         { command = "hsetroot -solid \"#555555\""; notification = false; }
-        { command = "i3-msg workspace '${ws 1}'"; notification = false; }
+        { command = "${setWallpaper (wswall 1)}; i3-msg workspace '${ws 1}'"; notification = false; }
       ];
     };
     extraConfig = ''
@@ -352,5 +373,6 @@ in
     pkgs.i3wsr
     pkgs.i3blocks-contrib.volume-pulseaudio
     pkgs.i3blocks-contrib.kbdd_layout
+    pkgs.feh
   ];
 }

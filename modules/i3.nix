@@ -69,6 +69,8 @@ let
       test -n "$run" && xdg-open "steam://run/$run"
     '';
   };
+
+
 in
 {
 
@@ -93,6 +95,7 @@ in
       shadow-offset-x = -30;
       shadow-offset-y = -30;
       shadow-opacity = 0.3;
+      shadow-ignore-shaped = true;
     };
   };
 
@@ -123,9 +126,10 @@ in
       wswall = n: builtins.elemAt wallpapers n;
 
       setWallpaper = w: "exec --no-startup-id feh --bg-center ~/.config/i3/wallpapers/${w}";
+      
 
       cmdMenu = "${dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
-      cmdBrowser = "firefox";
+      cmdBrowser = "firefox -P default";
       cmdTerminal = "alacritty";
 
       modeSystem = "System (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown";
@@ -148,7 +152,7 @@ in
           childBorder = "${colorDrab}";
           background  = "${colorBackground}";
           text        = "${colorProminent}";
-          indicator   = "${colorDominant}";
+          indicator   = "${colorDrab}";
         };
         focusedInactive = {
           border      = "${colorDrab}";
@@ -216,16 +220,16 @@ in
         "${mod}+F6" = "split horizontal, layout stacking";
 
         "${mod}+BackSpace" = "workspace back_and_forth";
-        "${mod}+1" = "${setWallpaper (wswall 1)}; workspace number ${ws 1}";
-        "${mod}+2" = "${setWallpaper (wswall 2)}; workspace number ${ws 2}";
-        "${mod}+3" = "${setWallpaper (wswall 3)}; workspace number ${ws 3}";
-        "${mod}+4" = "${setWallpaper (wswall 4)}; workspace number ${ws 4}";
-        "${mod}+5" = "${setWallpaper (wswall 5)}; workspace number ${ws 5}";
-        "${mod}+6" = "${setWallpaper (wswall 6)}; workspace number ${ws 6}";
-        "${mod}+7" = "${setWallpaper (wswall 7)}; workspace number ${ws 7}";
-        "${mod}+8" = "${setWallpaper (wswall 8)}; workspace number ${ws 8}";
-        "${mod}+9" = "${setWallpaper (wswall 9)}; workspace number ${ws 9}";
-        "${mod}+0" = "${setWallpaper (wswall 0)}; workspace number ${ws 0}";
+        "${mod}+1" = "workspace number ${ws 1}";
+        "${mod}+2" = "workspace number ${ws 2}";
+        "${mod}+3" = "workspace number ${ws 3}";
+        "${mod}+4" = "workspace number ${ws 4}";
+        "${mod}+5" = "workspace number ${ws 5}";
+        "${mod}+6" = "workspace number ${ws 6}";
+        "${mod}+7" = "workspace number ${ws 7}";
+        "${mod}+8" = "workspace number ${ws 8}";
+        "${mod}+9" = "workspace number ${ws 9}";
+        "${mod}+0" = "workspace number ${ws 0}";
 
         "${mod}+Shift+0" = "move container to workspace number ${ws 0}";
         "${mod}+Shift+1" = "move container to workspace number ${ws 1}";
@@ -242,6 +246,7 @@ in
         "${mod}+Shift+x" = "exec ${scratchpadShow}/bin/scratchpadShow";
 
         "${mod}+minus" = "[class=\"Enpass\" title=\"^Enpass$\"] scratchpad show";
+        "${mod}+equal" = "[class=\"chatgpt\"] scratchpad show";
       };
 
       modes = {
@@ -348,6 +353,28 @@ in
             criteria = { class = "XTerm"; title = "i3blocks-gcalcli"; };
             command = "move position center";
           }
+
+          # ChatGPT
+          {
+            criteria = { class = "chatgpt"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { class = "chatgpt"; };
+            command = "move absolute position 565 180";
+          }
+          {
+            criteria = { class = "chatgpt"; };
+            command = "resize set 1395 1110";
+          }
+          {
+            criteria = { class = "chatgpt"; };
+            command = "move scratchpad";
+          }
+          {
+            criteria = { class = "chatgpt"; };
+            command = "fullscreen disable";
+          }
         ];
       };
 
@@ -355,7 +382,8 @@ in
         { command = "Enpass"; notification = false; }
         # { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
         { command = "hsetroot -solid \"#555555\""; notification = false; }
-        { command = "${setWallpaper (wswall 1)}; i3-msg workspace '${ws 1}'"; notification = false; }
+        { command = "i3-msg workspace '${ws 1}'"; notification = false; }
+        { command = "firefox --kiosk --no-remote -P chatgpt --class chatgpt https://chat.openai.com"; notification = false; }
       ];
     };
     extraConfig = ''

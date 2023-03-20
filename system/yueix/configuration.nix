@@ -58,13 +58,17 @@ in
   services.xserver.layout = "us,sk,de";
   services.xserver.xkbVariant = ",qwerty,qwerty";
   services.xserver.xkbOptions = "grp:lctrl_lwin_toggle";
-  # services.xserver.desktopManager.xterm.enable = true;
-  # services.xserver.windowManager.i3.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.opengl.enable = true;
   services.x2goserver.enable = true;
 
   services.xserver.autorun = false;
-  services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.desktopManager.xfce.noDesktop = false;
+  # services.xserver.desktopManager.xfce.enable = true;
+  # services.xserver.desktopManager.xfce.noDesktop = true;
+  # services.xserver.windowManager.i3.enable = true;
+  # services.xserver.windowManager.dwm.enable = true;
+  # services.xserver.desktopManager.xterm.enable = true;
+  services.xserver.windowManager.icewm.enable = true;
   services.xserver.displayManager.gdm.enable = true;
 
   fonts.fonts = with pkgs; [

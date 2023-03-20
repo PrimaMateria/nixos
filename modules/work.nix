@@ -6,8 +6,12 @@ let
   vncXstartup = pkgs.writeShellApplication {
     name = "xstartup";
     text = ''
-      xsetroot -solid grey
-      xfce4-session
+      # xsetroot -solid grey
+      # i3
+      # xterm
+      # dwm
+      # while true; do sleep 600; done
+      icewm
     '';
   };
 
@@ -88,7 +92,7 @@ in
     tmux-work = "tmuxp load space fds fwl fjsl fhp fjssr wf wfl";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
-    runx = "xinit ${vncXstartup} -- $(realpath $(which Xvnc)) :1 PasswordFile=${vncPasswd}";
+    runx = "xinit ${vncXstartup}/bin/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=${vncPasswd}";
   };
 
   # This still doesn't work opened tmux windows. Maybe I could try to rename

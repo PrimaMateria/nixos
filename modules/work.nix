@@ -71,7 +71,7 @@ in
   ];
 
   programs.bash.shellAliases = {
-    tmux-work = "tmuxp load space fds fwl fjsl fhp fjssr";
+    tmux-work = "tmuxp load space fds fwl fjsl fhp fjssr wf wfl";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
   };
@@ -209,6 +209,15 @@ in
         - window_name: exec
           panes:
             - echo "docker-compose -f ./devops/docker-compose-local.yaml up --build --force-recreate --no-deps -d"
+    '';
+
+    "tmuxp/wf.yml".text = ''
+      session_name: wf
+      start_directory: ~/dev/web-form/frontend/
+      windows:
+        - window_name: IDE
+          panes:
+            - echo "nvim"
     '';
   };
 }

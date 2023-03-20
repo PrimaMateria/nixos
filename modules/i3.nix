@@ -28,7 +28,7 @@ let
     signal=1
     LONG_FORMAT="''${VOL}% [''${NAME}]"
     SHORT_FORMAT="''${VOL}% [''${INDEX}]"
-    DEFAULT_COLOR=#FFFFFF
+    DEFAULT_COLOR=#FBF1C7
     
     [gcalcli]
     command=${i3blocks-gcalcli-package}/bin/i3blocks-gcalcli -e "matus.benko@gmail.com" -m "matus.benko@gmail.com" -m "Holidays in Germany" -m "Sviatky na Slovensku" -w 20 --clientId ${i3blocksSecrets.gcalcliClientId} --clientSecret ${i3blocksSecrets.gcalcliClientSecret} -f "CaskaydiaCove Nerd Font Mono"
@@ -69,6 +69,8 @@ let
       test -n "$run" && xdg-open "steam://run/$run"
     '';
   };
+
+
 in
 {
 
@@ -81,31 +83,53 @@ in
     enable = true;
     backend = "xrender";
     # vSync = true;
+    shadow = true;
+    shadowExclude = [
+      "window_type *= 'menu'"
+      "class_g = 'i3bar'"
+    ];
     settings = {
       unredir-if-possible = false;
+      shadow-color = "#FFFFFF";
+      shadow-radius = 30;
+      shadow-offset-x = -30;
+      shadow-offset-y = -30;
+      shadow-opacity = 0.3;
+      shadow-ignore-shaped = true;
     };
   };
 
   services.blueman-applet.enable = true;
 
+  home.file.solarSystem = {
+    source = ../configs/solarSystem;
+    target = ".config/i3/wallpapers";
+  };
+
   xsession.windowManager.i3 = {
     enable = true;
     package = pkgs-unstable.i3;
     config = let
-      mod = "Mod4";
-      alt = "Mod1";
+      mod = "Mod1"; #Mod4
 
-      colorDominant = "#FFFFFF";
-      colorProminent = "#FFFF00";
+      colorDominant = "#FBF1C7";
+      colorProminent = "#FABD2F";
       colorDrab = "#464646";
       colorBackground = "#000000";
+      colorBackgroundBar = "#303030";
       colorAlert = "#FF0000";
 
-      workspaces = ["0:" "1:" "2:" "3:" "4:" "5:" "6:" "7:" "8:" "9:"];
+      workspaces = ["10: Messier 87" "1: Sun" "2: Mercury" "3: Venus" "4: Earth" "5: Mars" "6: Jupiter" "7: Saturn" "8: Uranus" "9: Neptune"];
       ws = n: builtins.elemAt workspaces n;
 
+      wallpapers = ["messier87.jpg" "sun.jpg" "mercury.jpg" "venus.jpg" "earth.jpg" "mars.jpg" "jupiter.jpg" "saturn.jpg" "uranus.jpg" "neptune.jpg"];
+      wswall = n: builtins.elemAt wallpapers n;
+
+      setWallpaper = w: "exec --no-startup-id feh --bg-center ~/.config/i3/wallpapers/${w}";
+      
+
       cmdMenu = "${dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
-      cmdBrowser = "firefox";
+      cmdBrowser = "firefox -P default";
       cmdTerminal = "alacritty";
 
       modeSystem = "System (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown";
@@ -116,14 +140,19 @@ in
         names = ["CaskaydiaCove Nerd Font Mono"];
         size = 10.0;
       };
+
+      gaps = {
+        inner = 25;
+      };
+
       colors = {
         background = "${colorBackground}";
         focused = {
-          border      = "${colorDominant}";
-          childBorder = "${colorDominant}";
+          border      = "${colorDrab}";
+          childBorder = "${colorDrab}";
           background  = "${colorBackground}";
           text        = "${colorProminent}";
-          indicator   = "${colorDominant}";
+          indicator   = "${colorDrab}";
         };
         focusedInactive = {
           border      = "${colorDrab}";
@@ -175,8 +204,8 @@ in
         "${mod}+l" = "focus right";
         "${mod}+a" = "focus parent";
         "${mod}+z" = "focus child";
-        "${alt}+Tab" = "focus next";
-        "${alt}+Shift+Tab" = "focus next sibling";
+        "${mod}+Tab" = "focus next";
+        "${mod}+Shift+Tab" = "focus previous";
         "${mod}+space" = "focus mode_toggle";
 
         "${mod}+Shift+h" = "move left";
@@ -184,14 +213,13 @@ in
         "${mod}+Shift+k" = "move up";
         "${mod}+Shift+l" = "move right";
 
-        "${mod}+F2" = "layout tabbed";
-        "${mod}+F3" = "layout splith";
+        "${mod}+m" = "layout tabbed";
+        "${mod}+t" = "layout splith";
         "${mod}+F4" = "layout splitv";
         "${mod}+F5" = "layout stacked";
         "${mod}+F6" = "split horizontal, layout stacking";
 
         "${mod}+BackSpace" = "workspace back_and_forth";
-        "${mod}+0" = "workspace number ${ws 0}";
         "${mod}+1" = "workspace number ${ws 1}";
         "${mod}+2" = "workspace number ${ws 2}";
         "${mod}+3" = "workspace number ${ws 3}";
@@ -201,6 +229,7 @@ in
         "${mod}+7" = "workspace number ${ws 7}";
         "${mod}+8" = "workspace number ${ws 8}";
         "${mod}+9" = "workspace number ${ws 9}";
+        "${mod}+0" = "workspace number ${ws 0}";
 
         "${mod}+Shift+0" = "move container to workspace number ${ws 0}";
         "${mod}+Shift+1" = "move container to workspace number ${ws 1}";
@@ -217,6 +246,7 @@ in
         "${mod}+Shift+x" = "exec ${scratchpadShow}/bin/scratchpadShow";
 
         "${mod}+minus" = "[class=\"Enpass\" title=\"^Enpass$\"] scratchpad show";
+        "${mod}+equal" = "[class=\"chatgpt\"] scratchpad show";
       };
 
       modes = {
@@ -244,39 +274,39 @@ in
             size = 10.0;
           };
           colors = {
-            background = "${colorBackground}";
+            background = "${colorBackgroundBar}";
             statusline = "${colorDominant}";
             separator = "${colorDrab}";
             focusedWorkspace = {
-              border = "${colorBackground}";
-              background = "${colorBackground}";
+              border = "${colorBackgroundBar}";
+              background = "${colorBackgroundBar}";
               text = "${colorProminent}";
             };
             activeWorkspace = {
-              border = "${colorBackground}";
-              background = "${colorBackground}";
+              border = "${colorBackgroundBar}";
+              background = "${colorBackgroundBar}";
               text = "${colorProminent}";
             };
             inactiveWorkspace = {
-              border = "${colorBackground}";
-              background = "${colorBackground}";
+              border = "${colorBackgroundBar}";
+              background = "${colorBackgroundBar}";
               text = "${colorDominant}";
             };
             urgentWorkspace = {
-              border = "${colorBackground}";
-              background = "${colorBackground}";
+              border = "${colorBackgroundBar}";
+              background = "${colorBackgroundBar}";
               text = "${colorAlert}";
             };
             bindingMode = {
-              border = "${colorBackground}";
+              border = "${colorBackgroundBar}";
               background = "${colorProminent}";
-              text = "${colorBackground}";
+              text = "${colorBackgroundBar}";
             };
           };
         }
       ];
 
-      workspaceLayout = "tabbed";
+      workspaceLayout = "default";
       defaultWorkspace = "workspace ${ws 1}";
 
       floating = {
@@ -323,14 +353,37 @@ in
             criteria = { class = "XTerm"; title = "i3blocks-gcalcli"; };
             command = "move position center";
           }
+
+          # ChatGPT
+          {
+            criteria = { class = "chatgpt"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { class = "chatgpt"; };
+            command = "move absolute position 565 180";
+          }
+          {
+            criteria = { class = "chatgpt"; };
+            command = "resize set 1395 1110";
+          }
+          {
+            criteria = { class = "chatgpt"; };
+            command = "move scratchpad";
+          }
+          {
+            criteria = { class = "chatgpt"; };
+            command = "fullscreen disable";
+          }
         ];
       };
 
       startup = [
         { command = "Enpass"; notification = false; }
-        { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
-        { command = "hsetroot -solid \"#111111\""; notification = false; }
+        # { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
+        { command = "hsetroot -solid \"#555555\""; notification = false; }
         { command = "i3-msg workspace '${ws 1}'"; notification = false; }
+        { command = "firefox --kiosk --no-remote -P chatgpt --class chatgpt https://chat.openai.com"; notification = false; }
       ];
     };
     extraConfig = ''
@@ -348,5 +401,6 @@ in
     pkgs.i3wsr
     pkgs.i3blocks-contrib.volume-pulseaudio
     pkgs.i3blocks-contrib.kbdd_layout
+    pkgs.feh
   ];
 }

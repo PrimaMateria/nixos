@@ -9,7 +9,7 @@ writeShellApplication {
     DATETIME=$(date +'%H:%M %A %d.%m.%Y')
     echo "$DATETIME"
     echo "$DATETIME"
-    echo "#FFFF00"
+    echo "#FABD2F"
     exit 0
   '';
 }

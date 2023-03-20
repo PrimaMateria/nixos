@@ -2,6 +2,20 @@
 
 let
   workSecrets = import ../.secrets/work.nix;
+
+  vncXstartup = pkgs.writeShellApplication {
+    name = "xstartup";
+    text = ''
+      xsetroot -solid grey
+      xfce4-session
+    '';
+  };
+
+  vncPasswd = pkgs.writeTextFile {
+    name = "vnc-passwd";
+    text = import ../.secrets/vnc/passwd.nix;
+  };
+
   git-clone-work-repos = pkgs.writeShellApplication {
     name = "git-clone-work-repos";
     runtimeInputs = [ pkgs.bash pkgs.git ];
@@ -74,6 +88,7 @@ in
     tmux-work = "tmuxp load space fds fwl fjsl fhp fjssr wf wfl";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
+    runx = "xinit ${vncXstartup} -- $(realpath $(which Xvnc)) :1 PasswordFile=${vncPasswd}";
   };
 
   # This still doesn't work opened tmux windows. Maybe I could try to rename
@@ -96,6 +111,12 @@ in
   # todo: move JIRA token to reporting flake
 
   xdg.configFile = { 
+    ".jira.d/config.yml".text = ''
+      endpoint: https://finapi.jira.com
+      user: matus.benko@finapi.io
+      authentication-method: api-token
+    '';
+
     "tmuxp/space.yml".text = ''
       session_name: space
       windows:
@@ -122,8 +143,6 @@ in
           panes:
             - alias run="nvim snt/in/Work.txt"
         - window_name: x
-          panes:
-            - alias runx="xinit /home/mbenko/.vnc/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=/home/mbenko/.vnc/passwd"
     '';
 
     "tmuxp/fds.yml".text = ''

@@ -55,6 +55,7 @@ let
         "finapi-design-system"
         "finapi-girocheck"
         "finapi-giroident-ui"
+        "finapi-hostpages"
         "finapi-process-ctrl"
         "finapi-widget-library"
         "finapi-js-loader"

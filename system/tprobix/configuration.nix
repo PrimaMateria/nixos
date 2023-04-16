@@ -59,6 +59,12 @@
     Option         "AllowIndirectGLXProtocol" "off"
     Option         "TripleBuffer" "on"
   '';
+  services.xserver.inputClassSections = [ ''
+    Identifier      "G502 Mouse sensitivity"
+    MatchProduct    "Logitech G502 HERO Gaming Mouse"
+    Option          "AccelConstantDecelaration" "1.5"
+  ''
+  ];
 
   services.xserver.desktopManager.xterm.enable = false;
   #services.xserver.displayManager.defaultSession = "none+i3";

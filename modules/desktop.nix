@@ -48,4 +48,15 @@
       ruler_mode = "1";
     };
   };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "x-scheme-handler/file" = "thunar.desktop";
+      "inode/directory" = "thunar.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/discord-402572971681644545" = "discord-402572971681644545.desktop";
+    };
+  };
 }

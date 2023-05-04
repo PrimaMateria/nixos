@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let 
   gh-secrets= import ../.secrets/github-cli.nix;
@@ -13,6 +13,7 @@ in
 
   programs.git = {
     enable = true;
+    package = pkgs-unstable.git;
     lfs.enable = true;
     userName = "matus.benko";
     userEmail = "matus.benko@gmail.com";

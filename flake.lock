@@ -108,6 +108,21 @@
         "type": "github"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1683358363,
+        "narHash": "sha256-VXEyJAmzEYWiem0aZ8WkkqAoOrdN3W68PQZgp7NcLa0=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "e4eec8eeb1185788f97991bc0dfe4b30cf593d2f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "dmenu-primamateria": "dmenu-primamateria",
@@ -115,6 +130,7 @@
         "i3blocks-gcalcli": "i3blocks-gcalcli",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nur": "nur",
         "watson-jira-next": "watson-jira-next"
       }
     },

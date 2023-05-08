@@ -119,7 +119,7 @@ in
       colorBackgroundBar = "#303030";
       colorAlert = "#FF0000";
 
-      workspaces = ["10: Messier 87" "1: Sun" "2: Mercury" "3: Venus" "4: Earth" "5: Mars" "6: Jupiter" "7: Saturn" "8: Uranus" "9: Neptune"];
+      workspaces = ["10: Messier 87" "1: Sun" "2: Mercury" "3: Venus" "4: Earth" "5: Mars" "6: Jupiter" "7: Saturn" "8: Chat" "9: Music"];
       ws = n: builtins.elemAt workspaces n;
 
       wallpapers = ["messier87.jpg" "sun.jpg" "mercury.jpg" "venus.jpg" "earth.jpg" "mars.jpg" "jupiter.jpg" "saturn.jpg" "uranus.jpg" "neptune.jpg"];
@@ -375,6 +375,18 @@ in
             criteria = { class = "chatgpt"; };
             command = "fullscreen disable";
           }
+          # Spotify (assign does not work)
+          {
+            criteria = { class = "Spotify"; };
+            command = "move workspace ${ws 9}";
+          }
+        ];
+      };
+
+      assigns = {
+        "${ws 8}" = [
+          { class = "^discord$"; }
+          { class = "^weechat$"; }
         ];
       };
 
@@ -384,6 +396,10 @@ in
         { command = "hsetroot -solid \"#555555\""; notification = false; }
         { command = "i3-msg workspace '${ws 1}'"; notification = false; }
         { command = "firefox --kiosk --no-remote -P chatgpt --class chatgpt https://chat.openai.com"; notification = false; }
+        { command = "discord"; notification = false; }
+        { command = "spotify"; notification = false; }
+        { command = "alacritty --class weechat --command weechat"; notification = false; }
+
       ];
     };
     extraConfig = ''

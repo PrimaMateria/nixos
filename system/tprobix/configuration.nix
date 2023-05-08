@@ -60,6 +60,15 @@
     Option         "TripleBuffer" "on"
   '';
 
+  services.xserver.inputClassSections = [ ''
+    Identifier      "Logitech G502 HERO Gaming Mouse sensitivity"
+    MatchProduct    "Logitech G502 HERO Gaming Mouse"
+    MatchIsPointer  "true"
+    Option          "ConstantDeceleration" "3"
+    Driver          "evdev"
+  ''
+  ];
+
   services.xserver.desktopManager.xterm.enable = false;
   #services.xserver.displayManager.defaultSession = "none+i3";
   #services.xserver.displayManager.lightdm.greeters.mini = {
@@ -129,6 +138,9 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
+
+  # file manager
+  programs.thunar.enable = true;
 
 #  fileSystems."/mnt/caladan" =
 #    { device = "/dev/disk/by-uuid/4DF0BBED38D45117";

@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
 
     home-manager.url = "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -15,9 +16,10 @@
     i3blocks-gcalcli.inputs.nixpkgs.follows = "nixpkgs";
 
     watson-jira-next.url = "github:PrimaMateria/watson-jira-next";
+
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, dmenu-primamateria, i3blocks-gcalcli, watson-jira-next, ... }: 
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, dmenu-primamateria, i3blocks-gcalcli, watson-jira-next, nur, ... }: 
   let
     system = "x86_64-linux";
 
@@ -29,6 +31,11 @@
     pkgs-unstable = import nixpkgs-unstable {
       inherit system;
       config = { allowUnfree = true; };
+    };
+
+    nur-pkgs = import nur {
+      nurpkgs = pkgs;
+      pkgs = pkgs;
     };
 
     lib = nixpkgs.lib;
@@ -45,7 +52,7 @@
       primamateria = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
-          inherit dmenu-primamateria i3blocks-gcalcli pkgs-unstable; 
+          inherit dmenu-primamateria i3blocks-gcalcli pkgs-unstable nur-pkgs; 
         };
         modules = [
           {

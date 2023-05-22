@@ -22,6 +22,7 @@ in
     entr
     translate-shell
     lazygit
+    lazydocker
     manix
     git-branch-clean
     http-prompt

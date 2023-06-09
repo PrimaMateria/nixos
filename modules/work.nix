@@ -1,7 +1,8 @@
-{ config, pkgs, pkgs-unstable,... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let
   workSecrets = import ../.secrets/work.nix;
+
 
   vncXstartup = pkgs.writeShellApplication {
     name = "xstartup";
@@ -115,7 +116,7 @@ in
   '';
   # todo: move JIRA token to reporting flake
 
-  xdg.configFile = { 
+  xdg.configFile = {
     ".jira.d/config.yml".text = ''
       endpoint: https://finapi.jira.com
       user: matus.benko@finapi.io
@@ -148,6 +149,10 @@ in
           panes:
             - alias run="nvim snt/in/Work.txt"
         - window_name: x
+        - window_name: ambients
+          start_directory: ~/Music/mp3
+          panes:
+            - cmus
     '';
 
     "tmuxp/fds.yml".text = ''

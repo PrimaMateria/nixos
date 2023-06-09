@@ -28,8 +28,10 @@ in
     http-prompt
     subdl
     jq
+    cmus
   ];
 
+  # todo: maybe remove after cmus will be ok
   programs.ncmpcpp = {
     enable = true;
     bindings = [
@@ -48,6 +50,7 @@ in
     ];
   };
 
+  # todo: maybe remove after cmus will be ok
   services.mpd = {
     enable = true;
     musicDirectory = "${config.home.homeDirectory}/Music/mp3";

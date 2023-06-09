@@ -30,6 +30,35 @@ in
     jq
   ];
 
+  programs.ncmpcpp = {
+    enable = true;
+    bindings = [
+      { key = "j"; command = "scroll_down"; }
+      { key = "k"; command = "scroll_up"; }
+      { key = "l"; command = "previous_column"; }
+      { key = "h"; command = "next_column"; }
+      { key = "J"; command = [ "select_item" "scroll_down" ]; }
+      { key = "K"; command = [ "select_item" "scroll_up" ]; }
+      { key = "g"; command = "move_home"; }
+      { key = "G"; command = "move_end"; }
+      { key = "ctrl-f"; command = "page_down"; }
+      { key = "ctrl-b"; command = "page_up"; }
+      { key = "n"; command = "next_found_item"; }
+      { key = "N"; command = "previous_found_item"; }
+    ];
+  };
+
+  services.mpd = {
+    enable = true;
+    musicDirectory = "${config.home.homeDirectory}/Music/mp3";
+    extraConfig = ''
+      audio_output {
+        type  "pulse"
+        name  "mpd pulse-audio-output"
+      }
+    '';
+  };
+
   programs.bash = {
     enable = true;
     shellAliases = {

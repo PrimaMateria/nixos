@@ -63,11 +63,7 @@ with builtins; with lib;
 
           # DNS settings are managed by WSL
           hosts.enable = !config.wsl.wslConf.network.generateHosts;
-
-          # Commented this on, because I need resolv.conf with nameserver set.
-          # This issue seems to bother since beginning of using WSL on my
-          # current machine
-          # "resolv.conf".enable = !config.wsl.wslConf.network.generateResolvConf;
+          "resolv.conf".enable = !config.wsl.wslConf.network.generateResolvConf;
         };
 
         systemPackages = [

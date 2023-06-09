@@ -20,7 +20,7 @@ in
     wslConf = {
       network = {
         hostname = hostname;
-        generateResolvConf = "false";
+        generateResolvConf = false;
       };
     };
 

@@ -85,7 +85,7 @@ in
   home.packages = [
     pkgs.firefox
     pkgs.jetbrains.idea-ultimate
-    pkgs.inkscape
+    pkgs.mycli
     git-clone-work-repos
   ];
 

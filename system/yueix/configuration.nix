@@ -28,6 +28,11 @@ in
     # docker.enable = true;
   };
 
+  # Access to home folder for mpd to track music
+  users.users.mbenko = {
+    homeMode = "755";
+  };
+
   # Enable nix flakes
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
@@ -39,7 +44,7 @@ in
 
   environment.etc."resolv.conf" = {
     enable = true;
-    source =  pkgs.writeText "resolv.conf" '' 
+    source = pkgs.writeText "resolv.conf" '' 
       nameserver 8.8.8.8
     '';
   };
@@ -71,15 +76,20 @@ in
   services.xserver.windowManager.icewm.enable = true;
   services.xserver.displayManager.gdm.enable = true;
 
+  services.mpd = {
+    enable = true;
+    musicDirectory = "/home/mbenko/Music/mp3";
+  };
+
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
   ];
 
   environment.systemPackages = with pkgs; [
-     tigervnc 
-     xorg.xinit
-     docker-compose
-     tzdata
+    tigervnc
+    xorg.xinit
+    docker-compose
+    tzdata
   ];
   system.stateVersion = "21.11";
 }

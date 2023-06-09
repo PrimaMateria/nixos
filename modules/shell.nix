@@ -9,6 +9,7 @@
 
 let
   customNeovim = neovim-primamateria.packages.x86_64-linux.neovimPrimaMateriaWrapper;
+  spotifySecrets = import ../.secrets/spotify.nix;
 in
 {
   home.packages = with pkgs; [
@@ -29,38 +30,53 @@ in
     subdl
     jq
     cmus
+    sptlrx
   ];
 
-  # todo: maybe remove after cmus will be ok
-  programs.ncmpcpp = {
-    enable = true;
-    bindings = [
-      { key = "j"; command = "scroll_down"; }
-      { key = "k"; command = "scroll_up"; }
-      { key = "l"; command = "previous_column"; }
-      { key = "h"; command = "next_column"; }
-      { key = "J"; command = [ "select_item" "scroll_down" ]; }
-      { key = "K"; command = [ "select_item" "scroll_up" ]; }
-      { key = "g"; command = "move_home"; }
-      { key = "G"; command = "move_end"; }
-      { key = "ctrl-f"; command = "page_down"; }
-      { key = "ctrl-b"; command = "page_up"; }
-      { key = "n"; command = "next_found_item"; }
-      { key = "N"; command = "previous_found_item"; }
-    ];
-  };
-
-  # todo: maybe remove after cmus will be ok
-  services.mpd = {
-    enable = true;
-    musicDirectory = "${config.home.homeDirectory}/Music/mp3";
-    extraConfig = ''
-      audio_output {
-        type  "pulse"
-        name  "mpd pulse-audio-output"
-      }
-    '';
-  };
+  xdg.configFile."sptlrx/config.yaml".text = ''
+    cookie: "${spotifySecrets.cookie}"
+    player: spotify
+    timerInterval: 200
+    updateInterval: 2000
+    style:
+      hAlignment: center
+      before:
+        background: ""
+        foreground: ""
+        bold: true
+        italic: false
+        undeline: false
+        strikethrough: false
+        blink: false
+        faint: false
+      current:
+        background: ""
+        foreground: ""
+        bold: true
+        italic: false
+        undeline: false
+        strikethrough: false
+        blink: false
+        faint: false
+      after:
+        background: ""
+        foreground: ""
+        bold: false
+        italic: false
+        undeline: false
+        strikethrough: false
+        blink: false
+        faint: true
+    pipe:
+      length: 0
+      overflow: word
+      ignoreErrors: true
+    mpd:
+      address: 127.0.0.1:6600
+      password: ""
+    mopidy:
+      address: 127.0.0.1:6680
+  '';
 
   programs.bash = {
     enable = true;

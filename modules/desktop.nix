@@ -19,6 +19,7 @@
   ] ++ (with pkgs-unstable; [
     doublecmd
     discord
+    openrgb
   ]);
 
   programs.kodi = {

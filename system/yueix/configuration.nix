@@ -3,7 +3,7 @@
 with lib;
 let
   hostname = "yueix";
-  nixos-wsl = import ./nixos-wsl;
+  nixos-wsl = import ../modules/nixos-wsl;
   core = import ../modules/core.nix { 
     inherit config pkgs hostname;
   };

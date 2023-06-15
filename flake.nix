@@ -98,7 +98,8 @@
             ./modules/vifm.nix
             ./modules/weechat.nix
             ./modules/ssh.nix
-            ./modules/work.nix
+            ./modules/vnc.nix
+            ./modules/mbenko.nix
             ./modules/reporting.nix
           ];
         };
@@ -106,7 +107,7 @@
         benkma = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
-            inherit watson-jira-next pkgs-unstable;
+            inherit pkgs-unstable;
           };
           modules = [
             {
@@ -123,8 +124,7 @@
             ./modules/vifm.nix
             ./modules/weechat.nix
             ./modules/ssh.nix
-            ./modules/work.nix
-            ./modules/reporting.nix
+            ./modules/vnc.nix
           ];
         };
       };

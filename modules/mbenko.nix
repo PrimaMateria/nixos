@@ -1,25 +1,7 @@
 { config, pkgs, pkgs-unstable, ... }:
 
 let
-  workSecrets = import ../.secrets/work.nix;
-
-
-  vncXstartup = pkgs.writeShellApplication {
-    name = "xstartup";
-    text = ''
-      # xsetroot -solid grey
-      # i3
-      # xterm
-      # dwm
-      # while true; do sleep 600; done
-      icewm
-    '';
-  };
-
-  vncPasswd = pkgs.writeTextFile {
-    name = "vnc-passwd";
-    text = import ../.secrets/vnc/passwd.nix;
-  };
+  secrets = import ../.secrets/mbenko.nix;
 
   git-clone-work-repos = pkgs.writeShellApplication {
     name = "git-clone-work-repos";
@@ -112,7 +94,7 @@ in
     if [[ -z $WSL_INTEROP ]]; then
        echo -e "\033[31mNo working WSL_INTEROP socket found !\033[0m" 
     fi
-    export JIRA_API_TOKEN=${workSecrets.jiraApiToken}
+    export JIRA_API_TOKEN=${secrets.jiraApiToken}
   '';
   # todo: move JIRA token to reporting flake
 

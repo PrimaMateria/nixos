@@ -1,9 +1,9 @@
-{ config, pkgs, hostname, ... }:
+{ config, pkgs, hostname, username, ... }:
 {
   wsl = {
     enable = true;
     automountPath = "/mnt";
-    defaultUser = "mbenko";
+    defaultUser = username;
     startMenuLaunchers = true;
     interop.register = true;
     wslConf = {
@@ -17,8 +17,9 @@
     # docker.enable = true;
   };
 
-  users.users.mbenko = {
+  users.users.${username} = {
     homeMode = "755";
+    extraGroups = [ "docker" "wheel" "audio" "video" "networkmanager" "disk" "scanner" "lp" ];
   };
 
   environment.etc."resolv.conf" = {
@@ -36,10 +37,8 @@
   ];
 
   virtualisation.docker.enable = true;
-  users.users.mbenko.extraGroups = [ "docker" "wheel" "audio" "video" "networkmanager" "disk" "scanner" "lp" ];
 
   services.x2goserver.enable = true;
-
   services.xserver.autorun = false;
   services.xserver.windowManager.icewm.enable = true;
   services.xserver.displayManager.gdm.enable = true;

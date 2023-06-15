@@ -3,12 +3,13 @@
 with lib;
 let
   hostname = "yueix";
+  username = "mbenko";
   nixos-wsl = import ../modules/nixos-wsl;
   core = import ../modules/core.nix { 
     inherit config pkgs hostname;
   };
   wsl = import ../modules/wsl.nix {
-    inherit config pkgs hostname;
+    inherit config pkgs hostname username;
   };
 in
 {

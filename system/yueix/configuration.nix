@@ -2,94 +2,24 @@
 
 with lib;
 let
-  nixos-wsl = import ./nixos-wsl;
   hostname = "yueix";
+  nixos-wsl = import ./nixos-wsl;
+  core = import ../modules/core.nix { 
+    inherit config pkgs hostname;
+  };
+  wsl = import ../modules/wsl.nix {
+    inherit config pkgs hostname;
+  };
 in
 {
   imports = [
     "${modulesPath}/profiles/minimal.nix"
     nixos-wsl.nixosModules.wsl
+    core
+    wsl
   ];
 
-  wsl = {
-    enable = true;
-    automountPath = "/mnt";
-    defaultUser = "mbenko";
-    startMenuLaunchers = true;
-    interop.register = true;
-    wslConf = {
-      network = {
-        hostname = hostname;
-        generateResolvConf = false;
-      };
-    };
-
-    # Enable integration with Docker Desktop (needs to be installed)
-    # docker.enable = true;
-  };
-
-  # Access to home folder for mpd to track music
-  users.users.mbenko = {
-    homeMode = "755";
-  };
-
-  # Enable nix flakes
-  nix.package = pkgs.nixFlakes;
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-
-  time.timeZone = "Europe/Berlin";
-  networking.hostName = hostname;
-
-  environment.etc."resolv.conf" = {
-    enable = true;
-    source = pkgs.writeText "resolv.conf" '' 
-      nameserver 8.8.8.8
-    '';
-  };
-
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [
-    (self: super: {
-      docker = super.docker.override { iptables = pkgs.iptables-legacy; };
-    })
-  ];
-
-  virtualisation.docker.enable = true;
-  users.users.mbenko.extraGroups = [ "docker" "wheel" "audio" "video" "networkmanager" "disk" "scanner" "lp" ];
-
-  services.xserver.enable = true;
-  services.xserver.layout = "us,sk,de";
-  services.xserver.xkbVariant = ",qwerty,qwerty";
-  services.xserver.xkbOptions = "grp:lctrl_lwin_toggle";
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl.enable = true;
-  services.x2goserver.enable = true;
 
-  services.xserver.autorun = false;
-  # services.xserver.desktopManager.xfce.enable = true;
-  # services.xserver.desktopManager.xfce.noDesktop = true;
-  # services.xserver.windowManager.i3.enable = true;
-  # services.xserver.windowManager.dwm.enable = true;
-  # services.xserver.desktopManager.xterm.enable = true;
-  services.xserver.windowManager.icewm.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-
-  services.mpd = {
-    enable = true;
-    musicDirectory = "/home/mbenko/Music/mp3";
-  };
-
-  fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
-  ];
-
-  environment.systemPackages = with pkgs; [
-    tigervnc
-    xorg.xinit
-    docker-compose
-    tzdata
-  ];
-  system.stateVersion = "21.11";
 }

@@ -16,6 +16,7 @@
     skypeforlinux
     gimp
     piper # client for ratbagd
+    pavucontrol
   ] ++ (with pkgs-unstable; [
     doublecmd
     discord

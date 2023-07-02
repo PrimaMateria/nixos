@@ -425,7 +425,8 @@ in
         startup = [
           { command = "Enpass"; notification = false; }
           # { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
-          { command = "hsetroot -solid \"#555555\""; notification = false; }
+          { command = "xrandr --output HDMI-0 --left-of DP-2"; notification = false; }
+          { command = "hsetroot --screens 1 -solid \"#555555\""; notification = false; }
           { command = "i3-msg workspace '${ws 1}'"; notification = false; }
           { command = "firefox --kiosk --no-remote -P chatgpt --class chatgpt https://chat.openai.com"; notification = false; }
           { command = "discord"; notification = false; }

@@ -143,6 +143,7 @@
         yueix = lib.nixosSystem {
           inherit system;
           modules = [
+            { nixpkgs.overlays = [ self.overlay overlay-unstable ]; }
             ./system/yueix/configuration.nix
           ];
         };

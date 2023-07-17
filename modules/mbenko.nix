@@ -76,7 +76,6 @@ in
     tmux-work = "tmuxp load space fds fwl fjsl fhp cms fjssr wf wfl";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
-    runx = "xinit ${vncXstartup}/bin/xstartup -- $(realpath $(which Xvnc)) :1 PasswordFile=${vncPasswd}";
   };
 
   # This still doesn't work opened tmux windows. Maybe I could try to rename

@@ -1,7 +1,7 @@
-with (import <nixpkgs> {});
+with (import <nixpkgs> { });
 let
   unstable = import (fetchTarball https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz) { };
-  workSecrets = import .secrets/work.nix;
+  workSecrets = import .secrets/mbenko.nix;
   workNpmRC = pkgs.writeText "work-npmrc" ''
     prefix=~/.npm-global
     init-author-name=Matus Benko
@@ -25,17 +25,32 @@ let
       cd $out/bin && cp $src/* .
     '';
   };
+
+  testdebug = pkgs.writeShellApplication {
+    name = "testdebug";
+    runtimeInputs = [ fzf ];
+    text = ''
+      TARGET=$(find src -name "*.ts*"  -and -not -path '**/__test*__/**' -and -not -path '**/openapi/**'  | fzf)
+      TARGETPATH="''${TARGET%/*}"
+      COMPONENT=''${TARGET##*/}
+      COMPONENT=''${COMPONENT%.tsx}
+      TESTCASE="$TARGETPATH/__test__/$COMPONENT"
+
+      npm run test:unit:debug -- --coverage --collectCoverageFrom "$TARGET" "$TESTCASE"
+    '';
+  };
 in
 mkShell {
   name = "react-shell";
-  buildInputs = [ 
+  buildInputs = [
     unstable.nodejs-18_x
 
     # needed for playwright
     unstable.google-chrome-dev
     firefox-bin
-
     nixos-playwright
+
+    testdebug
   ];
   shellHook = ''
     alias npm="npm --userconfig ${workNpmRC}"

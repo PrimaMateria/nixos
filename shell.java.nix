@@ -3,7 +3,7 @@
 with pkgs;
 
 let 
-  workSecrets = import .secrets/work.nix;
+  workSecrets = import .secrets/mbenko.nix;
   gradle_7_jdk11 = gradle_7.overrideAttrs (oldAttrs: rec {
     defaultJava = jdk11;
   });

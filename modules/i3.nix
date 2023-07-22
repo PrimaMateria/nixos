@@ -8,7 +8,7 @@
 #        __/\\\\\\\\\\\_\///\\\\\\\\\/___ 
 #         _\///////////____\/////////_____
 
-{ pkgs, pkgs-unstable, config, lib, dmenu-primamateria, i3blocks-gcalcli, ... }:
+{ pkgs, pkgs-unstable, config, lib, dmenu-primamateria, i3blocks-gcalcli, monitorManger, ... }:
 let
   i3wsrConfig = pkgs.copyPathToStore ../configs/i3wsr.toml;
   dmenu = dmenu-primamateria.packages.x86_64-linux.dmenu-primamateria;
@@ -17,6 +17,10 @@ let
   i3blocksConfig = pkgs.writeText "i3blocks-config" ''
     separator_block_width=20
     markup=none
+
+    [monitor]
+    command=${pkgs.i3block-monitorManager}/bin/i3block-monitorManager
+    interval=5000
 
     [kbdd_layout]
     command=${pkgs.i3blocks-contrib.kbdd_layout}/libexec/i3blocks/kbdd_layout
@@ -83,6 +87,7 @@ in
 
   xsession.enable = true;
   xsession.initExtra = ''
+    xrandr --output HDMI-0 -off
     xrandr --output DP-2 --mode 2560x1440 --rate 143.86 --primary
   '';
 
@@ -426,7 +431,6 @@ in
           { command = "Enpass"; notification = false; }
           # { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
           { command = "xrandr --output HDMI-0 --left-of DP-2"; notification = false; }
-          { command = "hsetroot --screens 1 -solid \"#555555\""; notification = false; }
           { command = "i3-msg workspace '${ws 1}'"; notification = false; }
           { command = "firefox --kiosk --no-remote -P chatgpt --class chatgpt https://chat.openai.com"; notification = false; }
           { command = "discord"; notification = false; }
@@ -449,6 +453,7 @@ in
     pkgs.i3blocks
     pkgs.hsetroot
     pkgs.i3block-datetime
+    pkgs.i3block-monitorManager
     pkgs.i3wsr
     pkgs.i3blocks-contrib.volume-pulseaudio
     pkgs.i3blocks-contrib.kbdd_layout

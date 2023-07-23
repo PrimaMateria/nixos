@@ -1,5 +1,5 @@
-final: prev:
-with final;
+prev: final:
+with prev;
 with lib;
 with perlPackages;
 
@@ -13,7 +13,7 @@ let
     sha256 = "0rj2q481mkbj3cawg7lsd6x0x0ii9jxnr327f8n3b2kvrdfyvzy6";
   };
 
-  output="$out/libexec/i3blocks";
+  output = "$out/libexec/i3blocks";
 
   # function to install script block, patched with requirements
   scriptBlock = name: required:
@@ -42,8 +42,8 @@ let
   # function to build script block requirements,
   # useful to avoid passing empty attributes
   required = args: ({
-    bin = [];
-    perlDeps = [];
+    bin = [ ];
+    perlDeps = [ ];
   } // args);
 
 
@@ -58,7 +58,7 @@ let
 
       postPatch = ''
         sed -i "s/-Werror//g" Makefile
-        '';
+      '';
 
       installPhase = ''
         mkdir -p ${output}
@@ -68,6 +68,6 @@ let
 in
 
 rec {
-  volume-pulseaudio = scriptBlock "volume-pulseaudio" ( required {bin = [alsaUtils pulseaudio envsubst];});
-  kbdd_layout = scriptBlock "kbdd_layout" ( required { bin = [ kbdd ]; });
+  volume-pulseaudio = scriptBlock "volume-pulseaudio" (required { bin = [ alsaUtils pulseaudio envsubst ]; });
+  kbdd_layout = scriptBlock "kbdd_layout" (required { bin = [ kbdd ]; });
 }

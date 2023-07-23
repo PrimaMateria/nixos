@@ -17,6 +17,7 @@
     gimp
     piper # client for ratbagd
     pavucontrol
+    calibre
   ] ++ (with pkgs-unstable; [
     doublecmd
     discord

@@ -47,7 +47,9 @@
 
     in
     {
-      overlay = import ./overlays/overlay-i3.nix;
+      overlay = import ./overlays/overlay-i3.nix {
+        inherit dmenu-primamateria;
+      };
 
       homeManagerConfigurations = {
         primamateria = home-manager.lib.homeManagerConfiguration {

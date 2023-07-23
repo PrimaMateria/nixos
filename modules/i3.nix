@@ -11,7 +11,6 @@
 { pkgs, pkgs-unstable, config, lib, dmenu-primamateria, i3blocks-gcalcli, monitorManger, ... }:
 let
   i3wsrConfig = pkgs.copyPathToStore ../configs/i3wsr.toml;
-  dmenu = dmenu-primamateria.packages.x86_64-linux.dmenu-primamateria;
   i3blocks-gcalcli-package = i3blocks-gcalcli.packages.x86_64-linux.i3blocks-gcalcli;
   i3blocksSecrets = import ../.secrets/i3blocks.nix;
   i3blocksConfig = pkgs.writeText "i3blocks-config" ''
@@ -51,7 +50,7 @@ let
       jq '.nodes[] | .nodes[] | .nodes[] | select(.name=="__i3_scratch") | .floating_nodes[] | .nodes[] | .window,.name' | \
       sed 's/\"//g' | \
       paste - - -d ' ' | \
-      ${dmenu}/bin/dmenu -nb black -nf white -sb yellow -sf black -l 20 -c | \
+      ${pkgs.dmenu}/bin/dmenu -nb black -nf white -sb yellow -sf black -l 20 -c | \
       cut -f1 -d ' '| \
       xargs -I "PID" i3-msg "[id=PID] scratchpad show"
     '';
@@ -60,7 +59,7 @@ let
   steamRun = pkgs.writeShellApplication {
     name = "steamRun";
     text = ''
-      run="${dmenu}/bin/dmenu -nb black -nf white -sb yellow -sf black -l 20 -c"
+      run="${pkgs.dmenu}/bin/dmenu -nb black -nf white -sb yellow -sf black -l 20 -c"
       path="$HOME/.local/share/Steam/steamapps"
 
       for arg in "$path"/appmanifest_*.acf; do
@@ -118,6 +117,11 @@ in
     target = ".config/i3/wallpapers";
   };
 
+  home.file.favorites = {
+    source = ../configs/favorites;
+    target = ".config/i3/favorites";
+  };
+
   xsession.windowManager.i3 = {
     enable = true;
     package = pkgs-unstable.i3;
@@ -141,7 +145,7 @@ in
         setWallpaper = w: "exec --no-startup-id feh --bg-center ~/.config/i3/wallpapers/${w}";
 
 
-        cmdMenu = "${dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
+        cmdMenu = "${pkgs.dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
         cmdBrowser = "firefox -P default";
         cmdTerminal = "alacritty";
 
@@ -204,7 +208,8 @@ in
           "${mod}+f" = "fullscreen toggle";
           "${mod}+Shift+space" = "floating toggle";
 
-          "${mod}+d" = "exec --no-startup-id ${cmdMenu}";
+          "${mod}+Shift+d" = "exec --no-startup-id ${cmdMenu}";
+          "${mod}+d" = "exec --no-startup-id ${pkgs.dmenu-run-from-file}/bin/dmenu-run-from-file ~/.config/i3/favorites";
           "${mod}+s" = "exec --no-startup-id ${steamRun}/bin/steamRun";
           "${mod}+Shift+Return" = "exec ${cmdBrowser}";
           "${mod}+Return" = "exec ${cmdTerminal}";
@@ -448,7 +453,8 @@ in
   };
 
   home.packages = [
-    dmenu
+    pkgs.dmenu
+    pkgs.dmenu-run-from-file
     i3blocks-gcalcli-package
     pkgs.i3blocks
     pkgs.hsetroot

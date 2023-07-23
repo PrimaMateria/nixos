@@ -47,7 +47,7 @@
 
     in
     {
-      overlay = import ./overlays/overlay-i3.nix {
+      overlay = import ./overlays/overlay.nix {
         inherit dmenu-primamateria;
       };
 

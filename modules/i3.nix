@@ -8,10 +8,9 @@
 #        __/\\\\\\\\\\\_\///\\\\\\\\\/___ 
 #         _\///////////____\/////////_____
 
-{ pkgs, pkgs-unstable, config, lib, dmenu-primamateria, i3blocks-gcalcli, monitorManger, ... }:
+{ pkgs, pkgs-unstable, config, lib, ... }:
 let
   i3wsrConfig = pkgs.copyPathToStore ../configs/i3wsr.toml;
-  i3blocks-gcalcli-package = i3blocks-gcalcli.packages.x86_64-linux.i3blocks-gcalcli;
   i3blocksSecrets = import ../.secrets/i3blocks.nix;
   i3blocksConfig = pkgs.writeText "i3blocks-config" ''
     separator_block_width=20
@@ -34,11 +33,11 @@ let
     DEFAULT_COLOR=#FBF1C7
     
     [gcalcli]
-    command=${i3blocks-gcalcli-package}/bin/i3blocks-gcalcli -e "matus.benko@gmail.com" -m "matus.benko@gmail.com" -m "Holidays in Germany" -m "Sviatky na Slovensku" -w 20 --clientId ${i3blocksSecrets.gcalcliClientId} --clientSecret ${i3blocksSecrets.gcalcliClientSecret} -f "CaskaydiaCove Nerd Font Mono"
+    command=${pkgs.i3blocks-gcalcli}/bin/i3blocks-gcalcli -e "matus.benko@gmail.com" -m "matus.benko@gmail.com" -m "Holidays in Germany" -m "Sviatky na Slovensku" -w 20 --clientId ${i3blocksSecrets.gcalcliClientId} --clientSecret ${i3blocksSecrets.gcalcliClientSecret} -f "CaskaydiaCove Nerd Font Mono"
     interval=1800
 
     [datetime]
-    command="i3block-datetime"
+    command="${pkgs.i3block-datetime}/bin/i3block-datetime"
     interval=1
   '';
 
@@ -112,7 +111,7 @@ in
         wallpapers = [ "messier87.jpg" "sun.jpg" "mercury.jpg" "venus.jpg" "earth.jpg" "mars.jpg" "jupiter.jpg" "saturn.jpg" "uranus.jpg" "neptune.jpg" ];
         wswall = n: builtins.elemAt wallpapers n;
 
-        setWallpaper = w: "exec --no-startup-id feh --bg-center ~/.config/i3/wallpapers/${w}";
+        setWallpaper = w: "exec --no-startup-id ${pkgs.feh}/bin/feh --bg-center ~/.config/i3/wallpapers/${w}";
 
 
         cmdMenu = "${pkgs.dmenu}/bin/dmenu_run -nb black -nf white -sb yellow -sf black -l 20 -c";
@@ -257,7 +256,7 @@ in
 
         bars = [
           {
-            statusCommand = "i3blocks -c ${i3blocksConfig}";
+            statusCommand = "${pkgs.i3blocks}/bin/i3blocks -c ${i3blocksConfig}";
             position = "top";
             fonts = {
               size = 10.0;
@@ -420,16 +419,4 @@ in
       default_border normal
     '';
   };
-
-  home.packages = [
-    i3blocks-gcalcli-package
-    pkgs.i3blocks
-    pkgs.hsetroot
-    pkgs.i3block-datetime
-    pkgs.i3block-monitorManager
-    pkgs.i3wsr
-    pkgs.i3blocks-contrib.volume-pulseaudio
-    pkgs.i3blocks-contrib.kbdd_layout
-    pkgs.feh
-  ];
 }

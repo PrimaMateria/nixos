@@ -48,14 +48,14 @@
     in
     {
       overlay = import ./overlays/overlay.nix {
-        inherit dmenu-primamateria;
+        inherit dmenu-primamateria i3blocks-gcalcli;
       };
 
       homeManagerConfigurations = {
         primamateria = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
-            inherit dmenu-primamateria i3blocks-gcalcli pkgs-unstable nur-pkgs;
+            inherit pkgs-unstable nur-pkgs;
           };
           modules = [
             {

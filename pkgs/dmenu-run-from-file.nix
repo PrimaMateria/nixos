@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 pkgs.writeShellApplication {
-  name = "dmenu-run-from-file";
+  name = "dmenu";
   runtimeInputs = with pkgs; [ dmenu ];
   text = ''
     # Sligthly modified dmenu to provide also descriptions

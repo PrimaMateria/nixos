@@ -42,37 +42,6 @@ let
     interval=1
   '';
 
-  scratchpadShow = pkgs.writeShellApplication {
-    name = "scratchpadShow";
-    runtimeInputs = [ pkgs.jq ];
-    text = ''
-      i3-msg -t get_tree | \
-      jq '.nodes[] | .nodes[] | .nodes[] | select(.name=="__i3_scratch") | .floating_nodes[] | .nodes[] | .window,.name' | \
-      sed 's/\"//g' | \
-      paste - - -d ' ' | \
-      ${pkgs.dmenu}/bin/dmenu -nb black -nf white -sb yellow -sf black -l 20 -c | \
-      cut -f1 -d ' '| \
-      xargs -I "PID" i3-msg "[id=PID] scratchpad show"
-    '';
-  };
-
-  steamRun = pkgs.writeShellApplication {
-    name = "steamRun";
-    text = ''
-      run="${pkgs.dmenu}/bin/dmenu -nb black -nf white -sb yellow -sf black -l 20 -c"
-      path="$HOME/.local/share/Steam/steamapps"
-
-      for arg in "$path"/appmanifest_*.acf; do
-        line=$(cat "$arg");
-        nam="$(echo "$line"|tr '\n\t' ' '|sed 's/.*"name"[^"]*"\([^"]*\).*/\1/'|tr ' ' '_')"
-        set -- "$@" "$nam" "$(echo "$line"|tr '\n\t' ' '|sed 's/.*"appid"[^"]*"\([^"]*\).*/\1/')" 
-      done
-
-      run=$(printf "%s  :%s\n" "$@" | $run | sed 's/.*:\(.*\)/\1/')
-      test -n "$run" && xdg-open "steam://run/$run"
-    '';
-  };
-
   startCmus = pkgs.writeShellApplication {
     name = "startCmus";
     text = ''
@@ -88,6 +57,7 @@ in
   xsession.initExtra = ''
     xrandr --output HDMI-0 -off
     xrandr --output DP-2 --mode 2560x1440 --rate 143.86 --primary
+    ${pkgs.hsetroot}/bin/hsetroot -solid "#555555"
   '';
 
   services.picom = {
@@ -209,8 +179,8 @@ in
           "${mod}+Shift+space" = "floating toggle";
 
           "${mod}+Shift+d" = "exec --no-startup-id ${cmdMenu}";
-          "${mod}+d" = "exec --no-startup-id ${pkgs.dmenu-run-from-file}/bin/dmenu-run-from-file ~/.config/i3/favorites";
-          "${mod}+s" = "exec --no-startup-id ${steamRun}/bin/steamRun";
+          "${mod}+d" = "exec --no-startup-id ${pkgs.dmenu-run-from-file}/bin/dmenu ~/.config/i3/favorites";
+          "${mod}+s" = "exec --no-startup-id ${pkgs.dmenu-run-steam}/bin/dmenu";
           "${mod}+Shift+Return" = "exec ${cmdBrowser}";
           "${mod}+Return" = "exec ${cmdTerminal}";
 
@@ -262,7 +232,7 @@ in
           "${mod}+Shift+9" = "move container to workspace number ${ws 9}";
 
           "${mod}+x" = "move scratchpad";
-          "${mod}+Shift+x" = "exec ${scratchpadShow}/bin/scratchpadShow";
+          "${mod}+Shift+x" = "exec ${pkgs.dmenu-i3-scratchpad}/bin/dmenu";
 
           "${mod}+minus" = "[class=\"Enpass\" title=\"^Enpass$\"] scratchpad show";
           "${mod}+equal" = "[class=\"chatgpt\"] scratchpad show";
@@ -435,7 +405,6 @@ in
         startup = [
           { command = "Enpass"; notification = false; }
           # { command = "${pkgs.i3wsr}/bin/i3wsr --config ${i3wsrConfig}"; notification = false; }
-          { command = "xrandr --output HDMI-0 --left-of DP-2"; notification = false; }
           { command = "i3-msg workspace '${ws 1}'"; notification = false; }
           { command = "firefox --kiosk --no-remote -P chatgpt --class chatgpt https://chat.openai.com"; notification = false; }
           { command = "discord"; notification = false; }
@@ -453,8 +422,6 @@ in
   };
 
   home.packages = [
-    pkgs.dmenu
-    pkgs.dmenu-run-from-file
     i3blocks-gcalcli-package
     pkgs.i3blocks
     pkgs.hsetroot

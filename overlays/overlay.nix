@@ -7,4 +7,6 @@ inputs: prev: final:
   git-branch-clean = prev.callPackage ../pkgs/git-branch-clean.nix { };
   i3block-monitorManager = import ../pkgs/i3block-monitorManager.nix prev;
   dmenu-run-from-file = import ../pkgs/dmenu-run-from-file.nix final;
+  dmenu-run-steam = import ../pkgs/dmenu-run-steam.nix final;
+  dmenu-i3-scratchpad = import ../pkgs/dmenu-i3-scratchpad.nix final;
 }

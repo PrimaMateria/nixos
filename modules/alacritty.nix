@@ -2,7 +2,7 @@
 {
   programs.alacritty = {
     enable = true;
-    settings = { 
+    settings = {
       env.TERM = "xterm-256color";
 
       window.dimensions.columns = 150;
@@ -10,10 +10,10 @@
 
       window.padding.x = 5;
       window.padding.y = 5;
-      
+
       font.normal.family = "CaskaydiaCove Nerd Font Mono";
-      font.size = 9.0;
-      
+      font.size = 8.0;
+
       colors = {
         primary = {
           background = "0x1c1c1c";
@@ -28,7 +28,7 @@
           magenta = "0xb16286";
           cyan = "0x689d6a";
           white = "0xa89984";
-          };
+        };
         bright = {
           black = "0x928374";
           red = "0xfb4934";

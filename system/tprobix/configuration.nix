@@ -2,14 +2,22 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }: 
+{ config, pkgs, ... }:
 let
   hostname = "tprobix";
-  core = import ../modules/core.nix { 
+  core = import ../modules/core.nix {
     inherit config pkgs hostname;
   };
-in {   
-  imports = [ 
+  displaySetupScript = pkgs.writeShellApplication {
+    name = "displaySetupScript";
+    text = ''
+      ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --mode 2560x1440 --rate 143.86 --primary
+      ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --off
+    '';
+  };
+in
+{
+  imports = [
     ./hardware-configuration.nix
     core
   ];
@@ -42,17 +50,24 @@ in {
     Option         "TripleBuffer" "on"
   '';
 
-  services.xserver.inputClassSections = [ ''
-    Identifier      "Logitech G502 HERO Gaming Mouse sensitivity"
-    MatchProduct    "Logitech G502 HERO Gaming Mouse"
-    MatchIsPointer  "true"
-    Option          "ConstantDeceleration" "3"
-    Driver          "evdev"
-  ''
+  services.xserver.inputClassSections = [
+    ''
+      Identifier      "Logitech G502 HERO Gaming Mouse sensitivity"
+      MatchProduct    "Logitech G502 HERO Gaming Mouse"
+      MatchIsPointer  "true"
+      Option          "ConstantDeceleration" "3"
+      Driver          "evdev"
+    ''
   ];
 
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.windowManager.i3.enable = true;
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+    extraSeatDefaults = ''
+      display-setup-script = ${displaySetupScript}/bin/displaySetupScript
+    '';
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -103,20 +118,22 @@ in {
   # File manager
   programs.thunar.enable = true;
 
-#  fileSystems."/mnt/caladan" =
-#    { device = "/dev/disk/by-uuid/4DF0BBED38D45117";
-#      fsType = "ntfs";
-#      options = [ "defaults" "user" "rw" "utf8" "umask=000" "nofail" ];
-#    };
+  #  fileSystems."/mnt/caladan" =
+  #    { device = "/dev/disk/by-uuid/4DF0BBED38D45117";
+  #      fsType = "ntfs";
+  #      options = [ "defaults" "user" "rw" "utf8" "umask=000" "nofail" ];
+  #    };
 
   fileSystems."/mnt/giediprime" =
-    { device = "/dev/disk/by-uuid/1251-D91F";
+    {
+      device = "/dev/disk/by-uuid/1251-D91F";
       fsType = "exfat";
       options = [ "defaults" "user" "rw" "utf8" "umask=000" "nofail" ];
     };
 
   fileSystems."/mnt/c" =
-    { device = "/dev/disk/by-uuid/6C8A776F8A773524";
+    {
+      device = "/dev/disk/by-uuid/6C8A776F8A773524";
       fsType = "ntfs";
       options = [ "defaults" "user" "rw" "utf8" "umask=000" "nofail" ];
     };

@@ -51,13 +51,7 @@ let
 
 in
 {
-
   xsession.enable = true;
-  xsession.initExtra = ''
-    xrandr --output HDMI-0 -off
-    xrandr --output DP-2 --mode 2560x1440 --rate 143.86 --primary
-    ${pkgs.hsetroot}/bin/hsetroot -solid "#555555"
-  '';
 
   services.picom = {
     enable = true;

@@ -34,7 +34,8 @@ let
       TARGETPATH="''${TARGET%/*}"
       COMPONENT=''${TARGET##*/}
       COMPONENT=''${COMPONENT%.tsx}
-      TESTCASE="$TARGETPATH/__test__/$COMPONENT"
+      COMPONENT=''${COMPONENT%.ts}
+      TESTCASE="$TARGETPATH/__test__/$COMPONENT.unit.test.ts"
 
       npm run test:unit:debug -- --coverage --collectCoverageFrom "$TARGET" "$TESTCASE"
     '';

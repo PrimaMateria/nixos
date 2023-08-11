@@ -45,6 +45,7 @@ mkShell {
   name = "react-shell";
   buildInputs = [
     unstable.nodejs-18_x
+    unstable.mockoon
 
     # needed for playwright
     unstable.google-chrome-dev

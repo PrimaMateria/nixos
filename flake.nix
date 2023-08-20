@@ -103,6 +103,7 @@
             ./modules/vnc.nix
             ./modules/mbenko.nix
             ./modules/reporting.nix
+            ./modules/newsboat.nix
           ];
         };
 

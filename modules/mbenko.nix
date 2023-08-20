@@ -63,13 +63,19 @@ let
       done
     '';
   };
+  firefox = pkgs.writeShellApplication {
+    name = "firefox";
+    text = ''
+      /mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe "$@"
+    '';
+  };
 in
 {
   home.packages = [
-    pkgs.firefox
     pkgs.jetbrains.idea-ultimate
     pkgs.mycli
     git-clone-work-repos
+    firefox
   ];
 
   programs.bash.shellAliases = {

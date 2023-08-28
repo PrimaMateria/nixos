@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let
   rss = [
+    "https://primamateria.github.io/blog/atom.xml"
     "https://news.ycombinator.com/rss"
     "https://discourse.nixos.org/c/announcements/8.rss"
     "https://itsfoss.com/feed"

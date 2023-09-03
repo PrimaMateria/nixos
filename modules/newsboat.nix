@@ -27,6 +27,7 @@ let
     "https://dotfyle.com/this-week-in-neovim/rss.xml"
     "https://www.getrevue.co/profile/thisweekinreact?format=rss"
     "https://xeiaso.net/blog.rss"
+    "https://jovica.org/posts/index.xml"
   ];
 in
 {

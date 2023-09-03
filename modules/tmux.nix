@@ -7,7 +7,7 @@
     clock24 = true;
     customPaneNavigationAndResize = true;
     keyMode = "vi";
-    plugins = with pkgs; [ 
+    plugins = with pkgs; [
     ];
     tmuxp.enable = true;
     extraConfig = ''
@@ -47,6 +47,19 @@
       
       set -g @yank_selection 'clipboard'
       bind BSpace last-window
+
+      bind -n F1 switch-client -t F1
+      bind -n F2 switch-client -t F2
+      bind -n F3 switch-client -t F3
+      bind -n F4 switch-client -t F4
+      bind -n F5 switch-client -t F5
+      bind -n F6 switch-client -t F6
+      bind -n F7 switch-client -t F7
+      bind -n F8 switch-client -t F8
+      bind -n F9 switch-client -t F9
+      bind -n F10 switch-client -t F10
+      bind -n F11 switch-client -t F11
+      bind -n F12 switch-client -t F12
     '';
   };
 }

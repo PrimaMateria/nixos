@@ -79,7 +79,7 @@ in
   ];
 
   programs.bash.shellAliases = {
-    tmux-work = "tmuxp load space fds fwl fjsl fhp cms fjssr wf wfl";
+    tmux-work = "tmuxp load space fds fwl wf fjsl wfl fhp";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
   };
@@ -111,7 +111,7 @@ in
     '';
 
     "tmuxp/space.yml".text = ''
-      session_name: space
+      session_name: F1 space
       windows:
         - window_name: reporting
           layout: even-horizontal
@@ -143,16 +143,66 @@ in
     '';
 
     "tmuxp/fds.yml".text = ''
-      session_name: fds
+      session_name: F2 fds
       start_directory: ~/dev/finapi-design-system/
       windows:
         - window_name: IDE
           panes:
-            - echo nvim package.json
+            - clear
         - window_name: exec
           panes:
-            - echo npm run storybook
-            - echo npm start
+            - shell-react
+    '';
+
+    "tmuxp/fwl.yml".text = ''
+      session_name: F3 fwl
+      start_directory: ~/dev/finapi-widget-library
+      windows:
+        - window_name: IDE
+          panes:
+            - clear
+        - window_name: exec
+          panes:
+            - shell-react
+    '';
+
+    "tmuxp/wf.yml".text = ''
+      session_name: F4 wf
+      start_directory: ~/dev/web-form/frontend/
+      windows:
+        - window_name: IDE
+          panes:
+            - clear
+        - window_name: exec
+          panes:
+            - shell-react
+    '';
+
+    "tmuxp/fjsl.yml".text = ''
+      session_name: F7 fjsl
+      start_directory: ~/dev/finapi-js-loader
+      windows:
+        - window_name: IDE
+          panes:
+            - echo nvim
+    '';
+
+    "tmuxp/wfl.yml".text = ''
+      session_name: F8 wfl
+      start_directory: ~/dev/web-form-loader/
+      windows:
+        - window_name: IDE
+          panes:
+            - echo "nvim"
+    '';
+
+    "tmuxp/fhp.yml".text = ''
+      session_name: F9 fhp
+      start_directory: ~/dev/finapi-hostpages/
+      windows:
+        - window_name: IDE
+          panes:
+            - echo "nvim"
     '';
 
     "tmuxp/fjssr.yml".text = ''
@@ -162,57 +212,6 @@ in
         - window_name: IDE
           panes:
             - echo ""
-    '';
-
-    "tmuxp/fjsl.yml".text = ''
-      session_name: fjsl
-      start_directory: ~/dev/finapi-js-loader
-      windows:
-        - window_name: IDE
-          panes:
-            - echo nvim
-    '';
-
-    "tmuxp/fwl.yml".text = ''
-      session_name: fwl
-      start_directory: ~/dev/finapi-widget-library
-      windows:
-        - window_name: IDE
-          panes:
-            - echo nvim
-        - window_name: exec
-          panes:
-            - shell-react && npm run start:win
-    '';
-
-    "tmuxp/wfui.yml".text = ''
-      session_name: wfui
-      start_directory: ~/dev/web-form/frontend/
-      windows:
-        - window_name: IDE
-          panes:
-            - echo "nvim"
-        - window_name: exec
-          panes:
-            - echo "npm start"
-    '';
-
-    "tmuxp/wfl.yml".text = ''
-      session_name: wfl
-      start_directory: ~/dev/web-form-loader/
-      windows:
-        - window_name: IDE
-          panes:
-            - echo "nvim"
-    '';
-
-    "tmuxp/fhp.yml".text = ''
-      session_name: fhp
-      start_directory: ~/dev/finapi-hostpages/
-      windows:
-        - window_name: IDE
-          panes:
-            - echo "nvim"
     '';
 
     "tmuxp/cms.yml".text = ''
@@ -235,15 +234,6 @@ in
         - window_name: exec
           panes:
             - echo "docker-compose -f ./devops/docker-compose-local.yaml up --build --force-recreate --no-deps -d"
-    '';
-
-    "tmuxp/wf.yml".text = ''
-      session_name: wf
-      start_directory: ~/dev/web-form/frontend/
-      windows:
-        - window_name: IDE
-          panes:
-            - echo "nvim"
     '';
   };
 }

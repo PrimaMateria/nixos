@@ -31,6 +31,7 @@ in
     jq
     cmus
     sptlrx
+    glow
   ];
 
   xdg.configFile."sptlrx/config.yaml".text = ''

@@ -10,6 +10,7 @@
 let
   customNeovim = neovim-primamateria.packages.x86_64-linux.neovimPrimaMateriaWrapper;
   spotifySecrets = import ../.secrets/spotify.nix;
+  chatgptSecrets = import ../.secrets/chatgpt.nix;
 in
 {
   home.packages = with pkgs; [
@@ -103,6 +104,7 @@ in
       export EDITOR=${pkgs.neovim}/bin/nvim
       export MANPAGER="less -R --use-color -Dd+y -Du+b"
       export NIXPKGS_ALLOW_UNFREE=1
+      export OPENAI_API_KEY=${chatgptSecrets.apiKey}
       
       eval "$(zoxide init bash)"
 

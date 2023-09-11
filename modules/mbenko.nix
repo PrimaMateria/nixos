@@ -140,6 +140,13 @@ in
           start_directory: ~/Music/mp3
           panes:
             - cmus
+        - window_name: newsboat
+          layout: even-vertical
+          start_directory: ~
+          panes:
+            - chatblade -i
+            - newsboat
+            - nix-shell ~/dev/nixos/shell.react.nix --run "npx mapscii"
     '';
 
     "tmuxp/fds.yml".text = ''

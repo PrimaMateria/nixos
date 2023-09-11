@@ -33,7 +33,10 @@ in
     cmus
     sptlrx
     glow
-  ];
+  ] ++ (with pkgs-unstable;
+    [
+      chatblade
+    ]);
 
   xdg.configFile."sptlrx/config.yaml".text = ''
     cookie: "${spotifySecrets.cookie}"

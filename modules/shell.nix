@@ -33,6 +33,7 @@ in
     cmus
     sptlrx
     glow
+    sc-im
   ] ++ (with pkgs-unstable;
     [
       chatblade

@@ -2,6 +2,7 @@
 let
   rss = [
     "https://primamateria.github.io/blog/atom.xml"
+    "https://www.finapi.io/feed/"
     "https://news.ycombinator.com/rss"
     "https://discourse.nixos.org/c/announcements/8.rss"
     "https://itsfoss.com/feed"

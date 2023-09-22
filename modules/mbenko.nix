@@ -141,8 +141,8 @@ in
           panes:
             - cmus
         - window_name: newsboat
-          layout: even-vertical
-          start_directory: ~
+          layout: main-vertical
+          start_directory: ~/
           panes:
             - chatblade -i
             - newsboat

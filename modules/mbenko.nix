@@ -80,6 +80,7 @@ in
 
   programs.bash.shellAliases = {
     tmux-work = "tmuxp load space fds fwl wf fjsl wfl fhp";
+    tmux-gg = "tmuxp load gg hive";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
   };
@@ -241,6 +242,44 @@ in
         - window_name: exec
           panes:
             - echo "docker-compose -f ./devops/docker-compose-local.yaml up --build --force-recreate --no-deps -d"
+    '';
+
+    "tmuxp/gg.yml".text = ''
+      session_name: F1 gg
+      windows:
+        - window_name: nix
+          start_directory: ~/dev/nixos/
+          panes:
+            - alias run="nvim flake.nix"
+        - window_name: neovim
+          start_directory: ~/dev/neovim-nix/
+          panes:
+            - alias run="nvim flake.nix"
+        - window_name: x
+        - window_name: ambients
+          start_directory: ~/Music/mp3
+          panes:
+            - cmus
+        - window_name: newsboat
+          layout: main-vertical
+          start_directory: ~/
+          panes:
+            - chatblade -i
+            - newsboat
+            - nix-shell ~/dev/nixos/shell.react.nix --run "npx mapscii"
+        - window_name: weechat
+          start_directory: ~/
+          panes:
+            - weechat
+    '';
+
+    "tmuxp/hive.yml".text = ''
+      session_name: F2 hive
+      start_directory: ~/dev/experiment-hive
+      windows:
+        - window_name: IDE
+          panes:
+            - echo ""
     '';
   };
 }

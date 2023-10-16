@@ -1,5 +1,5 @@
 { pkgs, ... }:
-let 
+let
   theme_nioh2 = ''
     /set aspell.color.misspelled "lightred"
     /set aspell.color.suggestions "default"
@@ -117,14 +117,19 @@ let
     /set xfer.color.text "default"
     /set xfer.color.text_bg "default"
     /set xfer.color.text_selected "white"
-    '';
+  '';
 in
 {
   home.packages = [
     (pkgs.weechat.override {
-      configure = { ... }: {
+      configure = { availablePlugins,... }: {
+        scripts = with pkgs.weechatScripts; [
+          weechat-matrix
+          weechat-autosort
+          weechat-go
+        ];
         init =
-          theme_nioh2 + 
+          theme_nioh2 +
           import ../.secrets/weechat.nix +
           ''
             /set irc.look.smart_filter on
@@ -138,10 +143,12 @@ in
             /set irc.server.libera.autoconnect on
             /set irc.server.libera.autojoin "#java,#javascript,#linux,#archlinux,#archlinux-newbie,#gaminigonlinux,#react,#i3,##programming,##electronics,#neovim,#nixos,#xeserv"
 
+            /matrix connect matrix_org
+            /set matrix.server.matrix_org.autoconnect on
+
             /set script.scripts.download_enabled on
-            /script install autosort.py
             /script install emoji.lua
-            /script install go.py
+
             /key bind meta-j /go
           '';
       };

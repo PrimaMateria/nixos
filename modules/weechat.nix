@@ -122,7 +122,7 @@ in
 {
   home.packages = [
     (pkgs.weechat.override {
-      configure = { availablePlugins,... }: {
+      configure = { availablePlugins, ... }: {
         scripts = with pkgs.weechatScripts; [
           weechat-matrix
           weechat-autosort
@@ -141,7 +141,7 @@ in
             /set irc.server.libera.addresses "irc.libera.chat/6697"
             /set irc.server.libera.ssl on
             /set irc.server.libera.autoconnect on
-            /set irc.server.libera.autojoin "#java,#javascript,#linux,#archlinux,#archlinux-newbie,#gaminigonlinux,#react,#i3,##programming,##electronics,#neovim,#nixos,#xeserv"
+            /set irc.server.libera.autojoin "#java,#javascript,#typescript,#linux,#archlinux,#archlinux-newbie,#gaminigonlinux,#react,#i3,##programming,##electronics,#neovim,#nixos,#xeserv"
 
             /matrix connect matrix_org
             /set matrix.server.matrix_org.autoconnect on

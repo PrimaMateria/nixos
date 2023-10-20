@@ -132,10 +132,6 @@ in
           start_directory: ~/dev/neovim-nix/
           panes:
             - alias run="nvim flake.nix"
-        - window_name: devj
-          start_directory: ~/dev/dev-journal
-          panes:
-            - alias run="nvim snt/in/Work.txt"
         - window_name: x
         - window_name: ambients
           start_directory: ~/Music/mp3
@@ -148,6 +144,10 @@ in
             - chatblade -i
             - newsboat
             - nix-shell ~/dev/nixos/shell.react.nix --run "npx mapscii"
+        - window_name: weechat
+          start_directory: ~/
+          panes:
+            - weechat
     '';
 
     "tmuxp/fds.yml".text = ''

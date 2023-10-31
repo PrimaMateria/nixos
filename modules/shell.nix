@@ -37,6 +37,7 @@ in
   ] ++ (with pkgs-unstable;
     [
       chatblade
+      mpv
     ]);
 
   xdg.configFile."sptlrx/config.yaml".text = ''

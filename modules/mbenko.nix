@@ -80,7 +80,7 @@ in
 
   programs.bash.shellAliases = {
     tmux-work = "tmuxp load space fds fwl wf fjsl wfl fhp";
-    tmux-gg = "tmuxp load gg hive";
+    tmux-gg = "tmuxp load gg hive qmk";
     shell-react = "nix-shell ~/dev/nixos/shell.react.nix";
     shell-java = "nix-shell ~/dev/nixos/shell.java.nix";
   };
@@ -280,6 +280,13 @@ in
         - window_name: IDE
           panes:
             - echo ""
+    '';
+
+    "tmuxp/qmk.yml".text = ''
+      session_name: F3 qmk
+      start_directory: /mnt/c/Users/matus/qmk_firmware/keyboards/ferris
+      windows:
+        - window_name: IDE
     '';
   };
 }

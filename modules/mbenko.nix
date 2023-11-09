@@ -275,11 +275,13 @@ in
 
     "tmuxp/hive.yml".text = ''
       session_name: F2 hive
-      start_directory: ~/dev/experiment-hive
       windows:
-        - window_name: IDE
-          panes:
-            - echo ""
+        - window_name: hive
+          start_directory: ~/dev/experiment-hive
+        - window_name: haumea
+          start_directory: ~/dev/experiment-haumea
+        - window_name: paisano
+          start_directory: ~/dev/experiment-paisano
     '';
 
     "tmuxp/qmk.yml".text = ''

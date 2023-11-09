@@ -34,6 +34,7 @@ in
     sptlrx
     glow
     sc-im
+    alejandra
   ] ++ (with pkgs-unstable;
     [
       chatblade
